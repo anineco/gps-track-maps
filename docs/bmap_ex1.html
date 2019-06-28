@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ルート地図</title>
+<style>
+body {
+  margin: 0;
+}
+#map {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+</style>
+<script src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=ApSrHyswQlSkhiwqypJU_HidSkz0pWKYg7mpCYwpR1oja2ai3CHxJOHpa2LB5NNh" async defer></script>
+<script>
+const param = {
+  lon: 138.723460, lat: 35.931374, zoom: 13,
+  url: 'https://anineco.github.io/gpx2geojson/example/routemap.min.kml'
+};
+location.search.slice(1).split('&').forEach(function (ma) {
+  const s = ma.split('=');
+  if (s[0] === 'url') {
+    param[s[0]] = decodeURIComponent(s[1]);
+  } else if (s[0] in param) {
+    param[s[0]] = Number(s[1]);
+  }
+});
+
+function GetMap() {
+  const map = new Microsoft.Maps.Map('#map', {
+    center: new Microsoft.Maps.Location(param.lat, param.lon),
+    zoom: param.zoom,
+    navigationBarMode: Microsoft.Maps.NavigationBarMode.compact,
+  });
+  Microsoft.Maps.loadModule('Microsoft.Maps.GeoXml', function () {
+    const track = new Microsoft.Maps.GeoXmlLayer(param.url, null, { autoUpdateMapView: false });
+    map.layers.insert(track);
+  });
+}
+</script>
+</head>
+<body>
+<div id="map"></div>
+</body>
+</html>

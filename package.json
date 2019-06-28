@@ -1,0 +1,33 @@
+{
+  "name": "gps-track-maps",
+  "version": "1.0.0",
+  "description": "Showcase of web pages visualizing GPS track log, by using OpenLayers, leaflets, google and bing maps",
+  "main": [
+    "src/omap_ex1.html",
+    "src/omap_ex2.html"
+  ],
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel src/omap_ex1.html src/omap_ex2.html",
+    "build": "parcel build --public-url . src/omap_ex1.html src/omap_ex2.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anineco/gps-track-maps.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ol": "^5.3.3"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3"
+  },
+  "bugs": {
+    "url": "https://github.com/anineco/gps-track-maps/issues"
+  },
+  "homepage": "https://github.com/anineco/gps-track-maps#readme"
+}

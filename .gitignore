@@ -61,4 +61,5 @@ typings/
 .next
 
 # added by anineco
-.cache
+dist/
+.cache/

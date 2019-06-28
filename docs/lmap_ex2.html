@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ルート地図</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  crossorigin="">
+<style>
+body {
+  margin: 0;
+}
+#map {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+.leaflet-popup h2 {
+  margin: 0;
+  padding: 0 2em 0 0;
+  font-size: 12px;
+  font-weight: bold;
+  color: red;
+}
+.leaflet-popup td {
+  font-size: 12px;
+  padding: 0;
+}
+.leaflet-popup td:first-child {
+  padding-right: 1em;
+  color: blue;
+}
+.leaflet-tooltip {
+  margin: 0;
+  padding: 0;
+  background-color: rgba(255,255,255,0.5);
+  color: blue;
+}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise"></script><!-- IE11 -->
+<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+  integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+  crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet-bing-layer@3.3.1/leaflet-bing-layer.min.js"
+  integrity="sha256-WHBwQhbzjOM8oUYBk983WdI+159mgW5jmWkmux0/Iw0=" crossorigin="anonymous"></script>
+<script>
+const param = {
+  lon: 138.723460, lat: 35.931374, zoom: 13,
+  url: 'https://anineco.github.io/gpx2geojson/example/routemap.geojson'
+};
+location.search.slice(1).split('&').forEach(function (ma) {
+  const s = ma.split('=');
+  if (s[0] === 'url') {
+    param[s[0]] = decodeURIComponent(s[1]);
+  } else if (s[0] in param) {
+    param[s[0]] = Number(s[1]);
+  }
+});
+
+window.addEventListener('DOMContentLoaded', function () {
+  const map = L.map('map', {
+    center: [param.lat, param.lon],
+    zoom: param.zoom
+  });
+  const std = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
+    attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+  }).addTo(map);
+  const pale = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
+    attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+  });
+/*
+  const ort = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg', {
+    attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+  });
+*/
+  const ort = L.tileLayer.bing({
+    bingMapsKey: 'ApSrHyswQlSkhiwqypJU_HidSkz0pWKYg7mpCYwpR1oja2ai3CHxJOHpa2LB5NNh',
+    imagerySet: 'Aerial',
+    attribution: '&copy; 2019 DigitalGlobe, &copy; 2019 Zenrin, &copy; 2019 Microsoft Corporation <a href="https://www.microsoft.com/maps/assets/docs/terms.aspx">Terms</a>'
+  });
+  const osm = L.tileLayer('https://tile.openstreetmap.jp/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  });
+
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', param.url);
+  xhr.responseType = 'text'; // NOTE: 'json' does not work in IE11
+  xhr.addEventListener('loadend', function (e) {
+    if (this.status !== 200) { return; }
+    const track = L.geoJSON(JSON.parse(this.response), {
+      pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+          icon: L.icon({
+            iconUrl: feature.properties._iconUrl,
+            iconSize: feature.properties._iconSize,
+            iconAnchor: feature.properties._iconAnchor,
+          })
+        }).bindTooltip(feature.properties.name, {
+          permanent: true,
+          direction: 'left',
+          offset: L.point(-15,0),
+          opacity: 0.8
+        });
+      },
+      style: function (feature) {
+        return {
+          color: feature.properties._color,
+          weight: feature.properties._weight,
+          opacity: feature.properties._opacity,
+          dashArray: feature.properties._dashArray
+        };
+      }
+    }).bindPopup(function (layer) {
+      const properties = layer.feature.properties;
+      let html = '<h2>' + properties.name + '</h2>';
+      const keys = Object.keys(properties).filter(function (key) { // NOTE: '=>' does not work in IE11
+        return key !== 'geometry' && key !== 'name' && key.charAt(0) !== '_';
+      });
+      if (keys.length > 0) {
+        html += '<table><tbody><tr><td>' + keys.map(function (key) { // NOTE: '=>' does not work in IE11
+          return key + '</td><td>' + properties[key];
+        }).join('</td></tr><tr><td>') + '</td></tr></tbody></table>';
+      }
+      return html;
+    }).addTo(map);
+    L.control.layers(
+      { '標準地図': std, '淡色地図': pale, '写真': ort, 'OSM': osm },
+      { 'GPSデータ': track }
+    ).addTo(map);
+  });
+  xhr.send();
+
+  L.control.scale({ imperial: false, metric: true }).addTo(map);
+});
+</script>
+</body>
+</html>

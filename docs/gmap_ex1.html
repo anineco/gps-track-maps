@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ルート地図</title>
+<style>
+body {
+  margin: 0;
+}
+#map {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxcuxvdd1SeIgtubznQ_JC7e08BZrIHkk&language=ja&region=JP"></script>
+<script>
+const param = {
+  lon: 138.723460, lat: 35.931374, zoom: 13,
+  url: 'https://anineco.github.io/gpx2geojson/example/routemap.min.kml' // absolute URL
+};
+location.search.slice(1).split('&').forEach(function (ma) {
+  const s = ma.split('=');
+  if (s[0] === 'url') {
+    param[s[0]] = decodeURIComponent(s[1]);
+  } else if (s[0] in param) {
+    param[s[0]] = Number(s[1]);
+  }
+});
+
+window.addEventListener('DOMContentLoaded', function () {
+  const map = new google.maps.Map(document.getElementById('map'), {
+    zoom: param.zoom,
+    center: { lat: param.lat, lng: param.lon },
+    mapTypeId: 'terrain',
+    scaleControl: true
+  });
+  const track = new google.maps.KmlLayer(param.url, {
+    preserveViewport: true
+  });
+  track.setMap(map);
+});
+</script>
+</body>
+</html>
