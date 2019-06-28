@@ -1,0 +1,109 @@
+html {
+  overflow: hidden;
+}
+body {
+  margin: 0;
+}
+#map {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+.ol-popup {
+  position: absolute;
+  background-color: white;
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid #cccccc;
+  bottom: 12px;
+  left: -50px;
+  font-family: sans-serif;
+  white-space: nowrap;
+}
+.ol-popup:after, .ol-popup:before {
+  top: 100%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.ol-popup:after {
+  border-top-color: white;
+  border-width: 10px;
+  left: 48px;
+  margin-left: -10px;
+}
+.ol-popup:before {
+  border-top-color: #cccccc;
+  border-width: 11px;
+  left: 48px;
+  margin-left: -11px;
+}
+.ol-popup-closer {
+  text-decoration: none;
+  position: absolute;
+  top: 2px;
+  right: 8px;
+}
+.ol-popup-closer:after {
+  content: "✖";
+}
+.ol-popup h2 {
+  margin: 0;
+  padding: 0 2em 0 0;
+  font-size: 12px;
+  font-weight: bold;
+  color: red;
+}
+.ol-popup td {
+  font-size: 12px;
+  padding: 0;
+}
+.ol-popup td:first-child {
+  padding-right: 1em;
+  color: blue;
+}
+#crosshair {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: calc(50% - 12px);
+}
+#taskbar {
+  position: absolute;
+  top: .5em;
+  left: 2.75em;
+}
+#taskbar div {
+  margin: 1px;
+  border-radius: 2px;
+  padding: 1px .5em;
+  font-size: 12px;
+  font-family: sans-serif;
+  color: white;
+  background-color: rgba(0,60,136,.5);
+}
+#taskbar input[type="button"], #taskbar select {
+  margin: 2px;
+  padding: 1px .3em;
+  border: none;
+  border-radius: 4px;
+  color: black;
+  background-color: white;
+}
+#taskbar option {
+  font-size: 12px;
+  font-family: sans-serif;
+}
+#taskbar select:hover, #taskbar input:hover {
+  cursor: pointer;
+}
+@media screen and (max-width: 539px) {
+  .pc { display: none; }
+}
+@media print {
+  body { width: 259mm; height: 172mm; } /* A4 */
+}
