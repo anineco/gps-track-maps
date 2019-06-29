@@ -34,7 +34,7 @@ function GetMap() {
   const map = new Microsoft.Maps.Map('#map', {
     center: new Microsoft.Maps.Location(param.lat, param.lon),
     zoom: param.zoom,
-    navigationBarMode: Microsoft.Maps.NavigationBarMode.compact,
+    navigationBarMode: Microsoft.Maps.NavigationBarMode.compact
   });
   Microsoft.Maps.loadModule('Microsoft.Maps.GeoXml', function () {
     const track = new Microsoft.Maps.GeoXmlLayer(param.url, null, { autoUpdateMapView: false });
