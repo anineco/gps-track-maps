@@ -51,7 +51,7 @@ body {
 <script>
 const param = {
   lon: 138.723460, lat: 35.931374, zoom: 13,
-  url: 'https://anineco.github.io/gpx2geojson/example/routemap.geojson'
+  url: 'https://anineco.github.io/gps-track-maps/example/routemap.geojson'
 };
 location.search.slice(1).split('&').forEach(function (ma) {
   const s = ma.split('=');
@@ -81,12 +81,14 @@ window.addEventListener('DOMContentLoaded', function () {
   const ort = L.tileLayer.bing({
     bingMapsKey: 'ApSrHyswQlSkhiwqypJU_HidSkz0pWKYg7mpCYwpR1oja2ai3CHxJOHpa2LB5NNh',
     imagerySet: 'Aerial',
-    attribution: '&copy; 2019 DigitalGlobe, &copy; 2019 Zenrin, &copy; 2019 Microsoft Corporation <a href="https://www.microsoft.com/maps/assets/docs/terms.aspx">Terms</a>'
+    attribution: '&copy; 2019 DigitalGlobe, &copy; 2019 Zenrin, '
+      + '&copy; 2019 Microsoft Corporation <a href="https://www.microsoft.com/maps/assets/docs/terms.aspx">Terms</a>'
   });
-  const osm = L.tileLayer('https://tile.openstreetmap.jp/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  const otm = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors, '
+      + '&copy; <a href="https://opentopomap.org/">OpenTopoMap</a> '
+      + '(<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
   });
-
   const xhr = new XMLHttpRequest();
   xhr.open('GET', param.url);
   xhr.responseType = 'text'; // NOTE: 'json' does not work in IE11
@@ -129,7 +131,7 @@ window.addEventListener('DOMContentLoaded', function () {
       return html;
     }).addTo(map);
     L.control.layers(
-      { '標準地図': std, '淡色地図': pale, '写真': ort, 'OSM': osm },
+      { '標準地図': std, '淡色地図': pale, '写真': ort, 'OTM': otm },
       { 'GPSデータ': track }
     ).addTo(map);
   });
