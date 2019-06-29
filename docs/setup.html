@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ルート地図の設置方法</title>
-<link rel="stylesheet" href="src/common.css">
+<link rel="stylesheet" href="common.css">
 <style>
 a[onclick] {
   font-size: smaller;
@@ -28,31 +28,30 @@ function routemap(url) {
 <div class="menu">
 <ul>
 <li><a href="https://anineco.nyanta.jp/">電脳覚書</a> &gt;</li>
-<li><a href="index.html">TOP</a> &gt;</li>
-<li><a href="https://github.com/anineco/gpx2geojson">GitHub</a> |</li>
-<li><a href="gpx2geojson.html">GPX2GeoJSON</a> |</li>
-<li><a href="setup.html">ルート地図の設置方法</a></li>
+<li><a href=".">TOP</a> &gt;</li>
+<li><a href="../gpx2geojson/">GPX2GeoJSON</a> |</li>
+<li>ルート地図の設置方法</li>
 </ul>
 </div><!-- end menu -->
 <h1>ルート地図の設置方法</h1>
 <h2>ファイル構成</h2>
 <pre>.
-+--- this.html（地図を設置するページ）
-|
-+--- omap_ex1.html （OpenLayers + KML）
-+--- lmap_ex1.html （Leaflet + KML）
-+--- gmap_ex1.html （Googleマップ + KML）
-+--- ymap_ex1.html （Yahoo!地図 + KML）
-+--- bmap_ex1.html （Bing Maps + KML）
-|
-+--- omap_ex2.html （OpenLayers + GeoJSON）
-+--- lmap_ex2.html （Leaflet + GeoJSON）
-+--- gmap_ex2.html （Googleマップ + GeoJSON）
-+--- bmap_ex1.html （Bing Maps + GeoJSON）
-|
-+--- example/
-     +--- routemap.min.kml （KMLファイル）
-     +--- routemap.geojson （GeoJSONファイル）</pre>
+├── this.html（地図を設置するページ）
+│
+├── omap_ex1.html （OpenLayers + KML）
+├── lmap_ex1.html （Leaflet + KML）
+├── gmap_ex1.html （Googleマップ + KML）
+├── ymap_ex1.html （Yahoo!地図 + KML）
+├── bmap_ex1.html （Bing Maps + KML）
+│
+├── omap_ex2.html （OpenLayers + GeoJSON）
+├── lmap_ex2.html （Leaflet + GeoJSON）
+├── gmap_ex2.html （Googleマップ + GeoJSON）
+├── bmap_ex1.html （Bing Maps + GeoJSON）
+│
+└── example/
+     ├── routemap.min.kml （KMLファイル）
+     └── routemap.geojson （GeoJSONファイル）</pre>
 <p><a href="https://cloud.google.com/maps-platform/">Google Maps Platform</a></p>
 <pre><code>&lt;script src=&quot;https://maps.googleapis.com/maps/api/js?key=<strong>Key</strong>&amp;language=ja&amp;region=JP&quot;&gt;&lt;/script&gt;</code></pre>
 <p><a href="https://developer.yahoo.co.jp/">Yahoo!デベロッパーネットワーク</a></p>

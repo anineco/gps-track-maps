@@ -54,11 +54,15 @@ window.addEventListener('DOMContentLoaded', function () {
       imagerySet: 'Aerial'
     })
   });
-  const osm = new TileLayer({
+  const otm = new TileLayer({
     visible: false,
     source: new XYZ({
-      attributions: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      url: 'https://tile.openstreetmap.jp/{z}/{x}/{y}.png'
+      attributions: [
+        '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors, ',
+        '&copy; <a href="https://opentopomap.org/">OpenTopoMap</a> ',
+        '(<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+      ],
+      url: 'https://tile.opentopomap.org/{z}/{x}/{y}.png'
     })
   });
   const track = new VectorLayer({
@@ -84,7 +88,7 @@ window.addEventListener('DOMContentLoaded', function () {
     controls: defaults().extend([
       new ScaleLine()
     ]),
-    layers: [std, pale, ort, osm, track],
+    layers: [std, pale, ort, otm, track],
     overlays: [overlay]
   });
 
@@ -105,7 +109,7 @@ window.addEventListener('DOMContentLoaded', function () {
   });
 
   function getHtml(feature) {
-    return html = '<h2>' + feature.get('name') + '</h2>' + (feature.get('description') || '');
+    return '<h2>' + feature.get('name') + '</h2>' + (feature.get('description') || '');
   }
 
   const content = document.getElementById('popup-content');
@@ -148,7 +152,7 @@ window.addEventListener('DOMContentLoaded', function () {
     std.setVisible(v === 'std');
     pale.setVisible(v === 'pale');
     ort.setVisible(v === 'ort');
-    osm.setVisible(v === 'osm');
+    otm.setVisible(v === 'otm');
   });
 
   document.getElementById('tb-track').addEventListener('change', function () {

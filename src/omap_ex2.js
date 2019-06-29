@@ -59,11 +59,15 @@ window.addEventListener('DOMContentLoaded', function () {
       imagerySet: 'Aerial'
     })
   });
-  const osm = new TileLayer({
+  const otm = new TileLayer({
     visible: false,
     source: new XYZ({
-      attributions: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      url: 'https://tile.openstreetmap.jp/{z}/{x}/{y}.png'
+      attributions: [
+        '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors, ',
+        '&copy; <a href="https://opentopomap.org/">OpenTopoMap</a> ',
+        '(<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+      ],
+      url: 'https://tile.opentopomap.org/{z}/{x}/{y}.png'
     })
   });
 
@@ -131,7 +135,7 @@ window.addEventListener('DOMContentLoaded', function () {
     controls: defaults().extend([
       new ScaleLine()
     ]),
-    layers: [std, pale, ort, osm, track],
+    layers: [std, pale, ort, otm, track],
     overlays: [overlay]
   });
 
@@ -202,7 +206,7 @@ window.addEventListener('DOMContentLoaded', function () {
     std.setVisible(v === 'std');
     pale.setVisible(v === 'pale');
     ort.setVisible(v === 'ort');
-    osm.setVisible(v === 'osm');
+    otm.setVisible(v === 'otm');
   });
 
   document.getElementById('tb-track').addEventListener('change', function () {
@@ -214,6 +218,6 @@ window.addEventListener('DOMContentLoaded', function () {
   });
 
   document.getElementById('tb-center').addEventListener('click', function () {
-    alert(ol.coordinate.format(ol.proj.toLonLat(view.getCenter()), '緯度={y}\n経度={x}', 6));
+    alert(format(toLonLat(view.getCenter()), '緯度={y}\n経度={x}', 6));
   });
 });
