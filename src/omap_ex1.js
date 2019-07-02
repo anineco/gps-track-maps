@@ -1,18 +1,20 @@
+import 'url-polyfill'; // NOTE: for KML
 import 'ol/ol.css';
-import './omap.css';
+import './Toolbar.css';
+import './Popup.css';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import BingMaps from 'ol/source/BingMaps';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import KML from 'ol/format/KML';
-import Overlay from 'ol/Overlay';
 import View from 'ol/View';
-import {fromLonLat, toLonLat} from 'ol/proj';
+import {fromLonLat} from 'ol/proj';
 import Map from 'ol/Map';
 import {defaults} from 'ol/control';
 import ScaleLine from 'ol/control/ScaleLine';
-import {format} from 'ol/coordinate';
+import Toolbar from './Toolbar.js';
+import Popup from './Popup.js';
 
 const param = {
   lon: 138.723460, lat: 35.931374, zoom: 13,
@@ -71,11 +73,6 @@ window.addEventListener('DOMContentLoaded', function () {
       format: new KML()
     })
   });
-  const overlay = new Overlay({
-    element: document.getElementById('popup'),
-    autoPan: true,
-    autoPanAnimation: { duration: 250 }
-  });
   const view = new View({
     center: fromLonLat([param.lon, param.lat]),
     maxZoom: 18,
@@ -88,14 +85,34 @@ window.addEventListener('DOMContentLoaded', function () {
     controls: defaults().extend([
       new ScaleLine()
     ]),
-    layers: [std, pale, ort, otm, track],
-    overlays: [overlay]
+    layers: [std, pale, ort, otm, track]
   });
+  const toolbar = new Toolbar(map, {
+    layerTitles: ['標準', '淡色', '写真', 'OTM', 'GPSデータ'],
+    disableTerms: true,
+    disableClose: true
+  });
+  map.addControl(toolbar);
 
-  const closer = document.getElementById('popup-closer');
-  closer.addEventListener('click', function () {
-    overlay.setPosition(undefined); closer.blur();
-  }, false);
+  function getHtml(feature) {
+    return '<h2>' + feature.get('name') + '</h2>' + (feature.get('description') || '');
+  }
+
+  const popup = new Popup(map);
+
+  map.on('click', function (evt) {
+    const found = map.forEachFeatureAtPixel(
+      evt.pixel,
+      function (feature, layer) {
+        if (feature.getGeometry().getType() !== 'Point') {
+          return false;
+        }
+        popup.setContent(getHtml(feature));
+        return true;
+      }
+    );
+    popup.setPosition(found ? evt.coordinate : undefined);
+  });
 
   map.on('pointermove', function (evt) {
     if (evt.dragging) { return; }
@@ -106,64 +123,5 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     );
     map.getTargetElement().style.cursor = found ? 'pointer' : '';
-  });
-
-  function getHtml(feature) {
-    return '<h2>' + feature.get('name') + '</h2>' + (feature.get('description') || '');
-  }
-
-  const content = document.getElementById('popup-content');
-  map.on('click', function (evt) {
-    const found = map.forEachFeatureAtPixel(
-      evt.pixel,
-      function (feature, layer) {
-        if (feature.getGeometry().getType() !== 'Point') {
-          return false;
-        }
-        content.innerHTML = getHtml(feature);
-        return true;
-      }
-    );
-    overlay.setPosition(found ? evt.coordinate : undefined);
-  });
-
-  const sel = document.getElementById('tb-zoom');
-  const zmax = view.getMaxZoom();
-  const zmin = view.getMinZoom();
-  for (let i = 0; i <= zmax - zmin; i++) {
-    const z = zmax - i;
-    const opt = document.createElement('option');
-    opt.setAttribute('value', z);
-    sel.appendChild(opt).textContent = z;
-  }
-  sel.selectedIndex = zmax - param.zoom;
-  sel.addEventListener('change', function () {
-    view.setZoom(this.options[this.selectedIndex].value);
-  });
-  map.on('moveend', function () {
-    const i = zmax - view.getZoom();
-    if (sel.selectedIndex != i) {
-      sel.selectedIndex = i;
-    }
-  });
-
-  document.getElementById('tb-layer').addEventListener('change', function () {
-    const v = this.options[this.selectedIndex].value;
-    std.setVisible(v === 'std');
-    pale.setVisible(v === 'pale');
-    ort.setVisible(v === 'ort');
-    otm.setVisible(v === 'otm');
-  });
-
-  document.getElementById('tb-track').addEventListener('change', function () {
-    track.setVisible(this.checked);
-  });
-
-  document.getElementById('tb-cross').addEventListener('change', function () {
-    document.getElementById('crosshair').style.visibility = this.checked ? 'visible' : 'hidden';
-  });
-
-  document.getElementById('tb-center').addEventListener('click', function () {
-    alert(format(toLonLat(view.getCenter()), '緯度={y}\n経度={x}', 6));
   });
 });

@@ -1,0 +1,33 @@
+div.ol-toolbar {
+  position: absolute;
+  top: .5em;
+  left: 2.75em;
+}
+div.ol-toolbar > div {
+  margin: 1px;
+  border-radius: 2px;
+  padding: 1px .5em;
+  font-size: 12px;
+  font-family: sans-serif;
+  color: white;
+  background-color: rgba(0,60,136,.5);
+}
+.ol-toolbar input[type="button"],
+.ol-toolbar select {
+  margin: 2px 4px;
+  padding: 1px .3em;
+  border: none;
+  border-radius: 4px;
+  color: black;
+  background-color: white;
+}
+.ol-toolbar input[type="button"],
+.ol-toolbar option {
+  font-size: 12px;
+  font-family: sans-serif;
+}
+.ol-toolbar select:hover,
+.ol-toolbar input:hover,
+.ol-toolbar label:hover {
+  cursor: pointer;
+}

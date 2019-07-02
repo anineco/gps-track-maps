@@ -1,30 +1,6 @@
-<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>ルート地図</title><link rel="stylesheet" href="omap_ex1.292e798d.css"></head><body>
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>ルート地図</title><style>html{overflow:hidden}body{margin:0}#map{width:100%;top:0;bottom:0}#crosshair,#map{position:absolute}#crosshair{top:calc(50% - 12px);left:calc(50% - 12px)}@media screen and (max-width:539px){.ol-toolbar input,.ol-toolbar label{display:none}}@media print{body{width:259mm;height:172mm}}</style><link rel="stylesheet" href="omap_ex1.e4a33918.css"></head><body>
 <div id="map"></div>
-
-<div id="popup" class="ol-popup">
-<span id="popup-closer" class="ol-popup-closer"></span>
-<div id="popup-content"></div>
-</div>
-
+<div id="popup"></div>
 <div id="crosshair"><img src="https://anineco.github.io/gps-track-maps/image/crosshair.png"></div>
-
-<div id="taskbar" class="ol-control">
-<div>
-ズーム<select id="tb-zoom"></select>
-マップ<select id="tb-layer">
-<option value="std" selected="">標準</option>
-<option value="pale">淡色</option>
-<option value="ort">写真</option>
-<option value="otm">OTM</option>
-</select>
-<span class="pc">
-<input id="tb-track" type="checkbox" checked="">GPSデータ
-<input id="tb-cross" type="checkbox" checked="">中心十字線
-<input id="tb-center" type="button" value="中心座標">
-<input type="button" value="印刷" onclick="window.print()">
-
-</span>
-</div>
-</div>
-<script src="omap_ex1.e6e9581c.js"></script>
+<script src="omap_ex1.dbb2f725.js"></script>
 </body></html>
