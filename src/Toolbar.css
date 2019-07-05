@@ -12,8 +12,8 @@ div.ol-toolbar > div {
   color: white;
   background-color: rgba(0,60,136,.5);
 }
-.ol-toolbar input[type="button"],
-.ol-toolbar select {
+.ol-control input[type="button"],
+.ol-control select {
   margin: 2px 4px;
   padding: 1px .3em;
   border: none;
@@ -21,13 +21,20 @@ div.ol-toolbar > div {
   color: black;
   background-color: white;
 }
-.ol-toolbar input[type="button"],
-.ol-toolbar option {
+.ol-control input[type="button"],
+.ol-control option {
   font-size: 12px;
   font-family: sans-serif;
 }
-.ol-toolbar select:hover,
-.ol-toolbar input:hover,
-.ol-toolbar label:hover {
+.ol-control select:hover,
+.ol-control input[type="button"]:hover,
+.ol-control label:hover {
   cursor: pointer;
+}
+.ol-control input[type="button"].navi {
+  color: blue;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #fcc #f96 #f96 #fcc;
+  background-color: #fc9;
 }
