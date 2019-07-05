@@ -1,12 +1,8 @@
 /**
- * @module ol/Popup
+ * @module Popup
  */
 import Overlay from 'ol/Overlay';
 
-/**
- * @typedef {Object} Options
- * @property {Map} map
- */
 class Popup {
   constructor(map) {
     const popup = document.getElementById('popup');

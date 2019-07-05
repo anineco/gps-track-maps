@@ -35,6 +35,7 @@ location.search.slice(1).split('&').forEach(function (ma) {
 
 window.addEventListener('DOMContentLoaded', function () {
   const std = new TileLayer({
+    title: '標準',
     source: new XYZ({
       attributions: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>',
       url: 'https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'
@@ -42,6 +43,7 @@ window.addEventListener('DOMContentLoaded', function () {
   });
   const pale = new TileLayer({
     visible: false,
+    title: '淡色',
     source: new XYZ({
       attributions: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>',
       url: 'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png'
@@ -49,6 +51,7 @@ window.addEventListener('DOMContentLoaded', function () {
   });
   const ort = new TileLayer({
     visible: false,
+    title: '写真',
 /*
     source: new XYZ({
       attributions: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>',
@@ -62,6 +65,7 @@ window.addEventListener('DOMContentLoaded', function () {
   });
   const otm = new TileLayer({
     visible: false,
+    title: 'OTM',
     source: new XYZ({
       attributions: [
         '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors, ',
@@ -113,6 +117,7 @@ window.addEventListener('DOMContentLoaded', function () {
   };
 
   const track = new VectorLayer({
+    title: 'GPSデータ',
     source: new VectorSource({
       url: param.url,
       format: new GeoJSON()
@@ -134,7 +139,8 @@ window.addEventListener('DOMContentLoaded', function () {
     layers: [std, pale, ort, otm, track]
   });
   const toolbar = new Toolbar(map, {
-    layerTitles: ['標準', '淡色', '写真', 'OTM', 'GPSデータ'],
+    layers: [std, pale, ort, otm],
+    track: track,
     disableTerms: true,
     disableClose: true
   });
@@ -142,7 +148,9 @@ window.addEventListener('DOMContentLoaded', function () {
 
   function getHtml(feature) {
     let html = '<h2>' + feature.get('name') + '</h2>';
-    const keys = feature.getKeys().filter(key => key !== 'geometry' && key !== 'name' && key.charAt(0) !== '_');
+    const keys = feature.getKeys().filter(
+      key => key !== 'geometry' && key !== 'name' && key.charAt(0) !== '_'
+    );
     if (keys.length > 0) {
       html += '<table><tbody><tr><td>'
            + keys.map(key => key + '</td><td>' + feature.get(key)).join('</td></tr><tr><td>')
