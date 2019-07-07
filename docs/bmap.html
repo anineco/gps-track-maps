@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ルート地図（Googleマップ版）</title>
+<title>ルート地図（Bingマップ版）</title>
 <link rel='stylesheet' href='common.css'>
 </head>
 <body>
@@ -17,16 +17,16 @@
 <li><a href="setup.html">設置方法（共通）</a> |</li>
 <li><a href="omap.html">OpenLayers</a> |</li>
 <li><a href="lmap.html">Leaflet</a> |</li>
-<li>Google |</li>
-<li><a href="bmap.html">Bing</a></li>
+<li><a href="gmap.html">Google</a> |</li>
+<li>Bing</li>
 </ul>
 </div><!-- end menu -->
 </ul>
-<h1>ルート地図（Googleマップ版）</h1>
+<h1>ルート地図（Bingマップ版）</h1>
 <h2>表示例</h2>
 <p style="text-align:center;">
 <iframe width="640" height="480" style="border:none;"
-  src="gmap_ex2.html?lat=35.913163&lon=138.721400&zoom=15&url=example/routemap.geojson">
+  src="bmap_ex2.html?lat=35.913163&lon=138.721400&zoom=15&url=example/routemap.geojson">
 </iframe>
 </p>
 <h2>設置方法</h2>
@@ -35,24 +35,24 @@
 <div>ディレクトリ構成図</div>
 <pre>.
 ├── your_page.html（対象ページ）
-├── <b>gmap_ex2.html</b>
+├── <b>bmap_ex2.html</b>
 └── example
     └── <b>routemap.geojson</b></pre>
 </div><!-- .src -->
 <div class="src">
 <div>対象ページに挿入するコード</div>
 <pre>&lt;iframe width=&quot;640&quot; height=&quot;480&quot; style=&quot;border:none;&quot;
- src=&quot;<b>gmap_ex2.html</b>?lat=35.913163&amp;lon=138.721400&amp;zoom=15&amp;url=<b>example/routemap.geojson</b>&quot;&gt;
+ src=&quot;<b>bmap_ex2.html</b>?lat=35.913163&amp;lon=138.721400&amp;zoom=15&amp;url=<b>example/routemap.geojson</b>&quot;&gt;
 &lt;/iframe&gt;</pre>
 </div><!-- .src -->
 <h3>ソースコード</h3>
 <div class="src">
-<div>gmap_ex2.html (<a href="gmap_ex2.html" download>ダウンロード</a>)</div>
-<pre class="prettyprint linenums" data-url="gmap_ex2.html"></pre>
+<div>bmap_ex2.html（<a href="bmap_ex2.html" download>ダウンロード</a>）</div>
+<pre class="prettyprint linenums" data-url="bmap_ex2.html"></pre>
 </div><!-- .src -->
 <div class="src">
-<div>変更個所（36行目）</div>
-<pre>&lt;script src=&quot;https://maps.googleapis.com/maps/api/js?key=<b>[YOUR API KEY]</b>&amp;language=ja&amp;region=JP&quot;&gt;&lt;/script&gt;</pre>
+<div>変更個所（18行目）</div>
+<pre>&lt;script src=&quot;https://www.bing.com/api/maps/mapcontrol?callback=GetMap&amp;key=<b>[YOUR API KEY]</b>&quot; async defer&gt;&lt;/script&gt;</pre>
 </div><!-- .src -->
 <script src="https://www.promisejs.org/polyfills/promise-7.0.4.min.js"></script><!-- IE11 -->
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autorun=false"></script>

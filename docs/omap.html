@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ルート地図（OpenLayers版）</title>
+<link rel='stylesheet' href='common.css'>
+</head>
+<body>
+<div class="menu">
+<ul>
+<li><a href="https://anineco.nyanta.jp/">電脳覚書</a> |</li>
+<li><a href="https://anineco.nyanta.jp/bbs/">掲示板</a> &gt;</li>
+<li><a href="https://github.com/anineco/">GitHub</a> |</li>
+<li><a href=".">TOP</a> &gt;</li>
+<li><a href="../gpx2geojson/">GPX2GeoJSON</a> |</li>
+<li><a href="setup.html">設置方法（共通）</a> |</li>
+<li>OpenLayers |</li>
+<li><a href="lmap.html">Leaflet</a> |</li>
+<li><a href="gmap.html">Google</a> |</li>
+<li><a href="bmap.html">Bing</a></li>
+</ul>
+</div><!-- end menu -->
+</ul>
+<h1>ルート地図（OpenLayers版）</h1>
+<h2>表示例</h2>
+<p style="text-align:center;">
+<iframe width="640" height="480" style="border:none;"
+  src="omap_ex2.html?lat=35.913163&lon=138.721400&zoom=15&url=example/routemap.geojson">
+</iframe>
+</p>
+<h2>設置方法</h2>
+<h3>ウェブページへの埋め込み</h3>
+<div class="src">
+<div>ディレクトリ構成図</div>
+<pre>
+.
+├── your_page.html（対象ページ）
+├── <b>omap_ex2.html</b>
+├── <b>omap_ex2.*.js</b>
+├── <b>omap_ex2.*.js.map</b>
+├── <b>omap_ex2.*.css</b>
+├── <b>omap_ex2.*.css.map</b>
+└── example
+    └── <b>routemap.geojson</b>
+</pre>
+</div><!-- .src -->
+<div class="src">
+<div>対象ページに挿入するコード</div>
+<pre>
+&lt;iframe width=&quot;640&quot; height=&quot;480&quot; style=&quot;border:none;&quot;
+ src=&quot;<b>omap_ex2.html</b>?lat=35.913163&amp;lon=138.721400&amp;zoom=15&amp;url=<b>example/routemap.geojson</b>&quot;&gt;
+&lt;/iframe&gt;
+</pre>
+</div><!-- .src -->
+<h3>ソースコード</h3>
+<div class="src">
+<div>入手方法</div>
+<pre>
+git clone https://github.com/anineco/gps-track-maps.git
+cd gps-track-maps
+npm install
+</pre>
+</div><!-- .src -->
+<div class="src">
+<div>ディレクトリ構成図</div>
+<pre>
+gps-track-maps
+├── dist/
+├── docs/
+├── node_modules/
+├── package-lock.json
+├── package.json
+└── src/
+    ├── <b>omap_ex2.html</b>
+    ├── <b>omap_ex2.js</b>
+    ├── Popup.*
+    └── Toolbar.*
+</pre>
+</div><!-- .src -->
+<div class="src">
+<div>omap_ex2.html</div>
+<pre class="prettyprint linenums" data-url="https://raw.githubusercontent.com/anineco/gps-track-maps/master/src/omap_ex2.html"></pre>
+</div><!-- .src -->
+<div class="src">
+<div>omap_ex2.js</div>
+<pre class="prettyprint linenums" data-url="https://raw.githubusercontent.com/anineco/gps-track-maps/master/src/omap_ex2.js"></pre>
+</div><!-- .src -->
+<div class="src">
+<div>omap_ex2.js 変更個所（55〜65行目）</div>
+<pre>
+<span style="color:gray;">/*
+    source: new XYZ({
+      attributions: '&lt;a href=&quot;https://maps.gsi.go.jp/development/ichiran.html&quot;&gt;地理院タイル&lt;/a&gt;',
+      url: 'https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg'
+    })
+*/</span>
+    source: new BingMaps({
+      key: '<b>[YOUR API KEY]</b>',
+      imagerySet: 'Aerial'
+    })
+</pre>
+<div>地理院タイルの写真を用いる場合</div>
+<pre>
+    source: new XYZ({
+      attributions: '&lt;a href=&quot;https://maps.gsi.go.jp/development/ichiran.html&quot;&gt;地理院タイル&lt;/a&gt;',
+      url: 'https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg'
+    })
+<span style="color:gray;">/*
+    source: new BingMaps({
+      key: '[YOUR API KEY]',
+      imagerySet: 'Aerial'
+    })
+*/</span>
+</pre>
+</div><!-- .src -->
+<div class="src">
+<div>テスト</div>
+<pre>npm start</pre>
+</div><!-- .src -->
+<div class="src">
+<div>ビルド</div>
+<pre>npm run build</pre>
+</div><!-- .src -->
+<div class="src">
+<div>生成ファイル</div>
+<pre>
+gps-track-maps
+├── dist/
+│   ├── <b>omap_ex2.html</b>
+│   ├── <b>omap_ex2.*.js</b>
+│   ├── <b>omap_ex2.*.js.map</b>
+│   ├── <b>omap_ex2.*.css</b>
+│   └── <b>omap_ex2.*.css.map</b>
+├── docs/
+├── node_modules/
+├── package-lock.json
+├── package.json
+└── src/
+    ├── omap_ex2.html
+    ├── omap_ex2.js
+    ├── Popup.*
+    └── Toolbar.*
+</pre>
+</div><!-- .src -->
+<script src="https://www.promisejs.org/polyfills/promise-7.0.4.min.js"></script><!-- IE11 -->
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autorun=false"></script>
+<script src="url-load-prettify.js"></script>
+<address>&copy; 2019 <a href="https://anineco.nyanta.jp/">あにねこ電脳覚書</a></address>
+</body>
+</html>
