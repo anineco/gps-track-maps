@@ -33,31 +33,57 @@
 <h3>ウェブページへの埋め込み</h3>
 <div class="src">
 <div>ディレクトリ構成図</div>
-<pre>.
-├── index.html（対象ページ）
-├── <a href="lmap_ex2.html" download>lmap_ex2.html</a>
+<pre>
+.
+├── your_page.html（対象ページ）
+├── <b>lmap_ex2.html</b>
 └── example
-    └── <a href="example/routemap.geojson" download>routemap.geojson</a></pre>
+    └── <b>routemap.geojson</b>
+</pre>
 </div><!-- .src -->
 <div class="src">
-<div>挿入コード</div>
-<pre>&lt;iframe <b>width</b>=&quot;<i>640</i>&quot; <b>height</b>=&quot;<i>480</i>&quot; style=&quot;border:none;&quot;
- src=&quot;lmap_ex2.html?<b>lat</b>=<i>35.913163</i>&amp;<b>lon</b>=<i>138.721400</i>&amp;<b>zoom</b>=<i>15</i>&amp;<b>url</b>=<i>example/routemap.geojson</i>&quot;&gt;
-&lt;/iframe&gt;</pre>
+<div>対象ページに挿入するコード</div>
+<pre>
+&lt;iframe width=&quot;640&quot; height=&quot;480&quot; style=&quot;border:none;&quot;
+  src=&quot;<b>lmap_ex2.html</b>?lat=35.913163&amp;lon=138.721400&amp;zoom=15&amp;url=<b>example/routemap.geojson</b>&quot;&gt;
+&lt;/iframe&gt;
+</pre>
 </div><!-- .src -->
 <h3>ソースコード</h3>
 <div class="src">
-<div>lmap_ex2.html</div>
+<div>lmap_ex2.html（<a href="lmap_ex2.html" download>ダウンロード</a>）</div>
 <pre class="prettyprint linenums" data-url="lmap_ex2.html"></pre>
 </div><!-- .src -->
 <div class="src">
-<div>変更個所（82行目）</div>
-<pre>    bingMapsKey: '[YOUR BING API KEY]',</pre>
+<div>変更個所（76〜86行目）</div>
+<pre>
+<span style="color:gray;">/*
+  const ort = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg', {
+    attribution: '&lt;a href=&quot;https://maps.gsi.go.jp/development/ichiran.html&quot;&gt;地理院タイル&lt;/a&gt;'
+  });
+*/</span>
+  const ort = L.tileLayer.bing({
+    bingMapsKey: '<b>[YOUR API KEY]</b>',
+    imagerySet: 'Aerial',
+    attribution: '&amp;copy; 2019 DigitalGlobe, &amp;copy; 2019 Zenrin, '
+      + '&amp;copy; 2019 Microsoft Corporation &lt;a href=&quot;https://www.microsoft.com/maps/assets/docs/terms.aspx&quot;&gt;Terms&lt;/a&gt;'
+  });
+</pre>
 </div><!-- .src -->
 <div class="src">
-<div>変更個所（53〜54行目）</div>
-<pre>  lon: 138.723460, lat: 35.931374, zoom: 13,
-  url: 'https://anineco.github.io/gps-track-maps/example/routemap.geojson'
+<div>地理院タイルの写真を用いる場合</div>
+<pre>
+  const ort = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg', {
+    attribution: '&lt;a href=&quot;https://maps.gsi.go.jp/development/ichiran.html&quot;&gt;地理院タイル&lt;/a&gt;'
+  });
+<span style="color:gray;">/*
+  const ort = L.tileLayer.bing({
+    bingMapsKey: '[YOUR API KEY]',
+    imagerySet: 'Aerial',
+    attribution: '&amp;copy; 2019 DigitalGlobe, &amp;copy; 2019 Zenrin, '
+      + '&amp;copy; 2019 Microsoft Corporation &lt;a href=&quot;https://www.microsoft.com/maps/assets/docs/terms.aspx&quot;&gt;Terms&lt;/a&gt;'
+  });
+*/</span>
 </pre>
 </div><!-- .src -->
 <script src="https://www.promisejs.org/polyfills/promise-7.0.4.min.js"></script><!-- IE11 -->
