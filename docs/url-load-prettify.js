@@ -11,7 +11,8 @@ window.addEventListener('DOMContentLoaded', function () {
         if (xhr.status === 200) {
           const text = xhr.response
             .replace('ApSrHyswQlSkhiwqypJU_HidSkz0pWKYg7mpCYwpR1oja2ai3CHxJOHpa2LB5NNh', '[YOUR API KEY]')
-            .replace('AIzaSyAxcuxvdd1SeIgtubznQ_JC7e08BZrIHkk', '[YOUR API KEY]');
+            .replace('AIzaSyAxcuxvdd1SeIgtubznQ_JC7e08BZrIHkk', '[YOUR API KEY]')
+            .replace('dj00aiZpPWR0cjBWa012YVBQNiZzPWNvbnN1bWVyc2VjcmV0Jng9ZDU-', '[YOUR API KEY]');
           element.appendChild(document.createTextNode(text));
           resolve();
         }
