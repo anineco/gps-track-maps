@@ -40,22 +40,20 @@ location.search.slice(1).split('&').forEach(function (ma) {
   }
 });
 
-window.addEventListener('DOMContentLoaded', function () {
-  const map = new Y.Map('map');
-  map.setConfigure('scrollWheelZoom', true);
-  map.setConfigure('enableOpenStreetMap', true);
-  map.removeLayerSet(Y.LayerSetId.B1); // 地下街
-  const topographicLayerSet = new Y.LayerSet('地形図', [new Y.StyleMapLayer('topographic')]);
-  map.addLayerSet('MyTopographicLayerSet', topographicLayerSet);
-  map.addControl(new Y.LayerSetControl());
-  map.addControl(new Y.ZoomControl());
+const map = new Y.Map('map');
+map.setConfigure('scrollWheelZoom', true);
+map.setConfigure('enableOpenStreetMap', true);
+map.removeLayerSet(Y.LayerSetId.B1); // 地下街
+const topographicLayerSet = new Y.LayerSet('地形図', [new Y.StyleMapLayer('topographic')]);
+map.addLayerSet('MyTopographicLayerSet', topographicLayerSet);
+map.addControl(new Y.LayerSetControl());
+map.addControl(new Y.ZoomControl());
 //  map.addControl(new Y.SliderZoomControlVertical());
-  map.addControl(new Y.ScaleControl());
-  map.drawMap(new Y.LatLng(my_param.lat, my_param.lon), my_param.zoom, 'MyTopographicLayerSet');
-  const track = new Y.GeoXmlLayer(my_param.url);
-  map.addLayer(track);
-  track.execute();
-});
+map.addControl(new Y.ScaleControl());
+map.drawMap(new Y.LatLng(my_param.lat, my_param.lon), my_param.zoom, 'MyTopographicLayerSet');
+const track = new Y.GeoXmlLayer(my_param.url);
+map.addLayer(track);
+track.execute();
 </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 @charset "utf-8";
 body {
   margin: 1em;
-  font-family: 'メイリオ', Meiryo, serif;
+  font-family: 'メイリオ', Meiryo, IPAexMincho, serif;
   font-size: 16px;
 }
 h1 {
@@ -88,13 +88,13 @@ div.src {
 }
 .src div {
   margin: .5em;
-  font-family: Consolas, Menlo, monospace;
+  font-family: Consolas, Menlo, 'VL Gothic', monospace;
   font-size: .8rem;
 }
 .src pre {
   padding: 2px;
   border: 1px solid #888;
-  font-family: Consolas, Menlo, monospace;
+  font-family: Consolas, Menlo, 'VL Gothic', monospace;
   font-size: .8rem;
 }
 .prettyprint ol.linenums > li {

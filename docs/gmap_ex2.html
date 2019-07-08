@@ -48,54 +48,52 @@ location.search.slice(1).split('&').forEach(function (ma) {
   }
 });
 
-window.addEventListener('DOMContentLoaded', function () {
-  const map = new google.maps.Map(document.getElementById('map'), {
-    zoom: param.zoom,
-    center: { lat: param.lat, lng: param.lon },
-    mapTypeId: 'terrain',
-    scaleControl: true
-  });
-  map.data.loadGeoJson(param.url);
-  map.data.setStyle(function (feature) {
-    const type = feature.getGeometry().getType();
-    if (type === 'LineString') {
-      return ({
-        clickable: false,
-        strokeColor: feature.getProperty('_color'),
-        strokeOpacity: feature.getProperty('_opacity'),
-        strokeWeight: feature.getProperty('_weight')
-      });
-    }
-    if (type === 'Point') {
-      const s = feature.getProperty('_iconSize');
-      const a = feature.getProperty('_iconAnchor');
-      return ({
-        icon: {
-          url: feature.getProperty('_iconUrl'),
-          scaledSize: new google.maps.Size(s[0], s[1]),
-          anchor: new google.maps.Point(a[0], a[1])
-        },
-        title: feature.getProperty('name')
-      });
-    }
-  });
-  const popup = new google.maps.InfoWindow();
-  map.data.addListener('click', function (event) {
-    let html = '<h2>' + event.feature.getProperty('name') + '</h2>';
-    let body = '';
-    event.feature.forEachProperty(function (value, key) {
-      if (key !== 'name' && key.charAt(0) !== '_') {
-        body += '<tr><td>' + key + '</td><td>' + value + '</td></tr>';
-      }
+const map = new google.maps.Map(document.getElementById('map'), {
+  zoom: param.zoom,
+  center: { lat: param.lat, lng: param.lon },
+  mapTypeId: 'terrain',
+  scaleControl: true
+});
+map.data.loadGeoJson(param.url);
+map.data.setStyle(function (feature) {
+  const type = feature.getGeometry().getType();
+  if (type === 'LineString') {
+    return ({
+      clickable: false,
+      strokeColor: feature.getProperty('_color'),
+      strokeOpacity: feature.getProperty('_opacity'),
+      strokeWeight: feature.getProperty('_weight')
     });
-    if (body) {
-      html += '<table><tbody>' + body + '</tbody></table>';
+  }
+  if (type === 'Point') {
+    const s = feature.getProperty('_iconSize');
+    const a = feature.getProperty('_iconAnchor');
+    return ({
+      icon: {
+        url: feature.getProperty('_iconUrl'),
+        scaledSize: new google.maps.Size(s[0], s[1]),
+        anchor: new google.maps.Point(a[0], a[1])
+      },
+      title: feature.getProperty('name')
+    });
+  }
+});
+const popup = new google.maps.InfoWindow();
+map.data.addListener('click', function (event) {
+  let html = '<h2>' + event.feature.getProperty('name') + '</h2>';
+  let body = '';
+  event.feature.forEachProperty(function (value, key) {
+    if (key !== 'name' && key.charAt(0) !== '_') {
+      body += '<tr><td>' + key + '</td><td>' + value + '</td></tr>';
     }
-    popup.setContent(html);
-    popup.setPosition(event.latLng);
-    popup.setOptions({ pixelOffset: new google.maps.Size(0, -5) });
-    popup.open(map);
   });
+  if (body) {
+    html += '<table><tbody>' + body + '</tbody></table>';
+  }
+  popup.setContent(html);
+  popup.setPosition(event.latLng);
+  popup.setOptions({ pixelOffset: new google.maps.Size(0, -5) });
+  popup.open(map);
 });
 </script>
 </body>

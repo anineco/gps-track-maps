@@ -62,4 +62,5 @@ typings/
 
 # added by anineco
 dist/
+build/
 .cache/

@@ -62,83 +62,81 @@ location.search.slice(1).split('&').forEach(function (ma) {
   }
 });
 
-window.addEventListener('DOMContentLoaded', function () {
-  const map = L.map('map', {
-    center: [param.lat, param.lon],
-    zoom: param.zoom
-  });
-  const std = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
-    attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
-  }).addTo(map);
-  const pale = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
-    attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
-  });
-/*
-  const ort = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg', {
-    attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
-  });
-*/
-  const ort = L.tileLayer.bing({
-    bingMapsKey: 'ApSrHyswQlSkhiwqypJU_HidSkz0pWKYg7mpCYwpR1oja2ai3CHxJOHpa2LB5NNh',
-    imagerySet: 'Aerial',
-    attribution: '&copy; 2019 DigitalGlobe, &copy; 2019 Zenrin, '
-      + '&copy; 2019 Microsoft Corporation <a href="https://www.microsoft.com/maps/assets/docs/terms.aspx">Terms</a>'
-  });
-  const otm = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors, '
-      + '&copy; <a href="https://opentopomap.org/">OpenTopoMap</a> '
-      + '(<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-  });
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', param.url);
-  xhr.responseType = 'text'; // NOTE: 'json' does not work in IE11
-  xhr.addEventListener('loadend', function (e) {
-    if (this.status !== 200) { return; }
-    const track = L.geoJSON(JSON.parse(this.response), {
-      pointToLayer: function (feature, latlng) {
-        return L.marker(latlng, {
-          icon: L.icon({
-            iconUrl: feature.properties._iconUrl,
-            iconSize: feature.properties._iconSize,
-            iconAnchor: feature.properties._iconAnchor,
-          })
-        }).bindTooltip(feature.properties.name, {
-          permanent: true,
-          direction: 'left',
-          offset: L.point(-15,0),
-          opacity: 0.8
-        });
-      },
-      style: function (feature) {
-        return {
-          color: feature.properties._color,
-          weight: feature.properties._weight,
-          opacity: feature.properties._opacity,
-          dashArray: feature.properties._dashArray
-        };
-      }
-    }).bindPopup(function (layer) {
-      const properties = layer.feature.properties;
-      let html = '<h2>' + properties.name + '</h2>';
-      const keys = Object.keys(properties).filter(function (key) { // NOTE: '=>' does not work in IE11
-        return key !== 'geometry' && key !== 'name' && key.charAt(0) !== '_';
-      });
-      if (keys.length > 0) {
-        html += '<table><tbody><tr><td>' + keys.map(function (key) { // NOTE: '=>' does not work in IE11
-          return key + '</td><td>' + properties[key];
-        }).join('</td></tr><tr><td>') + '</td></tr></tbody></table>';
-      }
-      return html;
-    }).addTo(map);
-    L.control.layers(
-      { '標準地図': std, '淡色地図': pale, '写真': ort, 'OTM': otm },
-      { 'GPSデータ': track }
-    ).addTo(map);
-  });
-  xhr.send();
-
-  L.control.scale({ imperial: false, metric: true }).addTo(map);
+const map = L.map('map', {
+  center: [param.lat, param.lon],
+  zoom: param.zoom
 });
+const std = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
+  attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+}).addTo(map);
+const pale = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
+  attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+});
+/*
+const ort = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg', {
+  attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+});
+*/
+const ort = L.tileLayer.bing({
+  bingMapsKey: 'ApSrHyswQlSkhiwqypJU_HidSkz0pWKYg7mpCYwpR1oja2ai3CHxJOHpa2LB5NNh',
+  imagerySet: 'Aerial',
+  attribution: '&copy; 2019 DigitalGlobe, &copy; 2019 Zenrin, '
+    + '&copy; 2019 Microsoft Corporation <a href="https://www.microsoft.com/maps/assets/docs/terms.aspx">Terms</a>'
+});
+const otm = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors, '
+    + '&copy; <a href="https://opentopomap.org/">OpenTopoMap</a> '
+    + '(<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+});
+const xhr = new XMLHttpRequest();
+xhr.open('GET', param.url);
+xhr.responseType = 'text'; // NOTE: 'json' does not work in IE11
+xhr.addEventListener('loadend', function (e) {
+  if (this.status !== 200) { return; }
+  const track = L.geoJSON(JSON.parse(this.response), {
+    pointToLayer: function (feature, latlng) {
+      return L.marker(latlng, {
+        icon: L.icon({
+          iconUrl: feature.properties._iconUrl,
+          iconSize: feature.properties._iconSize,
+          iconAnchor: feature.properties._iconAnchor,
+        })
+      }).bindTooltip(feature.properties.name, {
+        permanent: true,
+        direction: 'left',
+        offset: L.point(-15,0),
+        opacity: 0.8
+      });
+    },
+    style: function (feature) {
+      return {
+        color: feature.properties._color,
+        weight: feature.properties._weight,
+        opacity: feature.properties._opacity,
+        dashArray: feature.properties._dashArray
+      };
+    }
+  }).bindPopup(function (layer) {
+    const properties = layer.feature.properties;
+    let html = '<h2>' + properties.name + '</h2>';
+    const keys = Object.keys(properties).filter(function (key) { // NOTE: '=>' does not work in IE11
+      return key !== 'geometry' && key !== 'name' && key.charAt(0) !== '_';
+    });
+    if (keys.length > 0) {
+      html += '<table><tbody><tr><td>' + keys.map(function (key) { // NOTE: '=>' does not work in IE11
+        return key + '</td><td>' + properties[key];
+      }).join('</td></tr><tr><td>') + '</td></tr></tbody></table>';
+    }
+    return html;
+  }).addTo(map);
+  L.control.layers(
+    { '標準地図': std, '淡色地図': pale, '写真': ort, 'OTM': otm },
+    { 'GPSデータ': track }
+  ).addTo(map);
+});
+xhr.send();
+
+L.control.scale({ imperial: false, metric: true }).addTo(map);
 </script>
 </body>
 </html>

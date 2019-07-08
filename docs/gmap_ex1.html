@@ -33,18 +33,16 @@ location.search.slice(1).split('&').forEach(function (ma) {
   }
 });
 
-window.addEventListener('DOMContentLoaded', function () {
-  const map = new google.maps.Map(document.getElementById('map'), {
-    zoom: param.zoom,
-    center: { lat: param.lat, lng: param.lon },
-    mapTypeId: 'terrain',
-    scaleControl: true
-  });
-  const track = new google.maps.KmlLayer(param.url, {
-    preserveViewport: true
-  });
-  track.setMap(map);
+const map = new google.maps.Map(document.getElementById('map'), {
+  zoom: param.zoom,
+  center: { lat: param.lat, lng: param.lon },
+  mapTypeId: 'terrain',
+  scaleControl: true
 });
+const track = new google.maps.KmlLayer(param.url, {
+  preserveViewport: true
+});
+track.setMap(map);
 </script>
 </body>
 </html>

@@ -58,40 +58,38 @@ location.search.slice(1).split('&').forEach(function (ma) {
   }
 });
 
-window.addEventListener('DOMContentLoaded', function () {
-  const map = L.map('map', {
-    center: [param.lat, param.lon],
-    zoom: param.zoom
-  });
-  const std = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
-    attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
-  }).addTo(map);
-  const pale = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
-    attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
-  });
-/*
-  const ort = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg', {
-    attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
-  });
-*/
-  const ort = L.tileLayer.bing({
-    bingMapsKey: 'ApSrHyswQlSkhiwqypJU_HidSkz0pWKYg7mpCYwpR1oja2ai3CHxJOHpa2LB5NNh',
-    imagerySet: 'Aerial',
-    attribution: '&copy; 2019 DigitalGlobe, &copy; 2019 Zenrin, '
-      + '&copy; 2019 Microsoft Corporation <a href="https://www.microsoft.com/maps/assets/docs/terms.aspx">Terms</a>'
-  });
-  const otm = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors, '
-      + '&copy; <a href="https://opentopomap.org/">OpenTopoMap</a> '
-      + '(<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-  });
-  const track = new L.KML(param.url).addTo(map);
-  L.control.layers(
-    { '標準地図': std, '淡色地図': pale, '写真': ort, 'OTM': otm },
-    { 'GPSデータ': track }
-  ).addTo(map);
-  L.control.scale({ imperial: false, metric: true }).addTo(map);
+const map = L.map('map', {
+  center: [param.lat, param.lon],
+  zoom: param.zoom
 });
+const std = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
+  attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+}).addTo(map);
+const pale = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
+  attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+});
+/*
+const ort = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg', {
+  attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+});
+*/
+const ort = L.tileLayer.bing({
+  bingMapsKey: 'ApSrHyswQlSkhiwqypJU_HidSkz0pWKYg7mpCYwpR1oja2ai3CHxJOHpa2LB5NNh',
+  imagerySet: 'Aerial',
+  attribution: '&copy; 2019 DigitalGlobe, &copy; 2019 Zenrin, '
+    + '&copy; 2019 Microsoft Corporation <a href="https://www.microsoft.com/maps/assets/docs/terms.aspx">Terms</a>'
+});
+const otm = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors, '
+    + '&copy; <a href="https://opentopomap.org/">OpenTopoMap</a> '
+    + '(<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+});
+const track = new L.KML(param.url).addTo(map);
+L.control.layers(
+  { '標準地図': std, '淡色地図': pale, '写真': ort, 'OTM': otm },
+  { 'GPSデータ': track }
+).addTo(map);
+L.control.scale({ imperial: false, metric: true }).addTo(map);
 </script>
 </body>
 </html>
