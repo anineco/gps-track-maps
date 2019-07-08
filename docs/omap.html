@@ -66,9 +66,7 @@ npm install
 <div>ディレクトリ構成図</div>
 <pre>
 gps-track-maps
-├── dist/
 ├── docs/
-├── node_modules/
 ├── package-lock.json
 ├── package.json
 └── src/
@@ -87,30 +85,30 @@ gps-track-maps
 <pre class="prettyprint linenums" data-url="https://raw.githubusercontent.com/anineco/gps-track-maps/master/src/omap_ex2.js"></pre>
 </div><!-- .src -->
 <div class="src">
-<div>omap_ex2.js 変更個所（55〜65行目）</div>
+<div>omap_ex2.js 変更個所（54〜64行目）</div>
 <pre>
 <span style="color:gray;">/*
-    source: new XYZ({
-      attributions: '&lt;a href=&quot;https://maps.gsi.go.jp/development/ichiran.html&quot;&gt;地理院タイル&lt;/a&gt;',
-      url: 'https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg'
-    })
+  source: new XYZ({
+    attributions: '&lt;a href=&quot;https://maps.gsi.go.jp/development/ichiran.html&quot;&gt;地理院タイル&lt;/a&gt;',
+    url: 'https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg'
+  })
 */</span>
-    source: new BingMaps({
-      key: '<b>[YOUR API KEY]</b>',
-      imagerySet: 'Aerial'
-    })
+  source: new BingMaps({
+    key: '<b>[YOUR API KEY]</b>',
+    imagerySet: 'Aerial'
+  })
 </pre>
 <div>地理院タイルの写真を用いる場合</div>
 <pre>
-    source: new XYZ({
-      attributions: '&lt;a href=&quot;https://maps.gsi.go.jp/development/ichiran.html&quot;&gt;地理院タイル&lt;/a&gt;',
-      url: 'https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg'
-    })
+  source: new XYZ({
+    attributions: '&lt;a href=&quot;https://maps.gsi.go.jp/development/ichiran.html&quot;&gt;地理院タイル&lt;/a&gt;',
+    url: 'https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg'
+  })
 <span style="color:gray;">/*
-    source: new BingMaps({
-      key: '[YOUR API KEY]',
-      imagerySet: 'Aerial'
-    })
+  source: new BingMaps({
+    key: '[YOUR API KEY]',
+    imagerySet: 'Aerial'
+  })
 */</span>
 </pre>
 </div><!-- .src -->
@@ -126,7 +124,7 @@ gps-track-maps
 <div>生成ファイル</div>
 <pre>
 gps-track-maps
-├── dist/
+├── build/
 │   ├── <b>omap_ex2.html</b>
 │   ├── <b>omap_ex2.*.js</b>
 │   ├── <b>omap_ex2.*.js.map</b>
@@ -143,9 +141,9 @@ gps-track-maps
     └── Toolbar.*
 </pre>
 </div><!-- .src -->
+<address>&copy; 2019 <a href="https://anineco.nyanta.jp/">あにねこ電脳覚書</a></address>
 <script src="https://www.promisejs.org/polyfills/promise-7.0.4.min.js"></script><!-- IE11 -->
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autorun=false"></script>
 <script src="url-load-prettify.js"></script>
-<address>&copy; 2019 <a href="https://anineco.nyanta.jp/">あにねこ電脳覚書</a></address>
 </body>
 </html>
