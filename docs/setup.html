@@ -44,8 +44,6 @@ gps-track-maps/
 │   └── example/
 │       ├── routemap.min.kml （KMLファイル）
 │       └── routemap.geojson （GeoJSONファイル）
-├── dist/
-├── node_modules/
 ├── package-lock.json
 ├── package.json
 └── src/
@@ -110,7 +108,7 @@ function routemap(url) {
 </div><!-- .src -->
 <h2>付録：ルート地図（Yahoo!地図版）の設置</h2>
 <div class="src">
-<div>ymap_ex1.html</div>
+<div>ymap_ex1.html（<a href="ymap_ex1.html" download>ダウンロード</a>）</div>
 <pre class="prettyprint linenums" data-url="ymap_ex1.html"></pre>
 </div><!-- .src -->
 <div class="src">
@@ -118,9 +116,11 @@ function routemap(url) {
 <pre>
 &lt;script src=&quot;https://map.yahooapis.jp/js/V1/jsapi?appid=<b>[YOUR API KEY]</b>&quot;&gt;&lt;/script&gt;
 </pre>
-<script src="https://www.promisejs.org/polyfills/promise-7.0.4.min.js"></script><!-- IE11 -->
+</div><!-- .src -->
+<address>&copy; 2019 <a href="http://anineco.nyanta.jp/">あにねこ電脳覚書</a></address>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.3.1/es6-promise.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.4/fetch.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autorun=false"></script>
 <script src="url-load-prettify.js"></script>
-<address>&copy; 2019 <a href="http://anineco.nyanta.jp/">あにねこ電脳覚書</a></address>
 </body>
 </html>

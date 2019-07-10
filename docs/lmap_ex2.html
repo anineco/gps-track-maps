@@ -42,7 +42,8 @@ body {
 </head>
 <body>
 <div id="map"></div>
-<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise"></script><!-- IE11 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/3.3.1/es6-promise.min.js"></script><!-- IE11 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.4/fetch.min.js"></script><!-- IE11 -->
 <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
   crossorigin=""></script>
@@ -88,12 +89,10 @@ const otm = L.tileLayer('https://tile.opentopomap.org/{z}/{x}/{y}.png', {
     + '&copy; <a href="https://opentopomap.org/">OpenTopoMap</a> '
     + '(<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
 });
-const xhr = new XMLHttpRequest();
-xhr.open('GET', param.url);
-xhr.responseType = 'text'; // NOTE: 'json' does not work in IE11
-xhr.addEventListener('loadend', function (e) {
-  if (this.status !== 200) { return; }
-  const track = L.geoJSON(JSON.parse(this.response), {
+fetch(param.url).then(function (response) { // NOTE: '=>' does not work in IE11
+  return response.json();
+}).then(function (json) {
+  const track = L.geoJSON(json, {
     pointToLayer: function (feature, latlng) {
       return L.marker(latlng, {
         icon: L.icon({
@@ -134,8 +133,6 @@ xhr.addEventListener('loadend', function (e) {
     { 'GPSデータ': track }
   ).addTo(map);
 });
-xhr.send();
-
 L.control.scale({ imperial: false, metric: true }).addTo(map);
 </script>
 </body>
