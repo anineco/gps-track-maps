@@ -40,6 +40,9 @@
 .ol-popup-closer:after {
   content: "✖";
 }
+.ol-popup-closer:hover {
+  cursor: pointer;
+}
 .ol-popup h2 {
   margin: 0;
   padding: 0 2em 0 0;
