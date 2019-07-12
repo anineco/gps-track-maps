@@ -8,7 +8,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel src/omap_ex1.html src/omap_ex2.html",
-    "build": "parcel build -d build --public-url . src/omap_ex1.html src/omap_ex2.html"
+    "build": "parcel build -d docs --public-url . src/omap_ex1.html src/omap_ex2.html",
+    "clean": "rm -f docs/omap_ex1.* docs/omap_ex2.*"
   },
   "repository": {
     "type": "git",
