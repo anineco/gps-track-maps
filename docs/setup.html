@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ルート地図の設置方法（共通）</title>
 <link rel="stylesheet" href="common.css">
+<script>
+function routemap(url) {
+  window.open(url, 'ROUTEMAP', 'width=640,height=510,resizable=yes');
+  return false;
+}
+</script>
 </head>
 <body>
 <div class="menu">
@@ -22,9 +28,11 @@
 </ul>
 </div><!-- end menu -->
 <h1>ルート地図の設置方法（共通）</h1>
+<p>本サイトで説明している各種ルート地図やGPX2GeoJSONのソースコードはGitHubで管理しているので、ソースコードの入手には<b>git</b>（バージョン管理システム）があると便利です。Windows 10でgitを使うには、Windows Subsystem for Linux（WSL）の<b>Ubuntu</b>を利用するのがお勧めです（特にWeb開発やオープンソースを利用した開発では必須）。UbuntuはMicrosoftストアから無料でインストールできます。以降のコマンド実行は、Ubuntuを起動して開くBashシェルの窓の中で行います。</p>
 <h2>ソースコードの入手方法</h2>
+<p>各種ルート地図やGPX2GeoJSONのソースコード一式を入手するコマンドは次の通り。下記のディレクトリ構成に示すように保存されます。</p>
 <div class="src">
-<div>入手方法</div>
+<div>コマンド実行：ソースコードの入手</div>
 <pre>
 git clone https://github.com/anineco/gps-track-maps.git
 </pre>
@@ -55,9 +63,10 @@ gps-track-maps/
     └── Toolbar.*
 </pre>
 </div><!-- .src -->
-<h2>ページ内埋め込み</h2>
+<p>このうち、ディレクトリdocs以下のファイルは、必要に応じて編集したのち、対象サイトに設置して用います。ディレクトリsrc以下はOpenLayers関連のファイルで、npmによる処理を経て、docsに生成されたファイルを対象サイトに設置します。詳しくは<a href="omap.html">ルート地図（OpenLayers版）</a>を参照してください。</p>
+<p>対象サイトへのファイルの設置方法は、ファイル名が異なるだけで共通です。routemap.geojsonの代わりにKMLファイルroutemap.min.kmlを上乗せ表示する場合は、Xmap_ex1.html（X=b,g,l,o,y）を用いて下さい。以下、次のようなディレクトリ構成に設置した場合を例として、二種類の表示方式について説明します。</p>
 <div class="src">
-<div>ディレクトリ構成図</div>
+<div>ディレクトリ構成図（GeoJSON）</div>
 <pre>
 .
 ├── your_page.html（対象ページ）
@@ -66,8 +75,11 @@ gps-track-maps/
     └── <b>routemap.geojson</b>
 </pre>
 </div><!-- .src -->
+<p>OpenLayers版ルート地図の場合は、この他にも必要なファイルがあります。<a href="omap.html">ルート地図（OpenLayers版）</a>を参照して下さい。</p>
+<h2>ページ内埋め込み</h2>
+<p>対象ページにルート地図を埋め込んで表示する場合は、対象ページ（your_page.html）に次のようなHTMLコードを挿入します。各パラメータの意味は共通で、以下の表の通り。</p>
 <div class="src">
-<div>対象ページに挿入するコード</div>
+<div>対象ページに挿入するHTMLコード</div>
 <pre>
 &lt;iframe width=&quot;640&quot; height=&quot;480&quot; style=&quot;border:none;&quot;
   src=&quot;<b>Xmap_ex2.html</b>?lat=35.913163&amp;lon=138.721400&amp;zoom=15&amp;url=<b>example/routemap.geojson</b>&quot;&gt;
@@ -84,14 +96,14 @@ gps-track-maps/
 </tbody>
 </table>
 <ul style="list-style-type:none;">
-<li>※1：KMLファイルを上乗せ表示する場合は、<code>Xmap_ex<b>1</b>.html</code>（X=b,g,l,o,y）を用います。<br>
-使い方は、<code>url</code>がKMLファイルを指定する他は、<code>Xmap_ex2.html</code>。と同様です。</li>
+<li>※1：<code>Xmap_ex<b>1</b>.html</code>（X=b,g,l,o,y）の場合も、<code>url</code>がKMLファイルを指定する他は、同様です。</li>
 <li>※2：<code>gmap_ex1.html</code>と<code>ymap_ex1.html</code>では、KMLファイルは<b>絶対URL</b>で指定します。</li>
 <li>※3：<code>ymap_ex1.html</code>では、<code>zoom+1</code>が実際に表示されるズームレベルとなります。</li>
 </ul>
 <h2>別窓ポップアップ</h2>
+<p>対象ページに次のJavaScriptとHTMLコードを挿入すると、<a href="lmap_ex2.html?lat=35.913163&lon=138.721400&zoom=15&url=example/routemap.geojson" onclick="return routemap(this.href)">ルート地図</a>のようなリンクができ、クリックすると別窓がポップアップしてルート地図を表示します。</p>
 <div class="src">
-<div>JavaScriptを追加</div>
+<div>対象ページに挿入するJavaScriptコード</div>
 <pre>
 function routemap(url) {
   window.open(url, 'ROUTEMAP', 'width=640,height=510,resizable=yes');
@@ -100,13 +112,14 @@ function routemap(url) {
 </pre>
 </div><!-- .src -->
 <div class="src">
-<div>HTMLを追加</div>
+<div>対象ページに挿入するHTMLコード</div>
 <pre>
 &lt;a href=&quot;<b>Xmap_ex2.html</b>?lat=35.913163&amp;lon=138.721400&amp;zoom=15&amp;url=<b>example/routemap.geojson</b>&quot;
   onclick=&quot;return routemap(this.href)&quot;&gt;ルート地図&lt;/a&gt;
 </pre>
 </div><!-- .src -->
 <h2>付録：ルート地図（Yahoo!地図版）の設置</h2>
+<p>Yahoo!地図については、GeoJSONファイルを上乗せ表示する簡単な方法が用意されていないようです。参考のため、KMLファイルを上乗せ表示するソースコードをここで示します。'[YOUR API KEY]'の個所は、各自が取得したアプリケーションIDに書き換えて下さい。</p>
 <div class="src">
 <div>ymap_ex1.html（<a href="ymap_ex1.html" download>ダウンロード</a>）</div>
 <pre class="prettyprint linenums" data-url="ymap_ex1.html"></pre>

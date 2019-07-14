@@ -29,7 +29,19 @@
 </iframe>
 </p>
 <h2>設置方法</h2>
+<p>このページで説明するOpenLayers版ルート地図のソースコードを利用する際には、<b>npm</b>（パッケージ管理システム）が必要です。また、本サイトで説明している各種ルート地図やGPX2GeoJSONのソースコードはGitHubで管理しているので、ソースコードの入手には<b>git</b>（バージョン管理システム）があると便利です。Windows 10でnpmやgitを使うには、Windows Subsystem for Linux（WSL）の<b>Ubuntu</b>を利用するのが最も手軽です。UbuntuはMicrosoftストアから無料でインストールできます。Ubuntuを起動してBashシェルの窓を開いたら、次のコマンドを実行します。</p>
+<div class="src">
+<div>コマンド実行：Ubuntuアップデート</div>
+<pre>
+sudo apt update
+sudo apt upgrade
+</pre>
+<div>コマンド実行：npmインストール</div>
+<pre>sudo apt install npm</pre>
+</div>
+<p>以降のコマンドもBashシェルの中で実行します。</p>
 <h3>ページ内埋め込み</h3>
+<p>表示例のようなOpenLayers版ルート地図を表示するには、対象サイトに下記のディレクトリ構成図のようにファイルを設置し、対象ページに表示のためのコードを挿入します。ここで、ファイル名中の'*'は、npmによってランダムに割り振られた英数字列です。また、ファイルomap_ex2.〜は、npmを実行して得られる出力ファイルです。</p>
 <div class="src">
 <div>ディレクトリ構成図</div>
 <pre>
@@ -52,20 +64,26 @@
 &lt;/iframe&gt;
 </pre>
 </div><!-- .src -->
+<p>その他の表示方式（別窓ポップアップ）については、<a href="setup.html">設置方法（共通）</a>を参照して下さい。</p>
 <h3>ソースコード</h3>
+<p>以下のgitコマンドでルート地図のソースコード一式を入手すると、ディレクトリ構成図のファイルが得られます。このうち、ディレクトリnode_modulesは'npm update'を実行すると作成され、その中に必要なモジュールがインストールされます。</p>
 <div class="src">
-<div>入手方法</div>
+<div>コマンド実行：ソースコードの入手</div>
+<pre>git clone https://github.com/anineco/gps-track-maps.git</pre>
+<div>コマンド実行：モジュールのインストール</div>
 <pre>
-git clone https://github.com/anineco/gps-track-maps.git
 cd gps-track-maps
-npm install
+npm update
 </pre>
 </div><!-- .src -->
 <div class="src">
-<div>ディレクトリ構成図</div>
+<div>ディレクトリ構成図（OpenLayers関係のみ抜粋）</div>
 <pre>
 gps-track-maps
 ├── docs/
+│   └── example/
+│       └── routemap.geojson （GeoJSONファイル）
+├── node_modules/
 ├── package-lock.json
 ├── package.json
 └── src/
@@ -75,6 +93,7 @@ gps-track-maps
     └── Toolbar.*
 </pre>
 </div><!-- .src -->
+<p>ルート地図のソースコードのHTMLファイルとJSファイルの内容は以下の通り。JSファイルは、'[YOUR API KEY]'の個所に各自が取得したBing Maps Keyを記入するか、または、地理院タイルの写真を用いるように書き換えて下さい。</p>
 <div class="src">
 <div>omap_ex2.html</div>
 <pre class="prettyprint linenums" data-url="https://raw.githubusercontent.com/anineco/gps-track-maps/master/src/omap_ex2.html"></pre>
@@ -111,13 +130,18 @@ gps-track-maps
 */</span>
 </pre>
 </div><!-- .src -->
+<p>変更後、'npm start'を実行し、表示されるURL（'localhost:1234'）をブラウザで閲覧して、ルート地図を確認します（注：'omap_ex2.html'を閲覧する場合は、'localhost:1234/omap_ex2.html'を開く）。</p>
 <div class="src">
-<div>テスト</div>
+<div>コマンド実行：テスト</div>
 <pre>npm start</pre>
 </div><!-- .src -->
+<p>表示を確認してOKならば、'npm run build'を実行して、ウェブ公開用のファイルを生成します。生成ファイルをウェブサイトに設置し、閲覧してOKならば作業完了です。</p>
 <div class="src">
-<div>ビルド</div>
-<pre>npm run build</pre>
+<div>コマンド実行：ビルド</div>
+<pre>
+npm run clean
+npm run build
+</pre>
 </div><!-- .src -->
 <div class="src">
 <div>生成ファイル</div>
@@ -128,7 +152,9 @@ gps-track-maps
 │   ├── <b>omap_ex2.*.js</b>
 │   ├── <b>omap_ex2.*.js.map</b>
 │   ├── <b>omap_ex2.*.css</b>
-│   └── <b>omap_ex2.*.css.map</b>
+│   ├── <b>omap_ex2.*.css.map</b>
+│   └── example/
+│       └── routemap.geojson （GeoJSONファイル）
 ├── node_modules/
 ├── package-lock.json
 ├── package.json
