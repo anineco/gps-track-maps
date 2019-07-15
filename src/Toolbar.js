@@ -130,12 +130,12 @@ class Toolbar extends Control {
   }
 
   static createCenter(map) {
-    const view = map.getView();
     const element = document.createElement('input');
     element.type = 'button';
     element.value = lc.center;
     element.addEventListener('click', function () {
-      alert(format(toLonLat(view.getCenter()), lc.lat + '={y}\n' + lc.lon + '={x}', 6));
+      const coordinate = map.getView().getCenter();
+      alert(format(toLonLat(coordinate), lc.lat + '={y}\n' + lc.lon + '={x}', 6));
     });
     return element;
   }

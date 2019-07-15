@@ -3,19 +3,21 @@
  */
 import Overlay from 'ol/Overlay';
 
-class Popup {
-  constructor(map) {
-    const popup = document.getElementById('popup');
-    popup.className = 'ol-popup';
-    const overlay = new Overlay({
+class Popup extends Overlay {
+  constructor(target, opt_options) {
+    const options = opt_options ? opt_options : {};
+    const className = options.className || 'ol-popup';
+    const popup = document.getElementById(target);
+    popup.className = className,
+    super({
       element: popup,
       autoPan: true,
       autoPanAnimation: { duration: 250 }
     });
-    map.addOverlay(overlay);
+    const overlay = this;
 
     const closer = document.createElement('span');
-    closer.className = 'ol-popup-closer';
+    closer.className = className + '-closer';
     closer.addEventListener('click', function () {
       overlay.setPosition(undefined);
       closer.blur();
@@ -24,15 +26,10 @@ class Popup {
 
     const content = document.createElement('div');
     popup.appendChild(content);
-
-    this.overlay = overlay;
     this.content = content;
   }
   setContent(html) {
     this.content.innerHTML = html;
-  }
-  setPosition(coordinate) {
-    this.overlay.setPosition(coordinate);
   }
 }
 

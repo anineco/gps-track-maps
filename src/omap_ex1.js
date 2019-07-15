@@ -102,7 +102,8 @@ function getHtml(feature) {
   return '<h2>' + feature.get('name') + '</h2>' + (feature.get('description') || '');
 }
 
-const popup = new Popup(map);
+const popup = new Popup('popup');
+map.addOverlay(popup);
 
 map.on('click', function (evt) {
   const found = map.forEachFeatureAtPixel(
