@@ -103,7 +103,7 @@ function styleFunction(feature) {
       }),
       text: new Text({
         text: feature.get('name'),
-        font: 'bold 12px sans-serif',
+        font: '14px sans-serif',
         fill: fill,
         stroke: stroke,
         textAlign: 'left',

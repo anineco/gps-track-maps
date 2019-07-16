@@ -7,8 +7,7 @@ div.ol-toolbar > div {
   margin: 1px;
   border-radius: 2px;
   padding: 1px .5em;
-  font-size: 12px;
-  font-family: sans-serif;
+  font-size: .875rem;
   color: white;
   background-color: rgba(0,60,136,.5);
 }
@@ -23,8 +22,7 @@ div.ol-toolbar > div {
 }
 .ol-control input[type="button"],
 .ol-control option {
-  font-size: 12px;
-  font-family: sans-serif;
+  font-size: .875rem;
 }
 .ol-control select:hover,
 .ol-control input[type="button"]:hover,
