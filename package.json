@@ -23,7 +23,7 @@
     "url-polyfill": "^1.1.7"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.12.3"
+    "parcel-bundler": "^1.12.4"
   },
   "bugs": {
     "url": "https://github.com/anineco/gps-track-maps/issues"
