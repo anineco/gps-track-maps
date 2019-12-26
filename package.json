@@ -19,7 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "ol": "^5.3.3",
+    "ol": "^6.1.1",
     "url-polyfill": "^1.1.7"
   },
   "devDependencies": {
