@@ -1,5 +1,5 @@
 <?php
-require_once '../../../init.php';
+require_once '../init.php';
 $cf = set_init();
 
 function deg($s) {
@@ -7,10 +7,12 @@ function deg($s) {
   return sprintf('%.6f', $m[1] + $m[2] / 60 + $m[3] / 3600);
 }
 
+$connect = $cf['socket'] ? ('unix_socket=' . $cf['socket']) : ('host=' . $cf['host']);
+
 $dbh = new PDO(
-  "mysql:unix_socket=$cf[socket];dbname=$cf[database];charset=utf8mb4",
-  "$cf[user]",
-  "$cf[password]"
+  'mysql:' . $connect. ';dbname=' . $cf['database'] . ';charset=utf8mb4',
+  $cf['user'],
+  $cf['password']
 );
 
 $type = !empty($_POST) ? INPUT_POST : INPUT_GET;

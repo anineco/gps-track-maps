@@ -1,6 +1,8 @@
+import 'normalize.css';
+import './mountain.css';
 import 'ol/ol.css';
-import 'es6-promise/auto'; // IE11
-import 'whatwg-fetch'; // IE11
+import './lib/Toolbar.css';
+import './lib/Popup.css';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import BingMaps from 'ol/source/BingMaps';
@@ -19,18 +21,18 @@ import {defaults} from 'ol/control';
 import OverviewMap from 'ol/control/OverviewMap';
 import Control from 'ol/control/Control';
 import {format} from 'ol/coordinate';
-import './Toolbar.css';
-import './Popup.css';
-import Toolbar from './Toolbar.js';
-import Popup from './Popup.js';
+import Toolbar from './lib/Toolbar.js';
+import Popup from './lib/Popup.js';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 // import 'firebaseui/dist/firebaseui.css';
 // import {auth} from 'firebaseui';
+import 'es6-promise/auto'; // IE11
+import 'whatwg-fetch'; // IE11
 
-const dburl = 'db.php';
-const bing_maps_key = 'ApSrHyswQlSkhiwqypJU_HidSkz0pWKYg7mpCYwpR1oja2ai3CHxJOHpa2LB5NNh';
-
+const elem = document.getElementById('map');
+const key = elem.getAttribute('data-bingmaps-key');
+const dburl = elem.getAttribute('data-db-url');
 const param = {
   lon: 138.727412, lat: 35.360601, zoom: 12
 };
@@ -99,15 +101,9 @@ const pale = new TileLayer({
 const ort = new TileLayer({
   visible: false,
   title: '写真',
-/*
-  source: new XYZ({
+  source: key ? new BingMaps({ key: key, imagerySet: 'Aerial' }) : new XYZ({
     attributions: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>',
     url: 'https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg'
-  })
-*/
-  source: new BingMaps({
-    key: bing_maps_key,
-    imagerySet: 'Aerial'
   })
 });
 const otm = new TileLayer({
@@ -124,7 +120,7 @@ const otm = new TileLayer({
 });
 
 const image = new Icon({
-  src: 'https://map.jpn.org/mountain/image/952015.png',
+  src: 'https://map.jpn.org/share/952015.png',
   crossOrigin: 'Anonymous'
 });
 const fill = new Fill({ color: 'blue' });
@@ -355,6 +351,7 @@ menu.appendChild(Toolbar.createTerms(
   + '・地理院標高API（https://maps.gsi.go.jp/development/api.html）'
 ));
 
+/*****
 const edit = document.createElement('input');
 edit.type = 'button';
 edit.value = '編集';
@@ -376,6 +373,7 @@ sub_menu.addEventListener('click', function (evt) {
   }
 });
 menu.appendChild(sub_menu);
+*****/
 
 map.addControl(new Control({ element: search }));
 

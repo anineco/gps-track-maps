@@ -7,9 +7,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel src/*.html",
-    "build": "parcel build -d docs --public-url . src/*.html",
-    "clean": "rm -f docs/omap_*.* docs/map.* docs/mountain.* docs/routemap.*"
+    "build": "parcel build -d docs --public-url . src/*.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +20,7 @@
     "es6-promise": "^4.2.8",
     "fetch-polyfill": "^0.8.2",
     "firebase": "^7.6.1",
+    "normalize.css": "^8.0.1",
     "ol": "^6.1.1",
     "url-polyfill": "^1.1.7",
     "whatwg-fetch": "^3.0.0"

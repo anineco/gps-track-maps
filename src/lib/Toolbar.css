@@ -1,0 +1,38 @@
+div.ol-toolbar {
+  position: absolute;
+  top: .5em;
+  left: 2.75em;
+}
+div.ol-toolbar > div {
+  margin: 1px;
+  border-radius: 2px;
+  padding: 1px .5em;
+  font-size: .875rem;
+  color: white;
+  background-color: rgba(0,60,136,.5);
+}
+.ol-control input[type="button"],
+.ol-control select {
+  margin: 2px 4px;
+  padding: 1px .3em;
+  border: none;
+  border-radius: 4px;
+  color: black;
+  background-color: white;
+}
+.ol-control input[type="button"],
+.ol-control option {
+  font-size: .875rem;
+}
+.ol-control select:hover,
+.ol-control input[type="button"]:hover,
+.ol-control label:hover {
+  cursor: pointer;
+}
+.ol-control input[type="button"].navi {
+  color: blue;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #fcc #f96 #f96 #fcc;
+  background-color: #fc9;
+}

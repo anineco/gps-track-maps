@@ -66,12 +66,12 @@ td {
 p a[href^="https:"]:after {
   margin-left: 1px;
   margin-right: 1px;
-  content: url(image/external-link-green04-Shapes4FREE.png);
+  content: url(share/external-link-green04-Shapes4FREE.png);
 }
 p a[href^="http:"]:after {
   margin-left: 1px;
   margin-right: 1px;
-  content: url(image/external-link-red02-Shapes4FREE.png);
+  content: url(share/external-link-red02-Shapes4FREE.png);
 }
 .routemap {
   background-color: #fc9;

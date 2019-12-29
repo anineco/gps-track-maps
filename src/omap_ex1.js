@@ -1,7 +1,8 @@
-import 'url-polyfill'; // NOTE: for KML
+import 'normalize.css';
+import './omap.css';
 import 'ol/ol.css';
-import './Toolbar.css';
-import './Popup.css';
+import './lib/Toolbar.css';
+import './lib/Popup.css';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import BingMaps from 'ol/source/BingMaps';
@@ -13,8 +14,9 @@ import {fromLonLat} from 'ol/proj';
 import Map from 'ol/Map';
 import {defaults} from 'ol/control';
 import ScaleLine from 'ol/control/ScaleLine';
-import Toolbar from './Toolbar.js';
-import Popup from './Popup.js';
+import Toolbar from './lib/Toolbar.js';
+import Popup from './lib/Popup.js';
+import 'url-polyfill'; // NOTE: for KML
 
 const param = {
   lon: 138.723460, lat: 35.931374, zoom: 13,
@@ -44,18 +46,13 @@ const pale = new TileLayer({
     url: 'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png'
   })
 });
+const key = document.getElementById('map').getAttribute('data-bingmaps-key');
 const ort = new TileLayer({
   visible: false,
   title: '写真',
-/*
-  source: new XYZ({
+  source: key ? new BingMaps({ key: key, imagerySet: 'Aerial' }) : new XYZ({
     attributions: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>',
     url: 'https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg'
-  })
-*/
-  source: new BingMaps({
-    key: 'ApSrHyswQlSkhiwqypJU_HidSkz0pWKYg7mpCYwpR1oja2ai3CHxJOHpa2LB5NNh',
-    imagerySet: 'Aerial'
   })
 });
 const otm = new TileLayer({

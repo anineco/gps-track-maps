@@ -1,0 +1,62 @@
+body {
+  font-family: sans-serif;
+}
+#map {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+div.ol-search {
+  position: absolute;
+  width: 18rem;
+  top: .5em;
+  right: .5em;
+  font-size: .875rem;
+}
+div.ol-search > h1 {
+  margin: 1px;
+  border-radius: 2px;
+  padding: 2px .5em;
+  font-size: 1rem;
+  text-align: center;
+  color: white;
+  background: darkslategray;
+}
+div.ol-search > div {
+  margin: 1px;
+  border-radius: 2px;
+  padding: 1px 4px;
+  font-size: .875rem;
+  color: white;
+  background-color: rgba(0,60,136,.5);
+}
+#crosshair {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: calc(50% - 12px);
+}
+#q > div {
+  width: 100%;
+/*
+  max-height: calc(100vh - 200px);
+  overflow-y: scroll;
+*/
+}
+#q table { width: 100%; border-collapse: collapse; }
+#q table, #q td, #q th { border: 1px solid gray; }
+#q a { color: white; }
+#q-close {
+  position: absolute;
+  right: 1em;
+}
+#q-close:hover, #query:hover {
+  cursor: pointer;
+}
+@media screen and (max-width: 539px) {
+  .ol-toolbar label, .ol-toolbar input { display: none; }
+}
+@media print {
+  body { width: 259mm; height: 172mm; } /* A4 */
+  .ol-control { display: none; }
+}

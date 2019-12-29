@@ -1,9 +1,26 @@
-<!DOCTYPE html><html lang="ja"><head><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-69481664-1"></script><script>function a(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],a("js",new Date),a("config","UA-69481664-1");</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="referrer" content="origin"><title>地図から選択</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><style>body{font-family:sans-serif}#map{width:100%;position:absolute;top:0;bottom:0}div.ol-search{position:absolute;width:18rem;top:.5em;right:.5em;font-size:.875rem}div.ol-search>h1{padding:2px .5em;font-size:1rem;text-align:center;background:#2f4f4f}div.ol-search>div,div.ol-search>h1{margin:1px;border-radius:2px;color:#fff}div.ol-search>div{padding:1px 4px;font-size:.875rem;background-color:rgba(0,60,136,.5)}#crosshair{position:absolute;top:calc(50% - 12px);left:calc(50% - 12px)}#q>div,#q table{width:100%}#q table{border-collapse:collapse}#q table,#q td,#q th{border:1px solid grey}#q a{color:#fff}#q-close{position:absolute;right:1em}#q-close:hover,#query:hover{cursor:pointer}@media screen and (max-width:539px){.ol-toolbar input,.ol-toolbar label{display:none}}@media print{body{width:259mm;height:172mm}.ol-control{display:none}}</style><link rel="stylesheet" href="map.1336b00d.css"></head><body>
-<div id="map"></div>
-<div id="crosshair"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAABGdBTUEAALGPC/xhBQAAAAJiS0dEAP+Hj8y/AAAAB3RJTUUH4wMVFxwguBPWkQAAADpJREFUOMtj/M9AGmDCLtz4v/E/SRpItmFUAwpgpFLE4QYsDAzocVrPCBGD0ahyg9APo6l1cGggOaYBXWIQK6S5f2QAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTktMDMtMjFUMTQ6Mjg6MzIrMDk6MDB/BbFlAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE5LTAzLTIxVDE0OjI4OjMyKzA5OjAwDlgJ2QAAAABJRU5ErkJggg==" alt=""></div>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="referrer" content="origin"><!-- NOTE: for Bing Maps -->
+<title>地図から選択</title>
+<link rel="stylesheet" href="map.css">
+</head>
+<body>
+<div id="map" data-db-url="share/db.php"
+     data-bingmaps-key="ApSrHyswQlSkhiwqypJU_HidSkz0pWKYg7mpCYwpR1oja2ai3CHxJOHpa2LB5NNh"></div>
+<div id="crosshair"><img src="share/crosshair.png" alt=""></div>
 <div id="popup"></div>
-<div id="search" class="ol-search ol-unselectable ol-control"> <h1 id="panel"></h1> <div id="q" style="display:none;"> <span id="q-close" title="閉じる">&#x2716;</span><br> <table> <tbody id="result"></tbody> </table> </div>
-</div>
-<img src="https://anineco.org/lime/lime.cgi?map" width="1" height="1" style="display:none;">
-<script src="map.06d0a86d.js"></script>
-</body></html>
+<div id="search" class="ol-search ol-unselectable ol-control">
+ <h1 id="panel"></h1>
+ <div id="q" style="display:none;">
+  <span id="q-close" title="閉じる">&#x2716;</span><br>
+  <table>
+   <tbody id="result"></tbody>
+  </table>
+ </div><!-- #q -->
+</div><!-- #search -->
+<script src="map.js"></script>
+</body>
+</html>

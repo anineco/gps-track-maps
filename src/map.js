@@ -1,6 +1,8 @@
+import 'normalize.css';
+import './map.css';
 import 'ol/ol.css';
-import './Toolbar.css';
-import './Popup.css';
+import './lib/Toolbar.css';
+import './lib/Popup.css';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import BingMaps from 'ol/source/BingMaps';
@@ -18,12 +20,14 @@ import Map from 'ol/Map';
 import {defaults} from 'ol/control';
 import OverviewMap from 'ol/control/OverviewMap';
 import {format} from 'ol/coordinate';
-import Toolbar from './Toolbar.js';
-import Popup from './Popup.js';
+import Toolbar from './lib/Toolbar.js';
+import Popup from './lib/Popup.js';
 import "es6-promise/auto"; // IE11
 import "fetch-polyfill"; // IE11
 
-const dburl = 'share/db.php';
+const elem = document.getElementById('map');
+const key = elem.getAttribute('data-bingmaps-key');
+const dburl = elem.getAttribute('data-db-url');
 const init = [
   { lat: 36.4967, lon: 139.3318, zoom: 12, title: '全山行記録' },
   { lat: 36.5439, lon: 138.9261, zoom: 9, title: '日本三百名山' },
@@ -69,15 +73,9 @@ const pale = new TileLayer({
 const ort = new TileLayer({
   visible: false,
   title: '写真',
-/*
-  source: new XYZ({
+  source: key ? new BingMaps({ key: key, imagerySet: 'Aerial' }) : new XYZ({
     attributions: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>',
     url: 'https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jpg'
-  })
-*/
-  source: new BingMaps({
-    key: 'ApSrHyswQlSkhiwqypJU_HidSkz0pWKYg7mpCYwpR1oja2ai3CHxJOHpa2LB5NNh',
-    imagerySet: 'Aerial'
   })
 });
 const otm = new TileLayer({
@@ -94,8 +92,7 @@ const otm = new TileLayer({
 });
 
 const image = new Icon({
-  src: 'https://anineco.org/image/952015.png',
-  crossOrigin: 'Anonymous'
+  src: 'share/952015.png'
 });
 const fill = [
   new Fill({ color: 'yellow' }),

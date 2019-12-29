@@ -4,6 +4,7 @@ function set_init() {
     'database' => '[DATABASE]',
     'host'     => '[HOST]',
     'user'     => '[USER]',
-    'password' => '[PASSWORD]'
+    'password' => '[PASSWORD]',
+    'socket'   => '[SOCKET]'
   );
 }
