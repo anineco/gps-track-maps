@@ -38,9 +38,13 @@ class Toolbar extends Control {
     container.appendChild(Toolbar.createZoom(map));
     container.insertAdjacentText('beforeend', lc.maps);
     container.appendChild(Toolbar.createLayerSelector(options.layers));
-    container.appendChild(Toolbar.createLayerSwitch(options.track));
-    container.appendChild(Toolbar.createCrosshair(map));
-    container.appendChild(Toolbar.createCenter(map));
+    if (options.track) {
+      container.appendChild(Toolbar.createLayerSwitch(options.track));
+    }
+    if (!options.disableCrosshair) {
+      container.appendChild(Toolbar.createCrosshair(map));
+      container.appendChild(Toolbar.createCenter(map, lc.center, options.center));
+    }
     if (!options.disablePrint) {
       container.appendChild(Toolbar.createPrint());
     }
@@ -125,15 +129,15 @@ class Toolbar extends Control {
       }
     });
     element.appendChild(input);
-    element.insertAdjacentText('beforeend', lc.crosshair);
+//  element.insertAdjacentText('beforeend', lc.crosshair);
     return element;
   }
 
-  static createCenter(map) {
+  static createCenter(map, label, func) {
     const element = document.createElement('input');
     element.type = 'button';
-    element.value = lc.center;
-    element.addEventListener('click', function () {
+    element.value = label;
+    element.addEventListener('click', func || function () {
       const coordinate = map.getView().getCenter();
       alert(format(toLonLat(coordinate), lc.lat + '={y}\n' + lc.lon + '={x}', 6));
     });

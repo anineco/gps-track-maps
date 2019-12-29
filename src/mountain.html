@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="NONE">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="referrer" content="origin"><!-- NOTE: for Bing Maps -->
+<title>山名一覧 on the Web地図</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css">
+<style>
+body {
+  font-family: sans-serif;
+}
+#map {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+}
+.auth-3 { color: purple; }
+.auth-4 { color: green; }
+.auth-101 { color: orange; }
+rt {
+  font-size: .5rem;
+}
+div.ol-search {
+  position: absolute;
+  width: 18rem;
+  top: .5em;
+  right: .5em;
+  font-size: .875rem;
+}
+div.ol-search > h1 {
+  margin: 1px;
+  border-radius: 2px;
+  padding: 2px .5em;
+  font-size: 1rem;
+  text-align: center;
+  color: white;
+  background: darkslategray;
+}
+div.ol-search > div {
+  margin: 1px;
+  border-radius: 2px;
+  padding: 1px 4px;
+  font-size: .875rem;
+  color: white;
+  background-color: rgba(0,60,136,.5);
+}
+.ol-search input {
+  margin: 2px 4px;
+  padding: 1px .3em;
+  border: none;
+  border-radius: 4px;
+  color: black;
+  background-color: white;
+  font-size: .875rem;
+}
+#qname {
+  width: 11rem;
+}
+table {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border-collapse: collapse;
+}
+td:first-child {
+  white-space: nowrap;
+  vertical-align: top;
+}
+div#q > div {
+  width: 100%;
+  max-height: calc(100vh - 200px);
+  overflow-y: scroll;
+}
+#q table { width: 100%; border-collapse: collapse; }
+#q table, #q td, #q th { border: 1px solid gray; }
+#q td:nth-child(1) { width: 3em; text-align: right; white-space: nowrap; }
+#q td:nth-child(2) { width: 11em; text-align: left; }
+#q td:nth-child(3) { width: 2em; text-align: right; white-space: nowrap; }
+#q a { color: white; }
+#q-close {
+  position: absolute;
+  right: 1em;
+}
+#q-close:hover, #query:hover {
+  cursor: pointer;
+}
+form {
+  margin: 0;
+  padding: 0;
+  font-size: .875rem;
+}
+.ol-rotate {
+  top: 4em !important;
+  left: .5em !important;
+  right: auto !important;
+}
+.ol-touch .ol-rotate {
+  top: 5em;
+}
+#crosshair {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: calc(50% - 12px);
+}
+@media print {
+  body { width: 259mm; height: 172mm; } /* A4 */
+}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div id="crosshair"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAABGdBTUEAALGPC/xhBQAAAAJiS0dEAP+Hj8y/AAAAB3RJTUUH4wMVFxwguBPWkQAAADpJREFUOMtj/M9AGmDCLtz4v/E/SRpItmFUAwpgpFLE4QYsDAzocVrPCBGD0ahyg9APo6l1cGggOaYBXWIQK6S5f2QAAAAldEVYdGRhdGU6Y3JlYXRlADIwMTktMDMtMjFUMTQ6Mjg6MzIrMDk6MDB/BbFlAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDE5LTAzLTIxVDE0OjI4OjMyKzA5OjAwDlgJ2QAAAABJRU5ErkJggg==" alt=""></div>
+<div id="popup"></div>
+<div id="search" class="ol-search ol-unselectable ol-control">
+ <h1>山名一覧 on the Web地図</h1>
+ <div>
+  <div id="menu"></div>
+  <div id="sub" style="display:none;"></div>
+ </div>
+ <!-- 検索 -->
+ <div>
+  <form accept-charset="UTF-8" id="form3" name="form3" action="#">
+   <table>
+    <tr>
+     <td>山名</td>
+     <td><input type="text" id="qname" name="qname" value=""></td>
+     <td><input type="submit" name="query" id="query" value="検索"></td>
+    </tr>
+    <tr>
+     <td></td>
+     <td colspan="2" style="font-size:.75rem;">
+      <span style="color:red;">%</span>を任意文字列として前方または後方一致検索が可能（最大400件）
+     </td>
+    </tr>
+   </table>
+  </form>
+ </div>
+ <!-- 検索結果 -->
+ <div id="q" style="display:none;">
+  検索結果：<span id="hit"></span><span id="q-close" title="閉じる">&#x2716;</span>
+  <div>
+   <table>
+    <thead><tr><th>ID</th><th>山名</th><th>標高</th></tr></thead>
+    <tbody id="result"></tbody>
+   </table>
+  </div>
+ </div><!-- #q -->
+</div><!-- .ol-search -->
+<script src="mountain.js"></script>
+</body>
+</html>

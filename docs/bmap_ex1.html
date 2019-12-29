@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="referrer" content="origin"><!-- NOTE: for Bing Maps -->
 <title>ルート地図</title>
 <style>
 body {
@@ -15,11 +16,11 @@ body {
   bottom: 0;
 }
 </style>
-<script src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=ApSrHyswQlSkhiwqypJU_HidSkz0pWKYg7mpCYwpR1oja2ai3CHxJOHpa2LB5NNh" async defer></script>
+<script src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&amp;key=ApSrHyswQlSkhiwqypJU_HidSkz0pWKYg7mpCYwpR1oja2ai3CHxJOHpa2LB5NNh" async defer></script>
 <script>
 const param = {
   lon: 138.723460, lat: 35.931374, zoom: 13,
-  url: 'https://anineco.github.io/gps-track-maps/example/routemap.min.kml'
+  url: 'https://anineco.github.io/gps-track-maps/share/routemap.min.kml'
 };
 location.search.slice(1).split('&').forEach(function (ma) {
   const s = ma.split('=');
