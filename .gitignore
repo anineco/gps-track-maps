@@ -64,4 +64,5 @@ typings/
 dist/
 build/
 .cache/
+share/db.php
 .DS_Store
