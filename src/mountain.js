@@ -50,13 +50,13 @@ location.search.slice(1).split('&').forEach(function (ma) {
 });
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCuUgpSKJGGx9rHn4NL_ZVsDlopnwgkEJ8",
-  authDomain: "composite-rhino-168714.firebaseapp.com",
-  databaseURL: "https://composite-rhino-168714.firebaseio.com",
+  apiKey: "[YOUR API KEY]",
+  authDomain: "",
+  databaseURL: "",
   projectId: "composite-rhino-168714",
   storageBucket: "",
-  messagingSenderId: "6185746778",
-  appId: "1:6185746778:web:34dddf42b5cd0f76"
+  messagingSenderId: "",
+  appId: ""
 };
 firebase.initializeApp(firebaseConfig);
 
