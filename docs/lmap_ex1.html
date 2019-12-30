@@ -37,7 +37,7 @@ body {
 </head>
 <body>
 <div id="map"></div>
-<script src="https://polyfill.io/v3/polyfill.min.js?flags=gated%7Calways&features=Promise" crossorigin="anonymous"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?flags=gated%7Calways&amp;features=Promise" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
   crossorigin=""></script>
@@ -75,7 +75,7 @@ const ort = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jp
 });
 */
 const ort = L.tileLayer.bing({
-  bingMapsKey: '[YOUR API KEY]',
+  bingMapsKey: '_YOUR_API_KEY_',
   imagerySet: 'Aerial',
   attribution: '&copy; 2019 DigitalGlobe, &copy; 2019 Zenrin, '
     + '&copy; 2019 Microsoft Corporation <a href="https://www.microsoft.com/maps/assets/docs/terms.aspx">Terms</a>'

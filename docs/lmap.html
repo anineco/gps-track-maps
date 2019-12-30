@@ -25,7 +25,7 @@
 <h2>表示例</h2>
 <p style="text-align:center;">
 <iframe width="640" height="480" style="border:none;"
-  src="lmap_ex2.html?lat=35.913163&amp;lon=138.721400&amp;zoom=15&aml;url=share/routemap.geojson">
+  src="lmap_ex2.html?lat=35.913163&amp;lon=138.721400&amp;zoom=15&amp;url=share/routemap.geojson">
 </iframe>
 </p>
 <h2>設置方法</h2>
@@ -49,7 +49,7 @@
 </pre>
 </div><!-- .src -->
 <p>必要なファイル一式の入手方法や、その他の表示方式（別窓ポップアップ）の設置方法については、<a href="setup.html">設置方法（共通）</a>を参照して下さい。lmap_ex2.htmlは下記のリンクからもダウンロードできます。</p>
-<p><b>！重要！</b>lmap_ex2.htmlは、82行目の'[YOUR API KEY]'の個所に各自が取得したBing Maps Keyを記入するか、または、地理院タイルの写真を用いるように書き換えてから、設置して下さい。</p>
+<p><b>！重要！</b>lmap_ex2.htmlは、82行目の'_YOUR_API_KEY_'の個所に各自が取得したBing Maps Keyを記入するか、または、地理院タイルの写真を用いるように書き換えてから、設置して下さい。</p>
 <div class="src">
 <div>lmap_ex2.html（<a href="lmap_ex2.html" download>ダウンロード</a>）</div>
 <pre class="prettyprint linenums" data-url="lmap_ex2.html"></pre>
@@ -63,7 +63,7 @@ const ort = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jp
 });
 */</span>
 const ort = L.tileLayer.bing({
-  bingMapsKey: '<b>[YOUR API KEY]</b>',
+  bingMapsKey: '<b>_YOUR_API_KEY_</b>',
   imagerySet: 'Aerial',
   attribution: '&amp;copy; 2019 DigitalGlobe, &amp;copy; 2019 Zenrin, '
     + '&amp;copy; 2019 Microsoft Corporation &lt;a href=&quot;https://www.microsoft.com/maps/assets/docs/terms.aspx&quot;&gt;Terms&lt;/a&gt;'
@@ -78,7 +78,7 @@ const ort = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/ort/{z}/{x}/{y}.jp
 });
 <span style="color:gray;">/*
 const ort = L.tileLayer.bing({
-  bingMapsKey: '[YOUR API KEY]',
+  bingMapsKey: '_YOUR_API_KEY_',
   imagerySet: 'Aerial',
   attribution: '&amp;copy; 2019 DigitalGlobe, &amp;copy; 2019 Zenrin, '
     + '&amp;copy; 2019 Microsoft Corporation &lt;a href=&quot;https://www.microsoft.com/maps/assets/docs/terms.aspx&quot;&gt;Terms&lt;/a&gt;'

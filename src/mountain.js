@@ -50,10 +50,10 @@ location.search.slice(1).split('&').forEach(function (ma) {
 });
 
 const firebaseConfig = {
-  apiKey: "[YOUR API KEY]",
+  apiKey: "_YOUR_API_KEY_",
   authDomain: "",
   databaseURL: "",
-  projectId: "composite-rhino-168714",
+  projectId: "",
   storageBucket: "",
   messagingSenderId: "",
   appId: ""
