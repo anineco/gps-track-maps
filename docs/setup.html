@@ -19,7 +19,7 @@ function routemap(url) {
 <li><a href="https://anineco.nyanta.jp/bbs/">掲示板</a> &gt;</li>
 <li><a href="https://github.com/anineco/">GitHub</a> |</li>
 <li><a href=".">TOP</a> &gt;</li>
-<li><a href="../gpx2geojson/">GPX2GeoJSON</a> |</li>
+<li><a href="https://anineco.github.io/gpx2geojson/">GPX2GeoJSON</a> |</li>
 <li>設置方法（共通） |</li>
 <li><a href="omap.html">OpenLayers</a> |</li>
 <li><a href="lmap.html">Leaflet</a> |</li>
@@ -28,42 +28,49 @@ function routemap(url) {
 </ul>
 </div><!-- end menu -->
 <h1>ルート地図の設置方法（共通）</h1>
-<p>本サイトで説明している各種ルート地図やGPX2GeoJSONのソースコードはGitHubで管理しているので、ソースコードの入手には<b>git</b>（バージョン管理システム）があると便利です。Windows 10でgitを使うには、Windows Subsystem for Linux（WSL）の<b>Ubuntu</b>を利用するのがお勧めです（特にWeb開発やオープンソースを利用した開発では必須）。UbuntuはMicrosoftストアから無料でインストールできます。以降のコマンド実行は、Ubuntuを起動して開くBashシェルの窓の中で行います。</p>
-<h2>ソースコードの入手方法</h2>
-<p>各種ルート地図やGPX2GeoJSONのソースコード一式を入手するコマンドは次の通り。下記のディレクトリ構成に示すように保存されます。</p>
+<h2>ダウンロード</h2>
+<p>必要なファイル一式を入手するには、下記の「一括ダウンロード」のリンクからZIPファイルをダウンロードし、適当なディレクトリの下に展開して下さい。<b>git</b>（バージョン管理システム）が利用できる場合は、次のコマンドでもファイル一式を入手できます。</p>
 <div class="src">
 <div>コマンド実行：ソースコードの入手</div>
 <pre>
 git clone https://github.com/anineco/gps-track-maps.git
 </pre>
 </div><!-- .src -->
+<p>展開したファイル一式は、下記の様なディレクトリ構成で配置されます（主要なファイルのみ示す）。このうち、ディレクトリ docsの中にある<b>赤字</b>のファイルが、本サイトで説明する各種ルート地図の設置で必要となるファイルです。</p>
 <div class="src">
-<div>ディレクトリ構成</div>
+<div>ディレクトリ構成（<a href="https://github.com/anineco/gps-track-maps/archive/master.zip" download>一括ダウンロード</a>）</div>
 <pre>
 gps-track-maps/
 ├── docs/
+|   ├── <b>omap_ex2.html</b> （OpenLayers + GeoJSON）
+│   ├── <b>omap_ex2.js</b>    (omap_ex2.htmlが読み込むJSファイル)
+│   ├── omap_ex2.js.map
+│   ├── <b>omap_ex2.css</b>   (omap_ex2.htmlが読み込むCSSファイル)
+│   ├── omap_ex2.css.map
 │   ├── <b>lmap_ex2.html</b> （Leaflet + GeoJSON）
 │   ├── <b>gmap_ex2.html</b> （Googleマップ + GeoJSON）
-│   ├── <b>bmap_ex2.html</b> （Bing Maps + GeoJSON）
+│   ├── <b>bmap_ex2.html</b> （Bingマップ + GeoJSON）
+|   ├── omap_ex1.html （OpenLayers + KML）
 │   ├── lmap_ex1.html （Leaflet + KML）
 │   ├── gmap_ex1.html （Googleマップ + KML）
-│   ├── bmap_ex1.html （Bing Maps + KML）
+│   ├── bmap_ex1.html （Bingマップ + KML）
 │   ├── ymap_ex1.html （Yahoo!地図 + KML）
 │   └── share/
-│       ├── routemap.min.kml （KMLファイル）
-│       └── routemap.geojson （GeoJSONファイル）
+│       ├── <b>routemap.geojson</b> （サンプルのGeoJSONファイル）
+│       └── routemap.min.kml （サンプルのKMLファイル）
 ├── package-lock.json
 ├── package.json
-└── src/
-    ├── <b>omap_ex2.html</b> （OpenLayers + GeoJSON）
+└── src/               (ソースコードのディレクトリ ）
     ├── omap_ex2.js
-    ├── omap_ex1.html （OpenLayers + KML）
+    ├── omap_ex2.css
     ├── omap_ex1.js
-    ├── Popup.*
-    └── Toolbar.*
+    ├── omap_ex1.css
+    ├── lib/Popup.*
+    └── lib/Toolbar.*
 </pre>
 </div><!-- .src -->
-<p>このうち、ディレクトリdocs以下のファイルは、必要に応じて編集したのち、対象サイトに設置して用います。ディレクトリsrc以下はOpenLayers関連のファイルで、npmによる処理を経て、docsに生成されたファイルを対象サイトに設置します。詳しくは<a href="omap.html">ルート地図（OpenLayers版）</a>を参照してください。</p>
+<p>ディレクトリsrcの中のファイルは、OpenLayers版ルート地図関連のソースコードです。通常は必要ありませんが、OpenLayers版ルート地図をカスタマイズしたい場合はこれらを編集し、<b>npm</b>（パッケージ管理システム）による処理（軽量化等）を経て、docsの中のファイルを作り直す必要があります。具体的な方法は、下記のカスタマイズの節を参照して下さい。</p>
+<h2>設置方法（共通）</h2>
 <p>対象サイトへのファイルの設置方法は、ファイル名が異なるだけで共通です。routemap.geojsonの代わりにKMLファイルroutemap.min.kmlを上乗せ表示する場合は、Xmap_ex1.html（X=b,g,l,o,y）を用いて下さい。以下、次のようなディレクトリ構成に設置した場合を例として、二種類の表示方式について説明します。</p>
 <div class="src">
 <div>ディレクトリ構成図（GeoJSON）</div>
@@ -75,14 +82,14 @@ gps-track-maps/
     └── <b>routemap.geojson</b>
 </pre>
 </div><!-- .src -->
-<p>OpenLayers版ルート地図の場合は、この他にも必要なファイルがあります。<a href="omap.html">ルート地図（OpenLayers版）</a>を参照して下さい。</p>
-<h2>ページ内埋め込み</h2>
-<p>対象ページにルート地図を埋め込んで表示する場合は、対象ページ（your_page.html）に次のようなHTMLコードを挿入します。各パラメータの意味は共通で、以下の表の通り。</p>
+<p>OpenLayers版ルート地図の場合は、この他にdocs配下のomap_ex2.jsとomap_ex2.cssも必要です。<a href="omap.html">ルート地図（OpenLayers版）</a>を参照して下さい。</p>
+<h3>ページ内埋め込み</h3>
+<p>対象ページにルート地図を埋め込んで表示する場合は、対象ページ（your_page.html）に次のようなHTMLコードを挿入します。各パラメータの意味は共通で、下記の表の通りです。なお、HTML中に'&amp;'を記述する場合は、'&amp;amp;'とエスケープする必要があります。</p>
 <div class="src">
 <div>対象ページに挿入するHTMLコード</div>
 <pre>
 &lt;iframe width=&quot;640&quot; height=&quot;480&quot; style=&quot;border:none;&quot;
-  src=&quot;<b>Xmap_ex2.html</b>?lat=35.913163&amp;lon=138.721400&amp;zoom=15&amp;url=<b>share/routemap.geojson</b>&quot;&gt;
+  src=&quot;<b>Xmap_ex2.html</b>?lat=35.913163&amp;amp;lon=138.721400&amp;amp;zoom=15&amp;amp;url=<b>share/routemap.geojson</b>&quot;&gt;
 &lt;/iframe&gt;
 </pre>
 </div><!-- .src -->
@@ -100,8 +107,8 @@ gps-track-maps/
 <li>※2：<code>gmap_ex1.html</code>と<code>ymap_ex1.html</code>では、KMLファイルは<b>絶対URL</b>で指定します。</li>
 <li>※3：<code>ymap_ex1.html</code>では、<code>zoom+1</code>が実際に表示されるズームレベルとなります。</li>
 </ul>
-<h2>別窓ポップアップ</h2>
-<p>対象ページに次のJavaScriptとHTMLコードを挿入すると、<a href="lmap_ex2.html?lat=35.913163&lon=138.721400&zoom=15&url=share/routemap.geojson" onclick="return routemap(this.href)">ルート地図</a>のようなリンクができ、クリックすると別窓がポップアップしてルート地図を表示します。</p>
+<h3>別窓ポップアップ</h3>
+<p>対象ページに次のJavaScriptとHTMLコードを挿入すると、<a href="lmap_ex2.html?lat=35.913163&amp;lon=138.721400&amp;zoom=15&amp;url=share/routemap.geojson" onclick="return routemap(this.href)">ルート地図</a>のようなリンクができ、クリックすると別窓がポップアップしてルート地図を表示します。</p>
 <div class="src">
 <div>対象ページに挿入するJavaScriptコード</div>
 <pre>
@@ -114,24 +121,34 @@ function routemap(url) {
 <div class="src">
 <div>対象ページに挿入するHTMLコード</div>
 <pre>
-&lt;a href=&quot;<b>Xmap_ex2.html</b>?lat=35.913163&amp;lon=138.721400&amp;zoom=15&amp;url=<b>share/routemap.geojson</b>&quot;
+&lt;a href=&quot;<b>Xmap_ex2.html</b>?lat=35.913163&amp;amp;lon=138.721400&amp;amp;zoom=15&amp;amp;url=<b>share/routemap.geojson</b>&quot;
   onclick=&quot;return routemap(this.href)&quot;&gt;ルート地図&lt;/a&gt;
 </pre>
 </div><!-- .src -->
+<h2>カスタマイズ</h2>
+<p>ソースコードを利用してOpenLayers版ルート地図をカスタマイズする場合は、<b>npm</b>（パッケージ管理システム）が必要です。Windows 10でnpmを使うには、Windows Subsystem for Linux（WSL）の<b>Ubuntu</b>を利用するのがお勧めです（特にWeb開発やオープンソースを利用した開発では必須）。UbuntuはMicrosoftストアから無料でインストールできます。以降のコマンド実行は、Ubuntuを起動して開くBashシェルの窓の中で行います。</p>
+<div class="src">
+<div>コマンド実行：Ubuntuアップデート</div>
+<pre>
+sudo apt update
+sudo apt upgrade
+</pre>
+</div>
+<p>これでUbuntuを利用する準備が整いました。npmは、下記のコマンドでインストールすることができます。</p>
+<div class="src">
+<div>コマンド実行：npmインストール</div>
+<pre>sudo apt install npm</pre>
+</div><!-- .src -->
+<p>使い方については<a href="omap.html">ルート地図（OpenLayers版）</a>を参照してください。</p>
 <h2>付録：ルート地図（Yahoo!地図版）の設置</h2>
-<p>Yahoo!地図については、GeoJSONファイルを上乗せ表示する簡単な方法が用意されていないようです。参考のため、KMLファイルを上乗せ表示するソースコードをここで示します。'[YOUR API KEY]'の個所は、各自が取得したアプリケーションIDに書き換えて下さい。</p>
+<p>Yahoo!地図については、GeoJSONファイルを上乗せ表示する簡単な方法が用意されていないようです。参考のため、KMLファイルを上乗せ表示するソースコードをここで示します。28行目の'[YOUR API KEY]'は、各自が取得したアプリケーションIDに書き換えて下さい。設置方法は上記の通りです。</p>
 <div class="src">
 <div>ymap_ex1.html（<a href="ymap_ex1.html" download>ダウンロード</a>）</div>
 <pre class="prettyprint linenums" data-url="ymap_ex1.html"></pre>
 </div><!-- .src -->
-<div class="src">
-<div>ymap_ex1.html の変更個所（28行目）</div>
-<pre>
-&lt;script src=&quot;https://map.yahooapis.jp/js/V1/jsapi?appid=<b>[YOUR API KEY]</b>&quot;&gt;&lt;/script&gt;
-</pre>
-</div><!-- .src -->
+<hr>
 <address>&copy; 2019 <a href="http://anineco.nyanta.jp/">あにねこ電脳覚書</a></address>
-<script src="https://polyfill.io/v3/polyfill.min.js?flags=gated%7Calways&features=Promise%2Cfetch" crossorigin="anonymous"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?flags=gated%7Calways&amp;features=Promise%2Cfetch" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autorun=false"></script>
 <script src="url-load-prettify.js"></script>
 </body>

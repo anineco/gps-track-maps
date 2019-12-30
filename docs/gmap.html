@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="referrer" content="origin">
 <title>ルート地図（Googleマップ版）</title>
 <link rel='stylesheet' href='common.css'>
 </head>
@@ -13,7 +14,7 @@
 <li><a href="https://anineco.nyanta.jp/bbs/">掲示板</a> &gt;</li>
 <li><a href="https://github.com/anineco/">GitHub</a> |</li>
 <li><a href=".">TOP</a> &gt;</li>
-<li><a href="../gpx2geojson/">GPX2GeoJSON</a> |</li>
+<li><a href="gpx2geojson.html">GPX2GeoJSON</a> |</li>
 <li><a href="setup.html">設置方法（共通）</a> |</li>
 <li><a href="omap.html">OpenLayers</a> |</li>
 <li><a href="lmap.html">Leaflet</a> |</li>
@@ -29,7 +30,6 @@
 </iframe>
 </p>
 <h2>設置方法</h2>
-<h3>ページ内埋め込み</h3>
 <p>表示例のようなGoogleマップ版ルート地図を表示するには、対象サイトに下記のディレクトリ構成図のようにファイルを設置し、対象ページに表示のためのコードを挿入します。</p>
 <div class="src">
 <div>ディレクトリ構成図</div>
@@ -45,9 +45,8 @@
  src=&quot;<b>gmap_ex2.html</b>?lat=35.913163&amp;lon=138.721400&amp;zoom=15&amp;url=<b>share/routemap.geojson</b>&quot;&gt;
 &lt;/iframe&gt;</pre>
 </div><!-- .src -->
-<p>その他の表示方式（別窓ポップアップ）については、<a href="setup.html">設置方法（共通）</a>を参照して下さい。</p>
-<h3>ソースコード</h3>
-<p>本サイトで説明している各種ルート地図やGPX2GeoJSONのソースコードはGitHubで管理しているので、ソースコードの入手には<b>git</b>（バージョン管理システム）があると便利です。gitによる入手方法については、<a href="setup.html">設置方法（共通）</a>を参照して下さい。gmap_ex2.html は下記のリンクからもダウンロードできます。'[YOUR API KEY]'の個所に各自がGoogle Cloud Platformから取得したAPI Keyを記入して、設置して下さい。</p>
+<p>必要なファイル一式の入手方法や、その他の表示方式（別窓ポップアップ）の設置方法については、<a href="setup.html">設置方法（共通）</a>を参照して下さい。gmap_ex2.htmlは下記のリンクからもダウンロードできます。</p>
+<p><b>！重要！</b>gmap_ex2.htmlは、36行目の'[YOUR API KEY]'の個所に各自がGoogle Cloud Platformから取得したAPI Keyを記入してから、設置して下さい。</p>
 <div class="src">
 <div>gmap_ex2.html (<a href="gmap_ex2.html" download>ダウンロード</a>)</div>
 <pre class="prettyprint linenums" data-url="gmap_ex2.html"></pre>
@@ -57,7 +56,7 @@
 <pre>&lt;script src=&quot;https://maps.googleapis.com/maps/api/js?key=<b>[YOUR API KEY]</b>&amp;language=ja&amp;region=JP&quot;&gt;&lt;/script&gt;</pre>
 </div><!-- .src -->
 <address>&copy; 2019 <a href="https://anineco.nyanta.jp/">あにねこ電脳覚書</a></address>
-<script src="https://polyfill.io/v3/polyfill.min.js?flags=gated%7Calways&features=Promise%2Cfetch" crossorigin="anonymous"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?flags=gated%7Calways&amp;features=Promise%2Cfetch" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autorun=false"></script>
 <script src="url-load-prettify.js"></script>
 </body>
