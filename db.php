@@ -235,6 +235,7 @@ SELECT summit,link,start,end,title,summary,image
 FROM record
 NATURAL JOIN explored
 WHERE id=? AND link IS NOT NULL
+ORDER BY start DESC
 EOS;
     $sth = $dbh->prepare($sql);
     $sth->bindValue(1, $val);

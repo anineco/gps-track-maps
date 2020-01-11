@@ -20,7 +20,7 @@ import 'url-polyfill'; // NOTE: for KML
 
 const param = {
   lon: 138.723460, lat: 35.931374, zoom: 13,
-  url: 'https://anineco.github.io/gps-track-maps/share/routemap.min.kml'
+  url: 'https://anineco.nyanta.jp/share/routemap.min.kml'
 };
 location.search.slice(1).split('&').forEach(function (ma) {
   const s = ma.split('=');
