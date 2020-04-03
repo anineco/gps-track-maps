@@ -35,7 +35,9 @@ const init = [
   { lat: 36.7332, lon: 139.7925, zoom: 10, title: '栃木百名山' },
   { lat: 36.4967, lon: 139.3318, zoom: 12, title: '桐生地域百山' },
   { lat: 36.1019, lon: 138.0629, zoom: 9, title: '信州百名山' },
-  { lat: 35.5747, lon: 138.6364, zoom: 10, title: '山梨百名山' }
+  { lat: 35.5747, lon: 138.6364, zoom: 10, title: '山梨百名山' },
+  { lat: 37.4422, lon: 140.1566, zoom: 9, title: 'うつくしま百名山' },
+  { lat: 36.0110, lon: 139.0491, zoom: 11, title: '埼玉百山' }
 ];
 let param = { cat: 1 };
 location.search.substr(1).split('&').forEach(function (ma) {
@@ -45,7 +47,7 @@ location.search.substr(1).split('&').forEach(function (ma) {
   }
 });
 let cat = param.cat;
-if (cat < 0 || cat > 6) {
+if (cat < 0 || cat > 8) {
   cat = 0;
 }
 param = init[cat];

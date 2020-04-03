@@ -1,5 +1,6 @@
 <?php
-require_once '../init.php';
+#require_once '/home/nurude/init.php';
+require_once './init.php';
 $cf = set_init();
 
 function deg($s) {
@@ -7,13 +8,9 @@ function deg($s) {
   return sprintf('%.6f', $m[1] + $m[2] / 60 + $m[3] / 3600);
 }
 
-$connect = $cf['socket'] ? ('unix_socket=' . $cf['socket']) : ('host=' . $cf['host']);
-
-$dbh = new PDO(
-  'mysql:' . $connect. ';dbname=' . $cf['database'] . ';charset=utf8mb4',
-  $cf['user'],
-  $cf['password']
-);
+#$dsn = "mysql:dbname=$cf[database];host=$cf[host];port=$cf[port];charset=utf8mb4";
+$dsn = "mysql:dbname=$cf[database];unix_socket=$cf[socket];charset=utf8mb4";
+$dbh = new PDO($dsn, $cf['user'], $cf['password']);
 
 $type = !empty($_POST) ? INPUT_POST : INPUT_GET;
 $mode = 'end';
@@ -125,8 +122,8 @@ EOS;
     }
   }
   $sth = $dbh->prepare($sql);
-  if ($val > 0) {
-    $sth->bindValue(1, $val);
+  if ($val != 0) {
+    $sth->bindValue(1, $val, PDO::PARAM_INT);
   }
   $sth->execute();
   header('Content-type: application/geo+json');
@@ -161,18 +158,25 @@ EOS;
   $rec = array();
   if ($mode === 'rec' && $c > 0) {
     $sql = <<<'EOS'
-SELECT id,meizan.kana,meizan.name,alt,lat,lon,auth,note
+SELECT id,geo.kana,geo.name,alt,lat,lon,auth,note
 FROM geo
 JOIN meizan USING(id)
 WHERE id=? AND cat=?
 EOS;
+    $sth = $dbh->prepare($sql);
+    $sth->bindValue(1, $val, PDO::PARAM_INT);
+    $sth->bindValue(2, $c, PDO::PARAM_INT);
   } elseif ($mode === 'id' || $mode === 'rec' || preg_match('/^[0-9]+$/', $val)) {
     $sql = <<<'EOS'
 SELECT id,kana,name,alt,lat,lon,auth,note
 FROM geo
 WHERE act>0
 EOS;
-    $sql .= $val ? ' AND id=?' : ' ORDER BY id DESC LIMIT 1';
+    $sql .= ($val > 0) ? ' AND id=?' : ' ORDER BY id DESC LIMIT 1';
+    $sth = $dbh->prepare($sql);
+    if ($val > 0) {
+      $sth->bindValue(1, $val, PDO::PARAM_INT);
+    }
   } else {
     $sql = <<<'EOS'
 SELECT DISTINCT id,geo.kana,geo.name,alt,lat,lon,auth,note
@@ -185,13 +189,8 @@ EOS;
       $sql .= ' sanmei.name=?';
     }
     $sql .= ' ORDER BY alt DESC LIMIT 400';
-  }
-  $sth = $dbh->prepare($sql);
-  if ($val) {
-    $sth->bindValue(1, $val);
-    if ($mode === 'rec' && $c > 0) {
-      $sth->bindValue(2, $c);
-    }
+    $sth = $dbh->prepare($sql);
+    $sth->bindValue(1, $val, PDO::PARAM_STR);
   }
   $sth->execute();
   while ($row = $sth->fetch(PDO::FETCH_OBJ)) {
@@ -214,6 +213,7 @@ EOS;
     );
   }
   $sth = null;
+
   if ($mode === 'id') {
     $alias = array();
     $sql = <<<'EOS'
@@ -222,7 +222,7 @@ FROM sanmei
 WHERE id=? AND type>1
 EOS;
     $sth = $dbh->prepare($sql);
-    $sth->bindValue(1, $val);
+    $sth->bindValue(1, $val, PDO::PARAM_INT);
     $sth->execute();
     while ($row = $sth->fetch(PDO::FETCH_OBJ)) {
       $alias[] = array('kana' => $row->kana, 'name' => $row->name);
@@ -235,10 +235,9 @@ SELECT summit,link,start,end,title,summary,image
 FROM record
 NATURAL JOIN explored
 WHERE id=? AND link IS NOT NULL
-ORDER BY start DESC
 EOS;
     $sth = $dbh->prepare($sql);
-    $sth->bindValue(1, $val);
+    $sth->bindValue(1, $val, PDO::PARAM_INT);
     $sth->execute();
     while ($row = $sth->fetch(PDO::FETCH_OBJ)) {
       $rec[] = array(

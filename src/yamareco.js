@@ -128,17 +128,24 @@ const image = new Icon({
   src: 'https://map.jpn.org/share/952015.png',
   crossOrigin: 'Anonymous'
 });
-const fill = new Fill({ color: 'blue' });
-const stroke = new Stroke({ color: 'white', width: 2 });
+const fill = [
+  new Fill({ color: 'yellow' }),
+  new Fill({ color: 'blue' })
+];
+const stroke = [
+  new Stroke({ color: 'gray', width: 2 }),
+  new Stroke({ color: 'white', width: 2 })
+];
 
 function styleFunction(feature) {
+  const i = feature.getId() < 100000 ? 1 : 0;
   return new Style({
     image: image,
     text: new Text({
       text: feature.get('name'),
       font: '14px sans-serif',
-      fill: fill,
-      stroke: stroke,
+      fill: fill[i],
+      stroke: stroke[i],
       textAlign: 'left',
       offsetX: 10,
       offsetY: -10
@@ -191,18 +198,21 @@ function todms(s) {
 }
 
 function getHtml(geo) {
-  return '<h2>' + geo.name
-    + '</h2><table><tbody><tr><td>よみ</td><td>' + geo.kana
-    + (geo.alias.length > 0 ?
-        '</td></tr><tr><td>別名</td><td>' + geo.alias.map(
-          alias => '<ruby>' + alias.name + '<rt>' + alias.kana + '</rt></ruby>'
-        ).join('<br>') : '')
-    + '</td></tr><tr><td>標高</td><td>' + geo.alt
-    + 'm</td></tr><tr><td>緯度</td><td>' + todms(geo.lat)
-    + '</td></tr><tr><td>経度</td><td>' + todms(geo.lon)
-    + (geo.address ? '</td></tr><tr><td>所在</td><td>' + geo.address : '')
-    + '</td></tr><tr><td>ID</td><td class="auth-' + geo.auth + '">' + geo.id
-    + '</td></tr></tbody></table>';
+  let html = '<h2>' + geo.name + '</h2><table><tbody>'
+    + '<tr><td>よみ</td><td>' + geo.kana + '</td></tr>'
+    + '<tr><td>標高</td><td>' + geo.alt + 'm</td></tr>'
+    + '<tr><td>緯度</td><td>' + todms(geo.lat) + '</td></tr>'
+    + '<tr><td>経度</td><td>' + todms(geo.lon) + '</td></tr>';
+  if (geo.address) {
+    html = html + '<tr><td>所在</td><td>' + geo.address + '</td></tr>';
+  }
+  if (geo.id < 100000) {
+    const url = 'https://www.yamareco.com/modules/yamainfo/ptinfo.php?ptid=' + geo.id;
+    html = html + '<tr><td>ID</td><td><a href="' + url + '">' + geo.id + '</a></td></tr>';
+  } else {
+    html = html + '<tr><td>ID</td><td>' + geo.id + '</td></tr>';
+  }
+  return html + '</tbody></table>';
 }
 
 function getGeoId(id, lon_lat, func) {
@@ -225,6 +235,8 @@ function getGeoId(id, lon_lat, func) {
       geo.lat = g.lat;
       geo.lon = g.lon;
       geo.auth = g.auth;
+      geo.gid = g.gid;
+      geo.c = g.c;
       resolve();
     })
   ));

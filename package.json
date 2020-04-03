@@ -19,10 +19,10 @@
     "babel-polyfill": "^6.26.0",
     "es6-promise": "^4.2.8",
     "fetch-polyfill": "^0.8.2",
-    "firebase": "^7.6.1",
+    "firebase": "^7.13.2",
     "normalize.css": "^8.0.1",
-    "ol": "^6.1.1",
-    "url-polyfill": "^1.1.7",
+    "ol": "^6.3.0",
+    "url-polyfill": "^1.1.8",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
