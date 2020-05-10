@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ルート地図</title>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet">
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+.mapboxgl-popup-content h2 {
+  margin: 0;
+  padding: 0 2em 0 0;
+  font-size: .875rem;
+  font-weight: normal;
+  color: red;
+}
+.mapboxgl-popup-content td {
+  font-size: .875rem;
+  padding: 0;
+  vertical-align: top;
+}
+.mapboxgl-popup-content td:first-child {
+  padding-right: 1em;
+  color: blue;
+}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js"></script>
+<script>
+const param = {
+  lon: 138.723460, lat: 35.931374, zoom: 13,
+  url: 'https://anineco.nyanta.jp/share/routemap.geojson'
+};
+location.search.slice(1).split('&').forEach(function (ma) {
+  const s = ma.split('=');
+  if (s[0] === 'url') {
+    param[s[0]] = decodeURIComponent(s[1]);
+  } else if (s[0] in param) {
+    param[s[0]] = Number(s[1]);
+  }
+});
+
+const map = new mapboxgl.Map({
+  container: 'map',
+  style:'https://gsi-cyberjapan.github.io/gsivectortile-mapbox-gl-js/std.json',
+  center: [param.lon, param.lat],
+  zoom: param.zoom - 1,
+  minZoom: 4,
+  maxZoom: 17
+});
+map.addControl(new mapboxgl.NavigationControl());
+const icons = [ 'Parking_Area', 'Pin_Green', 'Scenic_Area', 'Summit' ];
+for (let icon of icons) {
+  let url = 'symbols/' + icon + '.png';
+  let id = url;
+  map.loadImage(url, function(error, image) {
+    if (error) throw error;
+    map.addImage(id, image);
+  });
+}
+map.on('load', function() {
+  map.addSource('gps', {
+    'type': 'geojson',
+    'data': param.url
+  });
+  map.addLayer({
+    'id': 'gps-trk',
+    'source': 'gps',
+    'type': 'line',
+    'layout': {
+      'line-join': 'round',
+      'line-cap': 'square'
+    },
+    'paint': {
+      'line-color': ['get', '_color'],
+      'line-dasharray': [2, 1],
+      'line-opacity': 0.5,
+      'line-width': 3
+    },
+    'filter': ['==', '$type', 'LineString']
+  });
+  map.addLayer({
+    'id': 'gps-wpt',
+    'source': 'gps',
+    'type': 'symbol',
+    'layout': {
+      'icon-image': '{_iconUrl}',
+      'text-field': '{name}',
+      'text-size': 14,
+      'text-font': ['NotoSansCJKjp-Regular'],
+      'text-anchor': 'bottom-left'
+    },
+    'paint': {
+      'text-color': '#0000ff',
+      'text-halo-color': '#ffffff',
+      'text-halo-width': 2,
+      'text-translate': [8, -8],
+    },
+    'filter': ['==', '$type', 'Point']
+  });
+  map.on('click', 'gps-wpt', function(e) {
+    let coordinates = e.features[0].geometry.coordinates.slice();
+    let properties = e.features[0].properties;
+    let description = '<h2>' + properties.name + '</h2>';
+    const keys = Object.keys(properties).filter(
+      key => key !== 'geometry' && key !== 'name' && key.charAt(0) !== '_'
+    );
+    if (keys.length > 0) {
+      description += '<table><tbody><tr><td>'
+       + keys.map(key => key + '</td><td>' + properties[key]).join('</td></tr><tr><td>')
+       + '</td></tr></tbody></table>';
+    }
+    new mapboxgl.Popup().setLngLat(coordinates).setHTML(description).addTo(map);
+  });
+  map.on('mouseenter', 'gps-wpt', function() {
+    map.getCanvas().style.cursor = 'pointer';
+  });
+  map.on('mouseleave', 'gps-wpt', function() {
+    map.getCanvas().style.cursor = '';
+  });
+});
+</script>
+</body>
+</html>
