@@ -59,7 +59,7 @@ OpenLayers 6.1.1、Leaflet 1.6.0にバージョンアップ。Bingマップ版�
 <li>本サイトおよびルート地図を記述するHTMLを、XHTML1.0から<b>HTML5</b>に変更。</li>
 </ul>
 </li>
-<li>旧サイト（<a href="https://anineco.github.io/gpx2jsgi/">https://anineco.github.io/gpx2jsgi/</a>）も引き続き閲覧可能です。GPX2JSGI（GPX→KMLコンバータ）もそちらから入手可能です。</li>
+<li>旧サイト（<a href="https://anineco.nyanta.jp/gpx2jsgi/">https://anineco.nyanta.jp/gpx2jsgi/</a>）も引き続き閲覧可能です。GPX2JSGI（GPX→KMLコンバータ）もそちらから入手可能です。</li>
 <li>このサイトの内容に関するご意見・ご質問は、<a href="https://anineco.nyanta.jp/bbs/">掲示板</a>へお願いします。</li>
 </ul>
 <h2>このサイトについて</h2>
@@ -67,8 +67,8 @@ OpenLayers 6.1.1、Leaflet 1.6.0にバージョンアップ。Bingマップ版�
 <p>本サイトでは、Web地図として、JavaScriptライブラリ（<b>OpenLayers</b>、<b>Leaflet</b>）と地図タイル画像（<b>地理院タイル</b>、<b>OpenStreetMap</b>、<b>OpenTopoMap</b>など）を組み合わせたもの（いずれもフリーで利用可）と、Web地図APIを介して独自の地図を表示するタイプの<b>Googleマップ</b>、<b>Bingマップ</b>を対象として、ルート地図の設置方法を説明しています。GPSログはHTMLファイルとは別の外部ファイルとし、JavaScriptで読み込んで上乗せ表示します。データと表示ロジックのファイルを分けることにより、ユーザインターフェースの変更などが容易になります。この外部ファイルの形式としてはGPXやKML、GeoJSONなどがあり、本サイトでは<b>GeoJSON</b>を用いた場合について、ルート地図の設置例を紹介します。</p>
 <p>本サイトの内容は、ハンディGPSやGPSアプリからのログの取り込み、編集、ファイル保存に<b>カシミール3D</b>を利用することを前提としています。カシミール3Dで作成したルート地図を、単に画像としてウェブページに貼り付けるのではなく、スクロールやズームイン、ズームアウト等の操作が可能なWeb地図として表示することが本サイトの目標です。</p>
 <p>カシミール3Dには、GPSログをGPX形式やKML形式でファイルに保存する機能があります。しかし、(1) トラック、ウェイポイント、ルートをまとめて一つのファイルに保存できない、(2) トラックのポイントを間引く機能がない、(3) KML形式の保存は実験的な実装？で<a href="http://www.opengeospatial.org/standards/kml/">標準</a>に準拠していない、という問題点があり、そのままWeb地図の上乗せデータに用いるのは不都合があります。また、GeoJSON形式で保存する機能は今のところありません。そのため、カシミール3Dで保存した複数のGPXファイルを、トラックのポイントを間引きつつ、1つのGeoJSON（あるいはKML）ファイルに変換するツールが必要になります。</p>
-<p>KMLへの変換については、既に<a href="https://anineco.github.io/gpx2jsgi/gpx2jsgi.html">GPX2JSGI</a>（GPX→KMLコンバータ）を開発していて、フリーソフトウェアとして公開しています。当初は<a href="https://ja.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90%E5%9B%BD%E5%9C%9F%23%E9%9B%BB%E5%AD%90%E5%9B%BD%E5%9C%9FWeb%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0">電子国土Webシステム</a>独自のJSGI形式への変換ツールとして2008年1月に公開し、その後、KMLへの変換機能を追加したものです。これは、筆者のホームページ「<a href="https://anineco.org/">あにねこ登山日誌</a>」に、山行記録に添えるルート地図を見栄え良く、かつ少ない手間で掲載したい、と思ったことがきっかけで開発したものです。</p>
-<p>2019年2月に、ホームページで用いる上乗せデータの形式をKMLからGeoJSONに切り替えたことに伴い、新たに<a href="GPX2geojson.html">GPX2GeoJSON</a>（GPX→GeoJSONコンバータ）を開発したので、フリーソフトウェアとして公開し、このサイトの内容もGeoJSONをメインに据えて一新しました。なお、<a href="https://anineco.github.io/gpx2jsgi/">旧サイト</a>も引き続き閲覧可能です。</p>
+<p>KMLへの変換については、既に<a href="https://anineco.nyanta.jp/gpx2jsgi/gpx2jsgi.html">GPX2JSGI</a>（GPX→KMLコンバータ）を開発していて、フリーソフトウェアとして公開しています。当初は<a href="https://ja.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90%E5%9B%BD%E5%9C%9F%23%E9%9B%BB%E5%AD%90%E5%9B%BD%E5%9C%9FWeb%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0">電子国土Webシステム</a>独自のJSGI形式への変換ツールとして2008年1月に公開し、その後、KMLへの変換機能を追加したものです。これは、筆者のホームページ「<a href="https://anineco.org/">あにねこ登山日誌</a>」に、山行記録に添えるルート地図を見栄え良く、かつ少ない手間で掲載したい、と思ったことがきっかけで開発したものです。</p>
+<p>2019年2月に、ホームページで用いる上乗せデータの形式をKMLからGeoJSONに切り替えたことに伴い、新たに<a href="GPX2geojson.html">GPX2GeoJSON</a>（GPX→GeoJSONコンバータ）を開発したので、フリーソフトウェアとして公開し、このサイトの内容もGeoJSONをメインに据えて一新しました。なお、<a href="https://anineco.nyanta.jp/gpx2jsgi/">旧サイト</a>も引き続き閲覧可能です。</p>
 <p>このサイトの読者については、ハンディGPSやGPSアプリ、カシミール3Dの操作方法、および初歩のウェブページ作成、HTML、JavaScriptについての基礎知識があることを想定しています。これらの知識については、必要に応じて他の情報源を参照して下さい。</p>
 <p>このサイトと、このサイトで設置方法を説明するルート地図はHTML5とJavaScript（ES2015）で記述され、以下のブラウザで閲覧した際に適切に表示されます。ルート地図はモバイルデバイスでも閲覧可能で、タッチパネルでスクロールやズームなどの操作ができます。</p>
 <ul>
