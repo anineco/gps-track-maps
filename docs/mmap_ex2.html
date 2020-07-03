@@ -52,54 +52,70 @@ const map = new mapboxgl.Map({
   maxZoom: 17
 });
 map.addControl(new mapboxgl.NavigationControl());
-const icons = [ 'Parking_Area', 'Pin_Green', 'Scenic_Area', 'Summit' ];
-for (let icon of icons) {
-  let url = 'symbols/' + icon + '.png';
-  let id = url;
-  map.loadImage(url, function(error, image) {
-    if (error) throw error;
-    map.addImage(id, image);
-  });
-}
+
+let glSprite;
+let glImage;
+
 map.on('load', function() {
-  map.addSource('gps', {
-    'type': 'geojson',
-    'data': param.url
-  });
-  map.addLayer({
-    'id': 'gps-trk',
-    'source': 'gps',
-    'type': 'line',
-    'layout': {
-      'line-join': 'round',
-      'line-cap': 'square'
-    },
-    'paint': {
-      'line-color': ['get', '_color'],
-      'line-dasharray': [2, 1],
-      'line-opacity': 0.5,
-      'line-width': 3
-    },
-    'filter': ['==', '$type', 'LineString']
-  });
-  map.addLayer({
-    'id': 'gps-wpt',
-    'source': 'gps',
-    'type': 'symbol',
-    'layout': {
-      'icon-image': '{_iconUrl}',
-      'text-field': '{name}',
-      'text-size': 14,
-      'text-font': ['NotoSansCJKjp-Regular'],
-      'text-anchor': 'bottom-left'
-    },
-    'paint': {
-      'text-color': '#0000ff',
-      'text-halo-color': '#ffffff',
-      'text-halo-width': 2,
-      'text-translate': [8, -8],
-    },
-    'filter': ['==', '$type', 'Point']
+  Promise.all([
+    fetch('https://map.jpn.org/icon.json')
+      .then(response => response.json())
+      .then(result => glSprite = result),
+    fetch('https://map.jpn.org/icon.png')
+      .then(response => response.blob())
+      .then(result => glImage = URL.createObjectURL(result)),
+  ]).then(() => {
+    for (let key in glSprite) {
+      const icon = glSprite[key];
+      const id = 'https://map.jpn.org/icon/' + key + '.png';
+      const img = new Image();
+      img.src = glImage;
+      img.width = icon.width;
+      img.height = icon.height;
+      img.style.x = icon.x;
+      img.style.y = icon.y;
+      console.log(img);
+      map.addImage(id, img);
+    }
+    map.addSource('gps', {
+      'type': 'geojson',
+      'data': param.url
+    });
+    map.addLayer({
+      'id': 'gps-trk',
+      'source': 'gps',
+      'type': 'line',
+      'layout': {
+        'line-join': 'round',
+        'line-cap': 'square'
+      },
+      'paint': {
+        'line-color': ['get', '_color'],
+        'line-dasharray': [2, 1],
+        'line-opacity': 0.5,
+        'line-width': 3
+      },
+      'filter': ['==', '$type', 'LineString']
+    });
+    map.addLayer({
+      'id': 'gps-wpt',
+      'source': 'gps',
+      'type': 'symbol',
+      'layout': {
+        'icon-image': '{_iconUrl}',
+        'text-field': '{name}',
+        'text-size': 14,
+        'text-font': ['NotoSansCJKjp-Regular'],
+        'text-anchor': 'bottom-left'
+      },
+      'paint': {
+        'text-color': '#0000ff',
+        'text-halo-color': '#ffffff',
+        'text-halo-width': 2,
+        'text-translate': [8, -8],
+      },
+      'filter': ['==', '$type', 'Point']
+    });
   });
   map.on('click', 'gps-wpt', function(e) {
     let coordinates = e.features[0].geometry.coordinates.slice();
