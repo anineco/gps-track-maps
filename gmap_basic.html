@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Web Maps example</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      #map {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=_YOUR_API_KEY_&amp;language=ja&amp;region=JP"></script>
+    <script>
+      const param = {
+        lon: 139.435076, lat: 36.354746, zoom: 15
+      };
+
+      const map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: param.lat, lng: param.lon },
+        zoom: param.zoom,
+        mapTypeId: 'terrain',
+        scaleControl: true
+      });
+    </script>
+  </body>
+</html>

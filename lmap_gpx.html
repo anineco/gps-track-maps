@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>ルート地図</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin="">
+    <style>
+      body {
+        margin: 0;
+      }
+      #map {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+      .leaflet-popup h2 {
+        margin: 0;
+        padding: 0 2em 0 0;
+        font-size: 12px;
+        font-weight: bold;
+        color: red;
+      }
+      .leaflet-popup td {
+        font-size: 12px;
+        padding: 0;
+      }
+      .leaflet-popup td:first-child {
+        padding-right: 1em;
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script><!-- IE11 -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin=""></script>
+    <script>
+      const param = {
+        lon: 139.435076, lat: 36.354746, zoom: 15,
+        url: '200411/decimate.gpx'
+      };
+      location.search.slice(1).split('&').forEach(function (ma) {
+        const s = ma.split('=');
+        if (s[0] === 'url') {
+          param[s[0]] = decodeURIComponent(s[1]);
+        } else if (s[0] in param) {
+          param[s[0]] = Number(s[1]);
+        }
+      });
+
+      const map = L.map('map', {
+        center: [param.lat, param.lon],
+        zoom: param.zoom,
+        minZoom: 2,
+        maxZoom: 18
+      });
+      const std = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
+        attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+      });
+      const pale = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
+        attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+      });
+      const seamlessphoto = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg', {
+        attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+      });
+      map.addLayer(std);
+
+      function get_marker(pt) { // wpt or rtept
+        const latlng = new L.LatLng(pt.getAttribute('lat'), pt.getAttribute('lon'));
+        const icon = pt.getElementsByTagName('kashmir3d:icon').item(0).textContent;
+        const name = pt.getElementsByTagName('name').item(0).textContent;
+        let html = '<h2>' + name + '</h2>';
+        let body = '';
+        pt.getElementsByTagName('cmt').item(0).textContent.split(',').forEach(function (item) {
+          const kv = item.split('=');
+          if (!kv[0].match(/^[ 　]*$/)) {
+            body += '<tr><td>' + kv[0] + '</td><td>' + kv[1] + '</td></tr>';
+          }
+        });
+        if (body) {
+          html += '<table><tbody>' + body + '</tbody></table>';
+        }
+        const marker = new L.Marker(latlng, {
+          icon: L.icon({
+            iconUrl: 'https://map.jpn.org/icon/' + icon + '.png',
+            iconSize: [24, 24],
+            iconAnchor: [12, 12]
+          })
+        }).bindTooltip(name, {
+          permanent: true,
+          direction: 'left',
+          offset: L.point(-15,0),
+          opacity: 0.8
+        }).bindPopup(html);
+        return marker;
+      }
+
+      const dash = {
+        // kashmir3d:line_style => dashArray
+        11: [4,2],        // short dash
+        12: [6,2],        // long dash
+        13: [1,2],        // dot
+        14: [1,2,5,2],    // dot-dash (one dot chain)
+        15: [1,2,1,2,6,2] // dot-dot-dash (two-dot chain)
+      };
+
+      function get_options(t) { // trk or rte
+        const e = t.getElementsByTagName('extensions').item(0);
+        const c = e.getElementsByTagName('kashmir3d:line_color').item(0).textContent.match(/^(..)(..)(..)$/);
+        const w = e.getElementsByTagName('kashmir3d:line_size').item(0).textContent;
+        const d = dash[e.getElementsByTagName('kashmir3d:line_style').item(0).textContent];
+        return {
+          color: '#' + c[3] + c[2] + c[1],
+          weight: w,
+          opacity: 0.5,
+          dashArray: d && d.map(function (v) { return v * w; })
+        };
+      }
+
+      function get_latlngs(segment, tag) { // trkseg or rte
+        const latlngs = [];
+        const tags = Array.prototype.slice.call(segment.getElementsByTagName(tag)); // IE11
+        tags.forEach(function (pt) { // trkpt or rtept
+          latlngs.push([pt.getAttribute('lat'), pt.getAttribute('lon')]);
+        });
+        return [latlngs];
+      }
+
+      function parseGPX(xml) {
+        const layers = [];
+        const wpts = Array.prototype.slice.call(xml.getElementsByTagName('wpt')); // IE11
+        wpts.forEach(function (wpt) {
+          layers.push(get_marker(wpt));
+        });
+        const rtes = Array.prototype.slice.call(xml.getElementsByTagName('rte')); // IE11
+        rtes.forEach(function (rte) {
+          const rtepts = Array.prototype.slice.call(rte.getElementsByTagName('rtept'));
+          rtepts.forEach(function (rtept) {
+            if (rtept.getElementsByTagName('kashmir3d:icon').item(0).textContent !== '903001') { // IE11
+              layers.push(get_marker(rtept));
+            }
+          });
+          const options = get_options(rte);
+          layers.push(L.polyline(get_latlngs(rte, 'rtept'), options));
+        });
+        const trks = Array.prototype.slice.call(xml.getElementsByTagName('trk')); // IE11
+        trks.forEach(function (trk) {
+          const options = get_options(trk);
+          const trksegs = Array.prototype.slice.call(trk.getElementsByTagName('trkseg')); // IE11
+          trksegs.forEach(function (trkseg) {
+            layers.push(L.polyline(get_latlngs(trkseg, 'trkpt'), options));
+          });
+        });
+        return new L.FeatureGroup(layers);
+      }
+
+      fetch(param.url).then(function (response) {
+        return response.text();
+      }).then(function (text) {
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, 'text/xml');
+        const track = parseGPX(xml);
+        map.addLayer(track);
+        L.control.layers(
+          { '標準': std, '淡色': pale, '写真': seamlessphoto },
+          { 'GPS': track }
+        ).addTo(map);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+}
+#map {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+.layer-switcher div.panel {
+  padding: 0;
+  font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+.layer-switcher div.panel ul {
+  margin: 0;
+  padding: 0;
+}

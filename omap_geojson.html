@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>ルート地図</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css">
+    <link rel="stylesheet" href="https://unpkg.com/ol-layerswitcher@3.5.0/src/ol-layerswitcher.css">
+    <link rel="stylesheet" href="https://unpkg.com/ol-popup@4.0.0/src/ol-popup.css">
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+      }
+      #map {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+      .layer-switcher div.panel {
+        padding: 0;
+        font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+      }
+      .layer-switcher div.panel ul {
+        margin: 0;
+        padding: 0;
+      }
+      .ol-popup {
+        position: absolute;
+        background-color: white;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        padding: 5px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        bottom: 12px;
+        left: -50px;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+      .ol-popup:after, .ol-popup:before {
+        top: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+      .ol-popup:after {
+        border-top-color: white;
+        border-width: 10px;
+        left: 48px;
+        margin-left: -10px;
+      }
+      .ol-popup:before {
+        border-top-color: #cccccc;
+        border-width: 11px;
+        left: 48px;
+        margin-left: -11px;
+      }
+      .ol-popup-content {
+        min-width: auto;
+      }
+      .ol-popup-closer {
+        text-decoration: none;
+        position: absolute;
+        top: 2px;
+        right: 8px;
+        padding: 0;
+        font-size: 14px;
+        content: "✖";
+      }
+      .ol-popup-closer:hover {
+        cursor: pointer;
+      }
+      .ol-popup h2 {
+        margin: 0;
+        padding: 0 2em 0 0;
+        font-size: .875rem;
+        font-weight: normal;
+        color: red;
+      }
+      .ol-popup td {
+        font-size: .875rem;
+        padding: 0;
+        vertical-align: top;
+      }
+      .ol-popup td:first-child {
+        padding-right: 1em;
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=Event%2CrequestAnimationFrame%2CElement.prototype.classList"></script>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
+    <script src="https://unpkg.com/ol-layerswitcher@3.5.0"></script>
+    <script src="https://unpkg.com/ol-popup@4.0.0"></script>
+    <script>
+      const param = {
+        lon: 139.435076, lat: 36.354746, zoom: 15,
+        url: '200411/decimate.geojson'
+      };
+      location.search.slice(1).split('&').forEach(function (ma) {
+        const s = ma.split('=');
+        if (s[0] === 'url') {
+          param[s[0]] = decodeURIComponent(s[1]);
+        } else if (s[0] in param) {
+          param[s[0]] = Number(s[1]);
+        }
+      });
+
+      const view = new ol.View({
+        center: ol.proj.fromLonLat([param.lon, param.lat]),
+        zoom: param.zoom,
+        minZoom: 2,
+        maxZoom: 18
+      });
+
+      const std = new ol.layer.Tile({
+        source: new ol.source.XYZ({
+          attributions: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>',
+          url: 'https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'
+        }),
+        title: '標準',
+        type: 'base'
+      });
+      const pale = new ol.layer.Tile({
+        source: new ol.source.XYZ({
+          attributions: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>',
+          url: 'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png'
+        }),
+        title: '淡色',
+        type: 'base',
+        visible: false
+      });
+      const seamlessphoto = new ol.layer.Tile({
+        source: new ol.source.XYZ({
+          attributions: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>',
+          url: 'https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg'
+        }),
+        title: '写真',
+        type: 'base',
+        visible: false
+      });
+      const bases = new ol.layer.Group({
+        layers: [seamlessphoto, pale, std],
+        title: '地図の種類'
+      });
+      const map = new ol.Map({
+        target: 'map',
+        layers: [bases],
+        view: view
+      });
+
+      const fill = new ol.style.Fill({ color: 'blue' });
+      const stroke = new ol.style.Stroke({ color: 'white', width: 2 });
+
+      function styleFunction(feature) {
+        let style;
+        const type = feature.getGeometry().getType();
+        if (type === 'LineString') {
+          const color = feature.get('_color').match(/^#(..)(..)(..)$/).slice(1).map(function (h) {
+            return parseInt(h, 16);
+          });
+          color[3] = feature.get('_opacity');
+          style = {
+            stroke: new ol.style.Stroke({
+              color: color,
+              width: feature.get('_weight'),
+              lineDash: feature.get('_dashArray').split(',')
+            })
+          };
+        } else if (type === 'Point') {
+          style = {
+            image: new ol.style.Icon({
+              src: feature.get('_iconUrl'),
+              size: feature.get('_iconSize'),
+              anchor: feature.get('_iconAnchor'),
+              anchorXUnits: 'pixels',
+              anchorYUnits: 'pixels',
+              crossOrigin: 'Anonymous'
+            }),
+            text: new ol.style.Text({
+              text: feature.get('name'),
+              font: '14px sans-serif',
+              fill: fill,
+              stroke: stroke,
+              textAlign: 'left',
+              offsetX: 10,
+              offsetY: -10
+            })
+          };
+        }
+        return new ol.style.Style(style);
+      };
+
+      const track = new ol.layer.Vector({
+        source: new ol.source.Vector({
+          url: param.url,
+          format: new ol.format.GeoJSON()
+        }),
+        style: styleFunction
+      });
+      const data = new ol.layer.Group({
+        layers: [track],
+        title: 'GPS'
+      });
+      map.addLayer(data);
+      map.addControl(new ol.control.LayerSwitcher());
+
+      function getHTML(feature) {
+        let html = '<h2>' + feature.get('name') + '</h2>';
+        const keys = feature.getKeys().filter(function (key) {
+          return key !== 'geometry' && key !== 'name' && key.charAt(0) !== '_';
+        });
+        if (keys.length > 0) {
+          html += '<table><tbody>' + keys.map(function (key) {
+            return '<tr><td>' + key + '</td><td>' + feature.get(key) + '</td></tr>';
+          }).join('') + '</tbody></table>';
+        }
+        return html;
+      }
+
+      const popup = new Popup();
+      map.addOverlay(popup);
+      map.on('singleclick', function (evt) {
+        let html;
+        const found = map.forEachFeatureAtPixel(
+          evt.pixel,
+          function (feature, layer) {
+            if (feature.getGeometry().getType() !== 'Point') {
+              return false;
+            }
+            html = getHTML(feature);
+            return true;
+          }
+        );
+        popup.show(found ? evt.coordinate : undefined, html);
+      });
+      map.on('pointermove', function (evt) {
+        if (evt.dragging) { return; }
+        const found = map.forEachFeatureAtPixel(
+          map.getEventPixel(evt.originalEvent),
+          function (feature, layer) {
+            return feature.getGeometry().getType() === 'Point';
+          }
+        );
+        map.getTargetElement().style.cursor = found ? 'pointer' : '';
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="referrer" content="origin"><!-- NOTE: for Bing Maps -->
+    <title>ルート地図</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      #map {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+      .infobox-info td:first-child {
+        white-space: nowrap;
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://www.bing.com/api/maps/mapcontrol?callback=GetMap&amp;key=_YOUR_API_KEY_" async defer></script>
+    <script>
+      const param = {
+        lon: 139.435076, lat: 36.354746, zoom: 15,
+        url: '200411/decimate.gpx'
+      };
+      location.search.slice(1).split('&').forEach(function (ma) {
+        const s = ma.split('=');
+        if (s[0] === 'url') {
+          param[s[0]] = decodeURIComponent(s[1]);
+        } else if (s[0] in param) {
+          param[s[0]] = Number(s[1]);
+        }
+      });
+
+      const dash = {
+        11: [4,2],        // short dash
+        12: [6,2],        // long dash
+        13: [1,2],        // dot
+        14: [1,2,5,2],    // dot-dash (one dot chain)
+        15: [1,2,1,2,6,2] // dot-dot-dash (two-dot chain)
+      };
+
+      function GetMap() {
+        const map = new Microsoft.Maps.Map('#map', {
+          center: new Microsoft.Maps.Location(param.lat, param.lon),
+          zoom: param.zoom,
+          navigationBarMode: Microsoft.Maps.NavigationBarMode.compact
+        });
+        const track = new Microsoft.Maps.Layer();
+        map.layers.insert(track);
+        Microsoft.Maps.loadModule('Microsoft.Maps.GeoXml', function () {
+          Microsoft.Maps.GeoXml.readFromUrl(param.url, null, function (data) {
+            data.shapes.forEach(function (shape) {
+              if (shape instanceof Microsoft.Maps.Pushpin) {
+                shape.setOptions({
+                  icon: 'https://map.jpn.org/icon/' + shape.metadata.icon + '.png',
+                  anchor: new Microsoft.Maps.Point(12, 12),
+                  title: shape.metadata.name
+                });
+              } else if (shape instanceof Microsoft.Maps.Polyline) {
+                const c = shape.metadata.line_color.match(/^(..)(..)(..)$/).slice(1).map(function (h) {
+                  return parseInt(h, 16);
+                });
+                c[3] = Math.round(255 * 0.5);
+                shape.setOptions({
+                  strokeThickness: Number(shape.metadata.line_size),
+                  strokeColor: new Microsoft.Maps.Color(c[3], c[2], c[1], c[0]),
+                  strokeDashArray: dash[shape.metadata.line_style]
+                });
+              }
+            });
+            track.add(data.shapes);
+          });
+        });
+        const popup = new Microsoft.Maps.Infobox(map.getCenter(), {
+          visible: false
+        });
+        popup.setMap(map);
+        Microsoft.Maps.Events.addHandler(track, 'click', function (event) {
+          const shape = event.target;
+          if (shape instanceof Microsoft.Maps.Pushpin) {
+            let body = '';
+            shape.metadata.cmt.split(',').forEach(function(item) {
+              const kv = item.split('=');
+              if (!kv[0].match(/^[ 　]*$/)) {
+                body += '<tr><td>' + kv[0] + '</td><td>' + kv[1] + '</td></tr>';
+              }
+            });
+            const html = body ? '<table><tbody>' + body + '</tbody></table>' : '';
+            popup.setOptions({
+              location: shape.getLocation(),
+              title: shape.metadata.name,
+              description: html,
+              visible: true
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

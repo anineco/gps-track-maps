@@ -1,0 +1,113 @@
+@charset "utf-8";
+body {
+  margin: 1em;
+  font-family: 'メイリオ', Meiryo, IPAexMincho, serif;
+  font-size: 16px;
+}
+h1 {
+  margin: 7px 0;
+  padding: 7px;
+  background-color: #ccf;
+}
+h2 {
+  margin: 14px 0 7px 0;
+  padding: 7px;
+  background-color: #eef;
+  border-left: #ccf 14px solid;
+}
+h3 {
+  margin: 14px 0 7px 0;
+  padding: 7px;
+  border-left: #ccf 14px solid;
+  border-bottom: #ccf 1px solid;
+}
+h4 {
+  margin: 14px 0 7px 0;
+  padding: 7px;
+  border-bottom: #ccf 1px solid;
+}
+.menu {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+.menu ul {
+  margin: 4px !important;
+  padding: 0;
+}
+.menu li {
+  display: inline;
+}
+table {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+table.base {
+  margin: 0 auto;
+  padding: 0;
+  border-collapse: collapse;
+  border: 2px solid #000;
+}
+.base th {
+  margin: 0px;
+  padding: 5px;
+  border: 1px solid #000;
+  background-color: #eef;
+}
+td {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+.base td {
+  margin: 0px;
+  padding: 5px;
+  border: 1px solid #000;
+}
+p a[href^="https:"]:after {
+  margin-left: 1px;
+  margin-right: 1px;
+  content: url(share/external-link-green04-Shapes4FREE.png);
+}
+p a[href^="http:"]:after {
+  margin-left: 1px;
+  margin-right: 1px;
+  content: url(share/external-link-red02-Shapes4FREE.png);
+}
+.routemap {
+  background-color: #fc9;
+  text-decoration: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #fcc #f96 #f96 #fcc;
+  border-radius: .4em; /* Opera 10.5, IE 9, Saf4+, Chrome, FF4+ */
+}
+div.src {
+  width: 95%;
+  margin: 1em auto;
+  padding: 0;
+}
+.src div {
+  margin: .5em;
+  font-family: Consolas, Menlo, 'VL Gothic', monospace;
+  font-size: .8rem;
+}
+.src pre {
+  padding: 2px;
+  border: 1px solid #888;
+  font-family: Consolas, Menlo, 'VL Gothic', monospace;
+  font-size: .8rem;
+}
+.prettyprint ol.linenums > li {
+  list-style-type: decimal; 
+}
+b {
+  font-weight: normal;
+  color: red;
+}
+i {
+  font-style: normal;
+  color: green;
+}
+address {
+  float: right;
+}

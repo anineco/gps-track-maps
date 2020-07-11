@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Web Maps example</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css">
+    <style>
+      body {
+        margin: 0;
+      }
+      #map {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
+    <script>
+      const param = {
+        lon: 139.435076, lat: 36.354746, zoom: 15
+      };
+
+      const view = new ol.View({
+        center: ol.proj.fromLonLat([param.lon, param.lat]),
+        zoom: param.zoom,
+        minZoom: 2,
+        maxZoom: 18
+      });
+      const std = new ol.layer.Tile({
+        source: new ol.source.XYZ({
+          attributions: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>',
+          url: 'https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'
+        })
+      });
+      const map = new ol.Map({
+        target: 'map',
+        layers: [std],
+        view: view
+      });
+    </script>
+  </body>
+</html>

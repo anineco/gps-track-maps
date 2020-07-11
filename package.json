@@ -2,33 +2,32 @@
   "name": "gps-track-maps",
   "version": "1.0.0",
   "description": "Showcase of web pages visualizing GPS track log, by using OpenLayers, leaflets, google and bing maps",
+  "private": true,
   "directories": {
     "doc": "docs"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build --public-url docs src/*.js"
+    "start": "parcel src/*.html",
+    "build": "parcel build --public-url . src/*.html"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anineco/gps-track-maps.git"
   },
-  "author": "anineco@nifty.com",
+  "author": "Nyanta Anineco <anineco@nifty.com>",
   "license": "ISC",
-  "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "es6-promise": "^4.2.8",
-    "fetch-polyfill": "^0.8.2",
-    "normalize.css": "^8.0.1",
-    "ol": "^6.3.1",
-    "url-polyfill": "^1.1.9",
-    "whatwg-fetch": "^3.0.0"
-  },
-  "devDependencies": {
-    "parcel-bundler": "^1.12.4"
-  },
   "bugs": {
     "url": "https://github.com/anineco/gps-track-maps/issues"
   },
-  "homepage": "https://github.com/anineco/gps-track-maps#readme"
+  "homepage": "https://github.com/anineco/gps-track-maps#readme",
+  "dependencies": {
+    "ol": "^6.3.1",
+    "ol-layerswitcher": "^3.6.0",
+    "ol-mapbox-style": "^6.1.2",
+    "ol-popup": "^4.0.0"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
 }

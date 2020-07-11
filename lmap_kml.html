@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>ルート地図</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin="">
+    <style>
+      body {
+        margin: 0;
+      }
+      #map {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+      .leaflet-popup h2 {
+        margin: 0;
+        padding: 0 2em 0 0;
+        font-size: 12px;
+        font-weight: bold;
+        color: red;
+      }
+      .leaflet-popup td {
+        font-size: 12px;
+        padding: 0;
+      }
+      .leaflet-popup td:first-child {
+        padding-right: 1em;
+        color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script><!-- IE11 -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin=""></script>
+    <script src="libs/L.KML.js"></script><!-- https://github.com/windycom/leaflet-kml -->
+    <script>
+      const param = {
+        lon: 139.435076, lat: 36.354746, zoom: 15,
+        url: '200411/decimate.kml'
+      };
+      location.search.slice(1).split('&').forEach(function (ma) {
+        const s = ma.split('=');
+        if (s[0] === 'url') {
+          param[s[0]] = decodeURIComponent(s[1]);
+        } else if (s[0] in param) {
+          param[s[0]] = Number(s[1]);
+        }
+      });
+
+      const map = L.map('map', {
+        center: [param.lat, param.lon],
+        zoom: param.zoom,
+        minZoom: 2,
+        maxZoom: 18
+      });
+      const std = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
+        attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+      });
+      const pale = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
+        attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+      });
+      const seamlessphoto = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg', {
+        attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
+      });
+      map.addLayer(std);
+
+      fetch(param.url).then(function (response) {
+        return response.text();
+      }).then(function (text) {
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, 'text/xml');
+        const track = new L.KML(xml);
+        map.addLayer(track);
+        L.control.layers(
+          { '標準': std, '淡色': pale, '写真': seamlessphoto },
+          { 'GPS': track }
+        ).addTo(map);
+      });
+    </script>
+  </body>
+</html>
