@@ -16,7 +16,7 @@
     "url": "git+https://github.com/anineco/gps-track-maps.git"
   },
   "author": "Nyanta Anineco <anineco@nifty.com>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/anineco/gps-track-maps/issues"
   },
