@@ -131,7 +131,7 @@ const track = new VectorLayer({
     url: param.url,
     format: new GPX({
       readExtensions: function (feature, extensions) {
-        const node = Array.prototype.slice.call(extensions.childNodes, 0); // IE11
+        const node = Array.prototype.slice.call(extensions.childNodes); // IE11
         node.forEach(function (elem) {
           if (elem.nodeName.startsWith('kashmir3d:')) {
             feature.set(elem.nodeName, elem.textContent);

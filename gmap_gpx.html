@@ -128,7 +128,7 @@
         rtes.forEach(function (rte) {
           const rtepts = Array.prototype.slice.call(rte.getElementsByTagName('rtept'));
           rtepts.forEach(function (rtept) {
-            if (rtept.getElementsByTagName('kashmir3d:icon').item(0).textContent !== '903001') { // IE11
+            if (rtept.getElementsByTagName('kashmir3d:icon').item(0).textContent !== '903001') {
               map.data.add(get_point(rtept));
             }
           });
