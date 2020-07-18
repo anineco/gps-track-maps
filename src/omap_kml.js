@@ -21,7 +21,7 @@ import Popup from 'ol-popup';
 
 const param = {
   lon: 139.435076, lat: 36.354746, zoom: 15,
-  url: '200411/decimate.kml'
+  url: 'example/routemap.kml'
 };
 location.search.slice(1).split('&').forEach(function (ma) {
   const s = ma.split('=');
