@@ -67,7 +67,7 @@
                 const c = shape.metadata.line_color.match(/^(..)(..)(..)$/).slice(1).map(function (h) {
                   return parseInt(h, 16);
                 });
-                c[3] = Math.round(255 * 0.5);
+                c[3] = 0.5;
                 shape.setOptions({
                   strokeThickness: Number(shape.metadata.line_size),
                   strokeColor: new Microsoft.Maps.Color(c[3], c[2], c[1], c[0]),

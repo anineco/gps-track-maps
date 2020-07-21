@@ -60,7 +60,7 @@
                 const c = shape.metadata._color.match(/^#(..)(..)(..)$/).slice(1).map(function (h) {
                   return parseInt(h, 16);
                 });
-                c[3] = Math.round(255 * shape.metadata._opacity);
+                c[3] = shape.metadata._opacity;
                 shape.setOptions({
                   strokeThickness: shape.metadata._weight,
                   strokeColor: new Microsoft.Maps.Color(c[3], c[0], c[1], c[2]),
