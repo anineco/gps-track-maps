@@ -10,7 +10,7 @@ import Map from 'ol/Map';
 import LayerSwitcher from 'ol-layerswitcher';
 
 const param = {
-  lon: 139.435076, lat: 36.354746, zoom: 15
+  lon: 139.435076, lat: 36.354746, zoom: 14
 };
 
 const view = new View({
