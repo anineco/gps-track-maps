@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Web Maps example</title>
-    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css'>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css">
     <style>
       body {
         margin: 0;
@@ -19,20 +19,29 @@
   </head>
   <body>
     <div id="map"></div>
-    <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
     <script>
       const param = {
         lon: 139.435076, lat: 36.354746, zoom: 13
       };
+      location.search.slice(1).split('&').forEach(function (ma) {
+        const s = ma.split('=');
+        if (s[0] === 'url') {
+          param[s[0]] = decodeURIComponent(s[1]);
+        } else if (s[0] in param) {
+          param[s[0]] = Number(s[1]);
+        }
+      });
 
       const map = new mapboxgl.Map({
         container: 'map',
-        style: 'https://raw.githubusercontent.com/gsi-cyberjapan/gsivectortile-mapbox-gl-js/master/std.json',
+        style: 'https://gsi-cyberjapan.github.io/gsivectortile-mapbox-gl-js/std.json',
         center: [param.lon, param.lat],
         zoom: param.zoom,
         minZoom: 5,
         maxZoom: 18
       });
+      map.addControl(new mapboxgl.NavigationControl());
     </script>
   </body>
 </html>
