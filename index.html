@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Web地図を利用したGPSログ表示</title>
+<link rel="stylesheet" href="css/common.css">
+<style>
+.t-c td { text-align: center; }
+.t1-l td:first-child { text-align: left; }
+.t3-l td:nth-child(3) { text-align: left; }
+</style>
+</head>
+<body>
+<div id="contents">
+<div class="menu">
+<ul>
+<li><a href="https://anineco.nyanta.jp/">電脳覚書</a> &gt;</li>
+<li><a href="https://anineco.nyanta.jp/bbs/">掲示板</a> |</li>
+<li><a href="https://github.com/anineco/gps-track-maps">GitHub</a> |</li>
+<li><a href="https://anineco.github.io/gpx2geojson/">GPX2GeoJSON</a></li>
+</ul>
+</div><!-- end menu -->
+<h1>Web地図を利用したGPSログ表示</h1>
+<p>ハンドヘルドGPSやスマホのGPSアプリで記録したログ（移動軌跡）をWeb地図に上乗せし、ユーザサイトに設置して表示する方法を説明します。このページでは、GPSログを上乗せ表示した地図一般を「ルート地図」と呼んでいます。JavaScriptライブラリとして<a href="https://openlayers.org">OpenLayers</a>／<a href="https://leafletjs.com">Leaflet</a>／<a href="https://developers.google.com/maps/documentation/javascript/?hl=ja">Google Maps API</a>／<a href="https://docs.microsoft.com/en-us/bingmaps/v8-web-control/">Bing Maps API</a>／<a href="https://docs.mapbox.com/mapbox-gl-js/">Mapbox GL JS</a>、GPSログのファイル形式として<a href="https://developers.google.com/kml?hl=ja">KML</a>／<a href="https://geojson.org">GeoJSON</a>／<a href="https://www.topografix.com/gpx.asp">GPX</a>をそれぞれ用いた場合のルート地図のHTMLコードを<a href="https://github.com/anineco/gps-track-maps">GitHub</a>で公開しています。</p>
+<h2>基本仕様</h2>
+<ul>
+<li>モバイル対応：フレームのサイズに追従し、常にフレーム全体で表示。</li>
+<li>モダンブラウザ（Chrome、Firefox、Safari、Microsoft Edge）とInternet Explorer 11に対応。</li>
+<li>ユーザサイトに設置するファイルは基本的に、サイト内で共通のHTMLファイルが1つと、表示するルート地図毎にGPSデータファイルが1つ。</li>
+<li>GPSデータファイルの形式は次の3種類のうちのいずれか一つ。
+<ol>
+<li>GPX：カシミール3Dから出力されたもの。<br>
+<code>xmlns:kashmir3d="http://www.kashmir3d.com/namespace/kashmir3d"</code>をもつ。</li>
+<li>KML：「KMLウェブ地図プロファイル」に準拠したもの。</li>
+<li>GeoJSON：「スタイルつきGeoJSON規約」に準拠したもの。</li>
+</ol>
+</li>
+<li>カシミール3Dで指定したウェイポイントのアイコン画像や、トラックに指定した線色、線幅、線種をWeb地図で再現して表示（一部に制約あり）。
+<li>カシミール3Dで出力したGPXファイルをKMLファイルやGeoJSONファイルに変換するツール（<a href="https://anineco.github.io/gpx2geojson/">GPX2GeoJSON</a>）も公開。
+<li>HTML5 + CSS3 + JavaScript (ES2015) で記述。</li>
+<li>MITライセンスで公開。</li>
+</ul>
+<p>「KMLウェブ地図プロファイル」と「スタイルつきGeoJSON規約」の詳細については、国土地理院HPの「<a href="https://maps.gsi.go.jp/development/sakuzu_siyou.html">作図・ファイル機能のデータ仕様</a>」を参照してください。</p>
+<h2>表示例</h2>
+図1(a)はカシミール3Dで作成したルート地図を画像ファイルとして保存・表示したもの、図1(b)は同じルート地図をLeafletとGeoJSONを用いてWeb地図として表示したものです。図1(b)はWeb地図の基本的な操作（スクロール、ズーム、地図切替）に加え、アイコンをクリックしてポップアップ窓を開くことができます。</p>
+<p style="text-align:center;">
+<img width="640" height="480" src="images/ashikaga.png" style="border-style:inset;border-width:2px;"><br>
+(a) カシミール3Dで作成したルート地図（PNG画像）
+</p>
+<p style="text-align:center;">
+<iframe width="640" height="480" style="border-style:inset;border-width:2px;"
+  src="lmap_geojson.html?lon=139.435076&amp;lat=36.354746&amp;zoom=14&amp;url=example/routemap.geojson">
+</iframe><br>
+(b) Leaflet + GeoJSON によるルート地図<br>
+図1 ルート地図の作例
+</p>
+<p>その他の表示例は、次表の中のボタンをクリックすると、別窓が開いて閲覧することができます。窓はブラウザの閉じるボタンで閉じて下さい。なお、「地図データ」と「複数」の列は、GPSデータの上乗せ表示なしの地図のみの表示例、Mapbox GL JS（+GSIBV）は国土地理院が実験的に提供している<a href="http://maps.gsi.go.jp/development/vt.html">ベクトルタイル</a>を利用した実験的なコードです。</p>
+<table class="base t-c t1-l">
+<caption>表1 JavaScriptライブラリとGPSファイル形式の組み合わせ毎のルート地図の表示例</caption>
+<thead>
+<tr><th rowspan="2">JavaScriptライブラリ</th><th rowspan="2">APIキー</th><th colspan="2">地図データ</th><th rowspan="2">複数</th><th colspan="4">GPSファイル形式</th></tr>
+<tr><th>ラスタ</th><th>ベクタ</th><th colspan="2">KML</th><th>GeoJSON</th><th>GPX</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td>Leaflet 1.6.0</td>
+  <td>不要</td>
+  <td><a href="lmap_basic.html" onclick="return routemap(this.href)"></a></td>
+  <td></td>
+  <td><a href="lmap_bases.html" onclick="return routemap(this.href)"></a></td>
+  <td><a href="lmap_kml.html" onclick="return routemap(this.href)"></a> ※1</td>
+  <td><a href="lmap_kml_rev.html" onclick="return routemap(this.href)"></a> ※2</td>
+  <td><a href="lmap_geojson.html" onclick="return routemap(this.href)"></a></td>
+  <td><a href="lmap_gpx.html" onclick="return routemap(this.href)"></a></td>
+</tr>
+<tr>
+  <td>OpenLayers v6.4.3</td>
+  <td>不要</td>
+  <td><a href="omap_basic.html" onclick="return routemap(this.href)"></a></td>
+  <td></td>
+  <td><a href="omap_bases.html" onclick="return routemap(this.href)"></a></td>
+  <td><a href="omap_kml.html" onclick="return routemap(this.href)"></a></td>
+  <td></td>
+  <td><a href="omap_geojson.html" onclick="return routemap(this.href)"></a></td>
+  <td><a href="omap_gpx.html" onclick="return routemap(this.href)"></a></td>
+</tr>
+<tr>
+  <td>OpenLayers v6.4.3 (npm)</td>
+  <td>↑</td>
+  <td><a href="dist/omap_basic.html" onclick="return routemap(this.href)"></a></td>
+  <td><a href="dist/omap_gsibv.html" onclick="return routemap(this.href)"></a></td>
+  <td><a href="dist/omap_bases.html" onclick="return routemap(this.href)"></a></td>
+  <td><a href="dist/omap_kml.html" onclick="return routemap(this.href)"></a></td>
+  <td></td>
+  <td><a href="dist/omap_geojson.html" onclick="return routemap(this.href)"></a></td>
+  <td><a href="dist/omap_gpx.html" onclick="return routemap(this.href)"></a></td>
+</tr>
+<tr>
+  <td>Google Maps API</td>
+  <td>要</td>
+  <td><a href="dist/gmap_basic.html" onclick="return routemap(this.href)"></a></td>
+  <td></td>
+  <td></td>
+  <td><a href="dist/gmap_kml.html" onclick="return routemap(this.href)"></a> ※3</td>
+  <td><a href="dist/gmap_kml_rev.html" onclick="return routemap(this.href)"></a> ※4</td>
+  <td><a href="dist/gmap_geojson.html" onclick="return routemap(this.href)"></a></td>
+  <td><a href="dist/gmap_gpx.html" onclick="return routemap(this.href)"></a></td>
+</tr>
+<tr>
+  <td>Bing Maps API</td>
+  <td>要</td>
+  <td><a href="dist/bmap_basic.html" onclick="return routemap(this.href)"></a></td>
+  <td></td>
+  <td></td>
+  <td><a href="dist/bmap_kml.html" onclick="return routemap(this.href)"></a> ※5</td>
+  <td><a href="dist/bmap_kml_rev.html" onclick="return routemap(this.href)"></a> ※6</td>
+  <td><a href="dist/bmap_geojson.html" onclick="return routemap(this.href)"></a></td>
+  <td><a href="dist/bmap_gpx.html" onclick="return routemap(this.href)"></a></td>
+</tr>
+<tr>
+  <td>Mapbox GL JS</td>
+  <td>要</td>
+  <td></td>
+  <td><a href="dist/mmap_basic.html" onclick="return routemap(this.href)"></a></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>Mapbox GL JS + GSIBV</td>
+  <td>不要</td>
+  <td></td>
+  <td><a href="mmap_gsibv.html" onclick="return routemap(this.href)"></a></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td><a href="mmap_geojson.html" onclick="return routemap(this.href)"></a></td>
+  <td></td>
+</tr>
+</tbody>
+</table>
+<p>※1： サードパーティのL.KML.jsが必要。<br>
+※2： ※1の改良版。L.KML.jsは不要。線種は点線に固定。<br>
+※3： KMLファイルはイントラネットに置けない。<br>
+※4： ※3の制約を解消した改良版。<br>
+※5： Bing Maps APIに不具合があり、ある条件（description要素はCDATA、Style要素が前でPlacemark要素が後）を満たさないKMLファイルは読み込めない。<br>
+※6： ※5の制約を解消した改良版。線種は点線に固定。</p>
+<h3>設置手順</h3>
+<p>図1(b)を例として、ルート地図をユーザサイトに設置する手順の概略を次に示します。なお、Google Maps APIなど、APIキーが必要な場合は、HTMLファイル中の<code>_YOUR_API_KEY_</code>を各自で取得したAPIキーに書き換える必要があります。</p>
+<ol>
+<li>ハンドヘルドGPSやスマホのGPSアプリで記録したログをカシミール3Dに読み込む。</li>
+<li>カシミール3DでGPSデータを編集し、図2のようなルート地図を作成する。</li>
+<li>編集したGPSデータをGPX形式でファイルに保存する。</li>
+<li>GPX2GeoJSON（GPX→GeoJSONコンバータ）を用いて、保存したGPXファイルをGeoJSONファイルに変換する。</li>
+<li>ユーザサイトにルート地図用HTMLファイルとGeoJSONファイルをアップロードし、次のようなディレクトリ構造とする。赤字はアップロードしたファイルを表す。
+<div class="src">
+<pre>
+.
+├── your_page.html
+├── <b>lmap_geojson.html</b>
+└── example
+     └── <b>routemap.geojson</b>
+</pre>
+</div><!-- .src -->
+注：lmap_kml.htmlの場合のみ、<a href="https://github.com/windycom/leaflet-kml">leaflet-kml</a>のL.KML.jsを追加して配置する必要があります。
+<div class="src">
+<pre>
+.
+├── your_page.html
+├── <b>lmap_kml.html</b>
+├── libs
+│    └── <b>L.KML.js</b>
+└── example
+     └── <b>routemap.kml</b>
+</pre>
+</div><!-- .src -->
+</li>
+<li>次のようなiframe要素のHTMLコードを対象ページのHTMLファイルに挿入する。このHTMLコードで、表示範囲の中心座標（経度、緯度）やズームレベルの初期値、上乗せするGPSデータのURLを指定する。
+<div class="src">
+<pre>
+&lt;iframe width=&quot;<i>640</i>&quot; height=&quot;<i>480</i>&quot;
+  src=&quot;<b>lmap_geojson.html</b>?lat=<i>36.354746</i>&amp;amp;lon=<i>139.435076</i>&amp;amp;zoom=<i>13</i>&amp;amp;url=<b>example/routemap.geojson</b>&quot;&gt;
+&lt;/iframe&gt;
+</pre>
+</div><!-- .src -->
+</li>
+<li>上記のiframe要素の代わりに、以下のscript要素とa要素のHTMLコードを用いると、別窓がポップアップしてルート地図を表示する。
+<div class="src">
+<pre>
+&lt;script&gt;
+function routemap(url) {
+  window.open(url, 'ROUTEMAP', 'width=640,height=480,resizable=yes');
+  return false;
+}
+&lt;/script&gt;
+</pre>
+<pre>
+&lt;a href=&quot;<b>lmap_geojson.html</b>?lat=<i>36.354746</i>&amp;amp;lon=<i>139.435076</i>&amp;amp;zoom=<i>13</i>&amp;amp;url=<b>example/routemap.geojson</b>&quot;
+  onclick=&quot;return routemap(this.href)&quot;&gt;ルート地図&lt;/a&gt;
+</pre>
+</div>
+</li>
+</ol>
+<p>なお、ルート地図用HTMLファイルは、使用するJavaScriptライブラリとGPSデータのファイル形式の組み合わせ毎に異なるファイルとなり、ファイル名は<span style="color:blue;">X</span>map_<span style="color:blue;">Y</span>.htmlとなります。ここで、<span style="color:blue;">X</span>はJavaScriptライブラリの頭文字（l, o, g, b, m）、<span style="color:blue;">Y</span>はGPSデータのファイル形式（kml, geojson, gpx）です。これらのルート地図を設置する場合も、設置手順は基本的に同じです。</p>
+<h2>更新履歴</h2>
+<table class="base">
+<tbody>
+<tr>
+<td valign="top">2020-08-12</td>
+<td valign="top">HTMLコードのサンプルを拡充。</td>
+</tr>
+<tr>
+<td valign="top">2019-12-29</td>
+<td valign="top">OpenLayers 6.1.1、Leaflet 1.6.0にバージョンアップ。<br>
+Bingマップ版の不具合（The specified credentials are invalid.）を改訂。</td>
+</tr>
+<tr>
+<td valign="top">2019-07-07</td>
+<td valign="top">サイトを全面的に改訂。GPX2GeoJSONを公開。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<address>&copy; 2019-2020 <a href="https://anineco.nyanta.jp/">あにねこ電脳覚書</a></address>
+</div><!-- #contents -->
+<script>
+function routemap(url) {
+  if (window.innerWidth < 650) {
+    window.open(url, 'ROUTEMAP');
+  } else {
+    window.open(url, 'ROUTEMAP', 'width=640,height=480,resizable=yes');
+  }
+  return false;
+}
+Array.prototype.slice.call(document.querySelectorAll('a[onclick="return routemap(this.href)"]')).forEach(function (a) {
+  const img = document.createElement('img');
+  img.setAttribute('src', 'images/newwin_16.png');
+  img.setAttribute('srcset', 'images/newwin_32.png 2x');
+  img.setAttribute('width', 16);
+  img.setAttribute('height', 16);
+  a.appendChild(img);
+});
+</script>
+</body>
+</html>

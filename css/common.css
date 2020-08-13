@@ -1,8 +1,13 @@
 @charset "utf-8";
 body {
   margin: 1em;
-  font-family: 'メイリオ', Meiryo, IPAexMincho, serif;
+  font-family: 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
   font-size: 16px;
+  line-height:1.6;
+}
+#contents {
+  width: 980px;
+  margin: 0 auto;
 }
 h1 {
   margin: 7px 0;
@@ -66,12 +71,12 @@ td {
 p a[href^="https:"]:after {
   margin-left: 1px;
   margin-right: 1px;
-  content: url(share/external-link-green04-Shapes4FREE.png);
+  content: url(../images/external-link-green02-Shapes4FREE.png);
 }
 p a[href^="http:"]:after {
   margin-left: 1px;
   margin-right: 1px;
-  content: url(share/external-link-red02-Shapes4FREE.png);
+  content: url(../images/external-link-red02-Shapes4FREE.png);
 }
 .routemap {
   background-color: #fc9;
