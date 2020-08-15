@@ -55,7 +55,8 @@
 (b) Leaflet + GeoJSON によるルート地図<br>
 図1 ルート地図の作例
 </p>
-<p>その他の表示例は、次表の中のボタンをクリックすると、別窓が開いて閲覧することができます。窓はブラウザの閉じるボタンで閉じて下さい。なお、「地図データ」と「複数」の列は、GPSデータの上乗せ表示なしの地図のみの表示例、Mapbox GL JS（+GSIBV）は国土地理院が実験的に提供している<a href="http://maps.gsi.go.jp/development/vt.html">ベクトルタイル</a>を利用した実験的なコードです。</p>
+<p>その他の表示例は、次表の中の <img src="images/newwin_16.png" srcset="images/newwin_32.png 2x" width="16" height="16"> ボタンをクリックすると、別窓が開いて閲覧することができます。OpenLayers の場合は、Shift+Alt+マウス左ボタンで地図を回転させることができます。</p>
+<p>なお、「地図データ」と「複数」の列は、GPSデータの上乗せ表示なしの地図のみの表示例です。また、OpenLayers (npm) の行は、<a href="https://www.npmjs.com/package/ol">ol</a>パッケージを用いたもの（JavaScriptのファイルサイズが約6割まで削減される）、Mapbox GL JS（+GSIBV）の行は国土地理院が実験的に提供している<a href="http://maps.gsi.go.jp/development/vt.html">ベクトルタイル</a>を利用した実験的なコードです。</p>
 <table class="base t-c t1-l">
 <caption>表1 JavaScriptライブラリとGPSファイル形式の組み合わせ毎のルート地図の表示例</caption>
 <thead>
@@ -86,8 +87,8 @@
   <td><a href="omap_gpx.html" onclick="return routemap(this.href)"></a></td>
 </tr>
 <tr>
-  <td>OpenLayers v6.4.3 (npm)</td>
-  <td>↑</td>
+  <td>OpenLayers (npm)</td>
+  <td>不要</td>
   <td><a href="dist/omap_basic.html" onclick="return routemap(this.href)"></a></td>
   <td><a href="dist/omap_gsibv.html" onclick="return routemap(this.href)"></a></td>
   <td><a href="dist/omap_bases.html" onclick="return routemap(this.href)"></a></td>
@@ -142,7 +143,7 @@
 </tr>
 </tbody>
 </table>
-<p>※1： サードパーティのL.KML.jsが必要。<br>
+<p>※1： サードパーティの<a href="https://github.com/windycom/leaflet-kml">L.KML.js</a>が必要。<br>
 ※2： ※1の改良版。L.KML.jsは不要。線種は点線に固定。<br>
 ※3： KMLファイルはイントラネットに置けない。<br>
 ※4： ※3の制約を解消した改良版。<br>
@@ -165,7 +166,7 @@
      └── <b>routemap.geojson</b>
 </pre>
 </div><!-- .src -->
-注：lmap_kml.htmlの場合のみ、<a href="https://github.com/windycom/leaflet-kml">leaflet-kml</a>のL.KML.jsを追加して配置する必要があります。
+注：lmap_kml.htmlの場合は、<a href="https://github.com/windycom/leaflet-kml">leaflet-kml</a>のL.KML.jsを追加して配置する必要があります。
 <div class="src">
 <pre>
 .
@@ -178,7 +179,7 @@
 </pre>
 </div><!-- .src -->
 </li>
-<li>次のようなiframe要素のHTMLコードを対象ページのHTMLファイルに挿入する。このHTMLコードで、表示範囲の中心座標（経度、緯度）やズームレベルの初期値、上乗せするGPSデータのURLを指定する。
+<li>次のようなiframe要素のHTMLコードを対象ページのHTMLファイルに挿入する。このHTMLコードで、表示範囲の中心座標（経度<code>lat</code>、緯度<code>lon</code>、単位は10進数の度）やズームレベル、上乗せするGPSデータのURLを指定する。
 <div class="src">
 <pre>
 &lt;iframe width=&quot;<i>640</i>&quot; height=&quot;<i>480</i>&quot;
