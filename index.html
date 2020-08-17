@@ -55,7 +55,8 @@
 図1 ルート地図の作例
 </p>
 <p>JavaScriptライブラリとGPSファイル形式のその他の組み合わせの表示例は、次表の中の <img src="images/newwin_16.png" srcset="images/newwin_32.png 2x" width="16" height="16"> ボタンをクリックすると、別窓が開いて閲覧することができます。なお、OpenLayers の場合は、Shift+Alt+マウス左ボタンで地図を回転させることができます。</p>
-<p>表中、「地図データ」と「複数」の列は、GPSデータの上乗せ表示なしの地図のみの表示例です。また、OpenLayers (npm) の行は、<a href="https://www.npmjs.com/package/ol">ol</a>パッケージを用いたもの（JavaScriptライブラリのファイルサイズが約6割まで削減される）、Mapbox GL JS（+GSIBV）の行は国土地理院が実験的に提供している<a href="https://maps.gsi.go.jp/development/vt.html">ベクトルタイル</a>を利用した実験的なコードです。</p>
+<p>表中、「地図データ／ラスタ」の列は、GPSデータの上乗せ表示のない最も簡易な地図のみの表示例、「複数」の列はそれに複数地図の切換機能を付加した表示例です。</p>
+<p>OpenLayers (npm) の行は、<a href="https://www.npmjs.com/package/ol">ol</a>パッケージを用いたもので、JavaScriptライブラリのファイルサイズを約6割まで削減できますが、設置には npm の知識が必要になります。また、Mapbox GL JS + GSIBVの行は、国土地理院が実験的に提供している<a href="https://maps.gsi.go.jp/development/vt.html">ベクトルタイル</a>を利用した実験的なコードです（ベクトルタイルの表示例は<a href="https://github.com/anineco/ol-gsibv-style">ol-gsibv-style</a>にもあります）。これらについての詳しい説明は割愛します。</p>
 <table class="base t-c t1-l">
 <caption>表1 JavaScriptライブラリとGPSファイル形式の組み合わせ毎のルート地図の表示例</caption>
 <thead>
@@ -165,7 +166,7 @@
      └── <b>routemap.geojson</b>
 </pre>
 </div><!-- .src -->
-<p>注：lmap_kml.htmlの場合は、<a href="https://github.com/windycom/leaflet-kml">leaflet-kml</a>のL.KML.jsを追加して配置する必要があります。</p>
+<p>注：lmap_kml.htmlの場合は、<a href="https://github.com/windycom/leaflet-kml">leaflet-kml</a>のL.KML.jsを追加して配置する必要がある。</p>
 <div class="src">
 <pre>
 .
@@ -178,7 +179,7 @@
 </pre>
 </div><!-- .src -->
 </li>
-<li>次のようなiframe要素のHTMLコードを対象ページのHTMLファイルに挿入する。このHTMLコードで、表示範囲の中心座標（経度<code>lat</code>、緯度<code>lon</code>、単位は10進数の度）やズームレベル、上乗せするGPSデータのURLを指定する。
+<li>次のようなiframe要素のHTMLコードを対象ページのHTMLファイル（your_page.html）に挿入する。このHTMLコードで、表示範囲の中心座標（経度<code>lat</code>、緯度<code>lon</code>、単位は10進数の度）やズームレベル、上乗せするGPSデータのURLを指定する。
 <div class="src">
 <pre>
 &lt;iframe width=&quot;<i>640</i>&quot; height=&quot;<i>480</i>&quot;
@@ -187,7 +188,7 @@
 </pre>
 </div><!-- .src -->
 </li>
-<li>上記のiframe要素の代わりに、以下のscript要素とa要素のHTMLコードを用いると、別窓がポップアップしてルート地図を表示する。
+<li>上記のiframe要素の代わりに、以下のscript要素とa要素のHTMLコードを挿入すると、別窓がポップアップしてルート地図を表示する。
 <div class="src">
 <pre>
 &lt;script&gt;
@@ -204,7 +205,7 @@ function routemap(url) {
 </div>
 </li>
 </ol>
-<p>なお、ルート地図用HTMLファイルは、使用するJavaScriptライブラリとGPSデータのファイル形式の組み合わせ毎に異なるファイルとなり、ファイル名は<span style="color:blue;">X</span>map_<span style="color:blue;">Y</span>.htmlとなります。ここで、<span style="color:blue;">X</span>はJavaScriptライブラリの頭文字（l, o, g, b, m）、<span style="color:blue;">Y</span>はGPSデータのファイル形式（kml, geojson, gpx）です。これらのルート地図を設置する場合も、設置手順は基本的に同じです。</p>
+<p>なお、ルート地図用HTMLファイルは、使用するJavaScriptライブラリとGPSデータのファイル形式の組み合わせ毎に異なるHTMLファイルとなり、ファイル名は<span style="color:blue;">X</span>map_<span style="color:blue;">Y</span>.html、または<span style="color:blue;">X</span>map_<span style="color:blue;">Y</span>_rev.html（改良版）となります。ここで、<span style="color:blue;">X</span>はJavaScriptライブラリの頭文字（l, o, g, b, m）、<span style="color:blue;">Y</span>はGPSデータのファイル形式（kml, geojson, gpx）です。これらのルート地図を設置する場合も、設置手順は同様です。</p>
 <h2>更新履歴</h2>
 <p>誤字・脱字、リンク切れ等の小さな不具合の修正は随時行っています。</p>
 <table class="base">
