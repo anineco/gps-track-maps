@@ -22,18 +22,17 @@
 </ul>
 </div><!-- end menu -->
 <h1>Web地図を利用したGPSログ表示</h1>
-<p>ハンドヘルドGPSやスマホのGPSアプリで記録したログ（移動軌跡）をWeb地図に上乗せし、ユーザサイトに設置して表示する方法を説明します。このページでは、GPSログを上乗せ表示した地図一般を「ルート地図」と呼んでいます。JavaScriptライブラリとして<a href="https://openlayers.org">OpenLayers</a>／<a href="https://leafletjs.com">Leaflet</a>／<a href="https://developers.google.com/maps/documentation/javascript/?hl=ja">Google Maps API</a>／<a href="https://docs.microsoft.com/en-us/bingmaps/v8-web-control/">Bing Maps API</a>／<a href="https://docs.mapbox.com/mapbox-gl-js/">Mapbox GL JS</a>、GPSログのファイル形式として<a href="https://developers.google.com/kml?hl=ja">KML</a>／<a href="https://geojson.org">GeoJSON</a>／<a href="https://www.topografix.com/gpx.asp">GPX</a>をそれぞれ用いた場合のルート地図のHTMLコードを<a href="https://github.com/anineco/gps-track-maps">GitHub</a>で公開しています。</p>
+<p>ハンドヘルドGPSやスマホのGPSアプリで記録したログ（移動軌跡）をWeb地図に上乗せし、ユーザのサイトに設置して表示する方法を説明します。このページでは、GPSログを上乗せ表示した地図一般を「ルート地図」と呼んでいます。JavaScriptライブラリとして<a href="https://openlayers.org">OpenLayers</a>／<a href="https://leafletjs.com">Leaflet</a>／<a href="https://developers.google.com/maps/documentation/javascript/?hl=ja">Google Maps API</a>／<a href="https://docs.microsoft.com/en-us/bingmaps/v8-web-control/">Bing Maps API</a>／<a href="https://docs.mapbox.com/mapbox-gl-js/">Mapbox GL JS</a>、GPSログのファイル形式として<a href="https://developers.google.com/kml?hl=ja">KML</a>／<a href="https://geojson.org">GeoJSON</a>／<a href="https://www.topografix.com/gpx.asp">GPX</a>をそれぞれ用いた場合のルート地図のHTMLコードを<a href="https://github.com/anineco/gps-track-maps">GitHub</a>で公開しています。</p>
 <h2>基本仕様</h2>
 <ul>
 <li>モバイル対応：フレームのサイズに追従し、常にフレーム全体で表示。</li>
 <li>モダンブラウザ（Chrome、Firefox、Safari、Microsoft Edge）とInternet Explorer 11に対応。</li>
 <li>ユーザサイトに設置するファイルは基本的に、サイト内で共通のHTMLファイルが1つと、表示するルート地図毎にGPSデータファイルが1つ。</li>
-<li>GPSデータファイルの形式は次の3種類のうちのいずれか一つ。
+<li>GPSデータのファイル形式は次の3種類のうちのいずれか一つ。
 <ol>
-<li>GPX：カシミール3Dから出力されたもの。<br>
-<code>xmlns:kashmir3d="http://www.kashmir3d.com/namespace/kashmir3d"</code>をもつ。</li>
-<li>KML：「KMLウェブ地図プロファイル」に準拠したもの。</li>
-<li>GeoJSON：「スタイルつきGeoJSON規約」に準拠したもの。</li>
+<li>GPX：カシミール3Dから出力されたもので、<code>xmlns:kashmir3d="http://www.kashmir3d.com/namespace/kashmir3d"</code>をもつ。</li>
+<li>KML：「KMLウェブ地図プロファイル」に準拠したもの（注）。</li>
+<li>GeoJSON：「スタイルつきGeoJSON規約」に準拠したもの（注）。</li>
 </ol>
 </li>
 <li>カシミール3Dで指定したウェイポイントのアイコン画像や、トラックに指定した線色、線幅、線種をWeb地図で再現して表示（一部に制約あり）。
@@ -41,7 +40,7 @@
 <li>HTML5 + CSS3 + JavaScript (ES2015) で記述。</li>
 <li>MITライセンスで公開。</li>
 </ul>
-<p>「KMLウェブ地図プロファイル」と「スタイルつきGeoJSON規約」の詳細については、国土地理院HPの「<a href="https://maps.gsi.go.jp/development/sakuzu_siyou.html">作図・ファイル機能のデータ仕様</a>」を参照してください。</p>
+<p>注：「KMLウェブ地図プロファイル」と「スタイルつきGeoJSON規約」の詳細については、国土地理院HPの「<a href="https://maps.gsi.go.jp/development/sakuzu_siyou.html">作図・ファイル機能のデータ仕様</a>」を参照してください。</p>
 <h2>表示例</h2>
 図1(a)はカシミール3Dで作成したルート地図を画像ファイルとして保存・表示したもの、図1(b)は同じルート地図をLeafletとGeoJSONを用いてWeb地図として表示したものです。図1(b)はWeb地図の基本的な操作（スクロール、ズーム、地図切替）に加え、アイコンをクリックしてポップアップ窓を開くことができます。</p>
 <p style="text-align:center;">
@@ -55,8 +54,8 @@
 (b) Leaflet + GeoJSON によるルート地図<br>
 図1 ルート地図の作例
 </p>
-<p>その他の表示例は、次表の中の <img src="images/newwin_16.png" srcset="images/newwin_32.png 2x" width="16" height="16"> ボタンをクリックすると、別窓が開いて閲覧することができます。OpenLayers の場合は、Shift+Alt+マウス左ボタンで地図を回転させることができます。</p>
-<p>なお、「地図データ」と「複数」の列は、GPSデータの上乗せ表示なしの地図のみの表示例です。また、OpenLayers (npm) の行は、<a href="https://www.npmjs.com/package/ol">ol</a>パッケージを用いたもの（JavaScriptのファイルサイズが約6割まで削減される）、Mapbox GL JS（+GSIBV）の行は国土地理院が実験的に提供している<a href="http://maps.gsi.go.jp/development/vt.html">ベクトルタイル</a>を利用した実験的なコードです。</p>
+<p>JavaScriptライブラリとGPSファイル形式のその他の組み合わせの表示例は、次表の中の <img src="images/newwin_16.png" srcset="images/newwin_32.png 2x" width="16" height="16"> ボタンをクリックすると、別窓が開いて閲覧することができます。なお、OpenLayers の場合は、Shift+Alt+マウス左ボタンで地図を回転させることができます。</p>
+<p>表中、「地図データ」と「複数」の列は、GPSデータの上乗せ表示なしの地図のみの表示例です。また、OpenLayers (npm) の行は、<a href="https://www.npmjs.com/package/ol">ol</a>パッケージを用いたもの（JavaScriptライブラリのファイルサイズが約6割まで削減される）、Mapbox GL JS（+GSIBV）の行は国土地理院が実験的に提供している<a href="https://maps.gsi.go.jp/development/vt.html">ベクトルタイル</a>を利用した実験的なコードです。</p>
 <table class="base t-c t1-l">
 <caption>表1 JavaScriptライブラリとGPSファイル形式の組み合わせ毎のルート地図の表示例</caption>
 <thead>
@@ -166,7 +165,7 @@
      └── <b>routemap.geojson</b>
 </pre>
 </div><!-- .src -->
-注：lmap_kml.htmlの場合は、<a href="https://github.com/windycom/leaflet-kml">leaflet-kml</a>のL.KML.jsを追加して配置する必要があります。
+<p>注：lmap_kml.htmlの場合は、<a href="https://github.com/windycom/leaflet-kml">leaflet-kml</a>のL.KML.jsを追加して配置する必要があります。</p>
 <div class="src">
 <pre>
 .
@@ -207,6 +206,7 @@ function routemap(url) {
 </ol>
 <p>なお、ルート地図用HTMLファイルは、使用するJavaScriptライブラリとGPSデータのファイル形式の組み合わせ毎に異なるファイルとなり、ファイル名は<span style="color:blue;">X</span>map_<span style="color:blue;">Y</span>.htmlとなります。ここで、<span style="color:blue;">X</span>はJavaScriptライブラリの頭文字（l, o, g, b, m）、<span style="color:blue;">Y</span>はGPSデータのファイル形式（kml, geojson, gpx）です。これらのルート地図を設置する場合も、設置手順は基本的に同じです。</p>
 <h2>更新履歴</h2>
+<p>誤字・脱字、リンク切れ等の小さな不具合の修正は随時行っています。</p>
 <table class="base">
 <tbody>
 <tr>
