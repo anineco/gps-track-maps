@@ -166,7 +166,7 @@ function getHTML(feature) {
 
 const popup = new Popup();
 map.addOverlay(popup);
-map.on('singleclick', function (evt) {
+map.on('click', function (evt) {
   let html;
   const found = map.forEachFeatureAtPixel(
     evt.pixel,
