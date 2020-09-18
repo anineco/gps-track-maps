@@ -23,8 +23,8 @@
   "homepage": "https://github.com/anineco/gps-track-maps#readme",
   "dependencies": {
     "ol": "^6.4.3",
-    "ol-layerswitcher": "^3.6.0",
-    "ol-mapbox-style": "^6.1.2",
+    "ol-layerswitcher": "^3.7.0",
+    "ol-mapbox-style": "^6.1.4",
     "ol-popup": "^4.0.0"
   },
   "devDependencies": {
