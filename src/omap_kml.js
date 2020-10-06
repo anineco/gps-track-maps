@@ -94,18 +94,21 @@ function getHTML(feature) {
 const popup = new Popup();
 map.addOverlay(popup);
 map.on('click', function (evt) {
+  let coordinate;
   let html;
-  const found = map.forEachFeatureAtPixel(
+  map.forEachFeatureAtPixel(
     evt.pixel,
     function (feature, layer) {
-      if (feature.getGeometry().getType() !== 'Point') {
+      const geometry = feature.getGeometry();
+      if (geometry.getType() !== 'Point') {
         return false;
       }
+      coordinate = geometry.getCoordinates();
       html = getHTML(feature);
       return true;
     }
   );
-  popup.show(found ? evt.coordinate : undefined, html);
+  popup.show(coordinate, html);
 });
 map.on('pointermove', function (evt) {
   if (evt.dragging) { return; }
