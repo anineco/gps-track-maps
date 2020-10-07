@@ -31,8 +31,8 @@
 <li>GPSデータのファイル形式は次の3種類のうちのいずれか一つ。
 <ol>
 <li>GPX：カシミール3Dから出力されたもので、<code>xmlns:kashmir3d="http://www.kashmir3d.com/namespace/kashmir3d"</code>をもつ。</li>
-<li>KML：「KMLウェブ地図プロファイル」に準拠したもの（注）。</li>
-<li>GeoJSON：「スタイルつきGeoJSON規約」に準拠したもの（注）。</li>
+<li>KML：「KMLウェブ地図プロファイル」（注）に準拠したもの。ポイントとラインに対応。</li>
+<li>GeoJSON：「スタイルつきGeoJSON規約」（注）に準拠したもの。L.IconとL.Pathの属性名の一部に対応。</li>
 </ol>
 </li>
 <li>カシミール3Dで指定したウェイポイントのアイコン画像や、トラックに指定した線色、線幅、線種をWeb地図で再現して表示（一部に制約あり）。
@@ -55,12 +55,12 @@
 図1 ルート地図の作例
 </p>
 <p>JavaScriptライブラリとGPSファイル形式のその他の組み合わせの表示例は、次表の中の <img src="images/newwin_16.png" srcset="images/newwin_32.png 2x" width="16" height="16"> ボタンをクリックすると、別窓が開いて閲覧することができます。なお、OpenLayers の場合は、Shift+Alt+マウス左ボタンで地図を回転させることができます。</p>
-<p>表中、「地図データ／ラスタ」の列は、GPSデータの上乗せ表示のない最も簡易な地図のみの表示例、「複数」の列はそれに複数地図の切換機能を付加した表示例です。</p>
+<p>表中、「地図データ／ラスタ」の列は、GPSデータの上乗せ表示のない最も簡易な地図のみの表示例、「複数地図」の列はそれに複数の種類の地図を切り換えて表示する機能を付加した表示例です。</p>
 <p>OpenLayers (npm) の行は、<a href="https://www.npmjs.com/package/ol">ol</a>パッケージを用いたもので、JavaScriptライブラリのファイルサイズを約6割まで削減できますが、設置には npm の知識が必要になります。また、Mapbox GL JS + GSIBVの行は、国土地理院が実験的に提供している<a href="https://maps.gsi.go.jp/development/vt.html">ベクトルタイル</a>を利用した実験的なコードです（ベクトルタイルの表示例は<a href="https://github.com/anineco/ol-gsibv-style">ol-gsibv-style</a>にもあります）。これらについての詳しい説明は割愛します。</p>
 <table class="base t-c t1-l">
 <caption>表1 JavaScriptライブラリとGPSファイル形式の組み合わせ毎のルート地図の表示例</caption>
 <thead>
-<tr><th rowspan="2">JavaScriptライブラリ</th><th rowspan="2">APIキー</th><th colspan="2">地図データ</th><th rowspan="2">複数</th><th colspan="4">GPSファイル形式</th></tr>
+<tr><th rowspan="2">JavaScriptライブラリ</th><th rowspan="2">APIキー</th><th colspan="2">地図データ</th><th rowspan="2">複数<br>地図</th><th colspan="4">GPSファイル形式</th></tr>
 <tr><th>ラスタ</th><th>ベクタ</th><th colspan="2">KML</th><th>GeoJSON</th><th>GPX</th></tr>
 </thead>
 <tbody>
@@ -210,6 +210,11 @@ function routemap(url) {
 <p>誤字・脱字、リンク切れ等の小さな不具合の修正は随時行っています。</p>
 <table class="base">
 <tbody>
+<tr>
+<td valign="top">2020-10-07</td>
+<td valign="top">OpenLayers 6.4.3、Leaflet 1.7.1にバージョンアップ。<br>
+OpenLayersでポップアップが開く位置をアイコンの真上に変更。</td>
+</tr>
 <tr>
 <td valign="top">2020-08-12</td>
 <td valign="top">HTMLコードのサンプルを拡充。</td>

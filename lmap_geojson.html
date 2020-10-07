@@ -73,14 +73,13 @@
       });
       const std = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
         attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
-      });
+      }).addTo(map);
       const pale = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
         attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
       });
       const seamlessphoto = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg', {
         attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
       });
-      map.addLayer(std);
 
       fetch(param.url).then(function (response) {
         return response.json();
@@ -120,7 +119,8 @@
             }).join('') + '</tbody></table>';
           }
           return html;
-        }).addTo(map);
+        });
+        map.addLayer(track);
         L.control.layers(
           { '標準': std, '淡色': pale, '写真': seamlessphoto },
           { 'GPS': track }

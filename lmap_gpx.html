@@ -73,14 +73,13 @@
       });
       const std = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
         attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
-      });
+      }).addTo(map);
       const pale = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
         attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
       });
       const seamlessphoto = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg', {
         attribution: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
       });
-      map.addLayer(std);
 
       function get_marker(pt) { // wpt or rtept
         const latlng = new L.LatLng(pt.getAttribute('lat'), pt.getAttribute('lon'));
