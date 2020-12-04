@@ -1,5 +1,5 @@
 import 'ol/ol.css'
-import 'ol-layerswitcher/src/ol-layerswitcher.css';
+import 'ol-layerswitcher/dist/ol-layerswitcher.css';
 import 'ol-popup/src/ol-popup.css';
 import './omap_kml.css';
 import View from 'ol/View';

@@ -1,5 +1,5 @@
 import 'ol/ol.css';
-import 'ol-layerswitcher/src/ol-layerswitcher.css';
+import 'ol-layerswitcher/dist/ol-layerswitcher.css';
 import './omap_bases.css';
 import View from 'ol/View';
 import {fromLonLat} from 'ol/proj';
