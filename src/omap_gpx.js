@@ -167,8 +167,6 @@ function getHTML(feature) {
 const popup = new Popup();
 map.addOverlay(popup);
 map.on('click', function (evt) {
-  let coordinate;
-  let html;
   map.forEachFeatureAtPixel(
     evt.pixel,
     function (feature, layer) {
@@ -176,12 +174,10 @@ map.on('click', function (evt) {
       if (geometry.getType() !== 'Point') {
         return false;
       }
-      coordinate = geometry.getCoordinates();
-      html = getHTML(feature);
+      popup.show(geometry.getCoordinates(), getHTML(feature));
       return true;
     }
   );
-  popup.show(coordinate, html);
 });
 map.on('pointermove', function (evt) {
   if (evt.dragging) { return; }

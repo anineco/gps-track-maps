@@ -87,15 +87,9 @@ const data = new LayerGroup({
 map.addLayer(data);
 map.addControl(new LayerSwitcher());
 
-function getHTML(feature) {
-  return '<h2>' + feature.get('name') + '</h2>' + (feature.get('description') || '');
-};
-
 const popup = new Popup();
 map.addOverlay(popup);
 map.on('click', function (evt) {
-  let coordinate;
-  let html;
   map.forEachFeatureAtPixel(
     evt.pixel,
     function (feature, layer) {
@@ -103,12 +97,12 @@ map.on('click', function (evt) {
       if (geometry.getType() !== 'Point') {
         return false;
       }
-      coordinate = geometry.getCoordinates();
-      html = getHTML(feature);
+      popup.show(geometry.getCoordinates(),
+        '<h2>' + feature.get('name') + '</h2>' + (feature.get('description') || '')
+      );
       return true;
     }
   );
-  popup.show(coordinate, html);
 });
 map.on('pointermove', function (evt) {
   if (evt.dragging) { return; }
