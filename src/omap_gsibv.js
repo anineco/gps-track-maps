@@ -1,5 +1,5 @@
 import 'ol/ol.css';
-import './omap_gsibv.css';
+import './omap_common.css';
 import View from 'ol/View';
 import {fromLonLat} from 'ol/proj';
 import Map from 'ol/Map';
