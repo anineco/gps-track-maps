@@ -1,190 +1,227 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2">
-  <Document>
-    <Placemark>
-      <Point>
-        <coordinates>139.434786,36.337881</coordinates>
-      </Point>
-      <description>&lt;table&gt;&lt;tr&gt;&lt;td&gt;駐車&lt;/td&gt;&lt;td&gt;8台&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</description>
-      <name>足利公園</name>
-      <styleUrl>#N954025</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.435203,36.337233</coordinates>
-      </Point>
-      <name>第２号墳</name>
-      <styleUrl>#N952014</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.434467,36.339033</coordinates>
-      </Point>
-      <description>&lt;table&gt;&lt;tr&gt;&lt;td&gt;標高&lt;/td&gt;&lt;td&gt;93m&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</description>
-      <name>水道山</name>
-      <styleUrl>#N952015</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.428731,36.341503</coordinates>
-      </Point>
-      <name>稲荷神社</name>
-      <styleUrl>#N951005</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.428881,36.342828</coordinates>
-      </Point>
-      <name>石碑</name>
-      <styleUrl>#N951005</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.427831,36.342014</coordinates>
-      </Point>
-      <description>&lt;table&gt;&lt;tr&gt;&lt;td&gt;標高&lt;/td&gt;&lt;td&gt;96m&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</description>
-      <name>立岩山</name>
-      <styleUrl>#N952015</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.423647,36.345186</coordinates>
-      </Point>
-      <description>&lt;table&gt;&lt;tr&gt;&lt;td&gt;標高&lt;/td&gt;&lt;td&gt;81m&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</description>
-      <name>愛宕山</name>
-      <styleUrl>#N952015</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.426089,36.348533</coordinates>
-      </Point>
-      <name>船頭山</name>
-      <styleUrl>#N952015</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.426706,36.349272</coordinates>
-      </Point>
-      <name>天神様</name>
-      <styleUrl>#N951005</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.425583,36.352594</coordinates>
-      </Point>
-      <name>琴平山</name>
-      <styleUrl>#N951005</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.426481,36.354331</coordinates>
-      </Point>
-      <description>&lt;table&gt;&lt;tr&gt;&lt;td&gt;標高&lt;/td&gt;&lt;td&gt;160m&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</description>
-      <name>湯殿山</name>
-      <styleUrl>#N952015</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.429794,36.358783</coordinates>
-      </Point>
-      <name>山神社</name>
-      <styleUrl>#N951005</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.426406,36.362642</coordinates>
-      </Point>
-      <description>&lt;table&gt;&lt;tr&gt;&lt;td&gt;標高&lt;/td&gt;&lt;td&gt;297m&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</description>
-      <name>野山</name>
-      <styleUrl>#N952015</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.432106,36.368222</coordinates>
-      </Point>
-      <name>障子岩</name>
-      <styleUrl>#N952014</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.437928,36.372144</coordinates>
-      </Point>
-      <description>&lt;table&gt;&lt;tr&gt;&lt;td&gt;標高&lt;/td&gt;&lt;td&gt;417m&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</description>
-      <name>大岩山</name>
-      <styleUrl>#N952015</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.447061,36.365014</coordinates>
-      </Point>
-      <name>展望岩場</name>
-      <styleUrl>#N952014</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.448056,36.359033</coordinates>
-      </Point>
-      <name>雷電神社分岐</name>
-      <styleUrl>#N951005</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.448003,36.353542</coordinates>
-      </Point>
-      <description>&lt;table&gt;&lt;tr&gt;&lt;td&gt;標高&lt;/td&gt;&lt;td&gt;251m&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</description>
-      <name>両崖山</name>
-      <styleUrl>#N952015</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.441158,36.353775</coordinates>
-      </Point>
-      <description>&lt;table&gt;&lt;tr&gt;&lt;td&gt;標高&lt;/td&gt;&lt;td&gt;259m&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</description>
-      <name>天狗山</name>
-      <styleUrl>#N952015</styleUrl>
-    </Placemark>
-    <Placemark>
-      <Point>
-        <coordinates>139.437736,36.343428</coordinates>
-      </Point>
-      <description>&lt;table&gt;&lt;tr&gt;&lt;td&gt;標高&lt;/td&gt;&lt;td&gt;154m&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</description>
-      <name>須永山</name>
-      <styleUrl>#N952015</styleUrl>
-    </Placemark>
-    <Placemark>
-      <LineString>
-        <coordinates>139.434785,36.337881
-139.435203,36.337233
+<Document>
+<name>GPS Track Log</name>
+<Style id="id00002">
+<LineStyle>
+<color>7f0000ff</color>
+<width>3</width>
+</LineStyle>
+</Style>
+<Style id="id00001">
+<LineStyle>
+<color>7fff0000</color>
+<width>3</width>
+</LineStyle>
+</Style>
+<Style id="N951005">
+<IconStyle>
+<scale>1</scale>
+<Icon>
+<href>https://map.jpn.org/icon/951005.png</href>
+</Icon>
+<hotSpot x="12" y="12" xunits="pixels" yunits="pixels"/>
+</IconStyle>
+</Style>
+<Style id="N952015">
+<IconStyle>
+<scale>1</scale>
+<Icon>
+<href>https://map.jpn.org/icon/952015.png</href>
+</Icon>
+<hotSpot x="12" y="12" xunits="pixels" yunits="pixels"/>
+</IconStyle>
+</Style>
+<Style id="N952014">
+<IconStyle>
+<scale>1</scale>
+<Icon>
+<href>https://map.jpn.org/icon/952014.png</href>
+</Icon>
+<hotSpot x="12" y="12" xunits="pixels" yunits="pixels"/>
+</IconStyle>
+</Style>
+<Style id="N954025">
+<IconStyle>
+<scale>1</scale>
+<Icon>
+<href>https://map.jpn.org/icon/954025.png</href>
+</Icon>
+<hotSpot x="12" y="12" xunits="pixels" yunits="pixels"/>
+</IconStyle>
+</Style>
+<Placemark>
+<name>足利公園</name>
+<description><![CDATA[<table><tr><td>駐車</td><td>8台</td></tr></table>]]></description>
+<styleUrl>#N954025</styleUrl>
+<Point>
+<coordinates>139.434786,36.337881</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>第２号墳</name>
+<styleUrl>#N952014</styleUrl>
+<Point>
+<coordinates>139.435203,36.337233</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>水道山</name>
+<description><![CDATA[<table><tr><td>標高</td><td>93m</td></tr></table>]]></description>
+<styleUrl>#N952015</styleUrl>
+<Point>
+<coordinates>139.434467,36.339033</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>稲荷神社</name>
+<styleUrl>#N951005</styleUrl>
+<Point>
+<coordinates>139.428731,36.341503</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>石碑</name>
+<styleUrl>#N951005</styleUrl>
+<Point>
+<coordinates>139.428881,36.342828</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>立岩山</name>
+<description><![CDATA[<table><tr><td>標高</td><td>96m</td></tr></table>]]></description>
+<styleUrl>#N952015</styleUrl>
+<Point>
+<coordinates>139.427831,36.342014</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>愛宕山</name>
+<description><![CDATA[<table><tr><td>標高</td><td>81m</td></tr></table>]]></description>
+<styleUrl>#N952015</styleUrl>
+<Point>
+<coordinates>139.423647,36.345186</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>船頭山</name>
+<styleUrl>#N952015</styleUrl>
+<Point>
+<coordinates>139.426089,36.348533</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>天神様</name>
+<styleUrl>#N951005</styleUrl>
+<Point>
+<coordinates>139.426706,36.349272</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>琴平山</name>
+<styleUrl>#N951005</styleUrl>
+<Point>
+<coordinates>139.425583,36.352594</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>湯殿山</name>
+<description><![CDATA[<table><tr><td>標高</td><td>160m</td></tr></table>]]></description>
+<styleUrl>#N952015</styleUrl>
+<Point>
+<coordinates>139.426481,36.354331</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>山神社</name>
+<styleUrl>#N951005</styleUrl>
+<Point>
+<coordinates>139.429794,36.358783</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>野山</name>
+<description><![CDATA[<table><tr><td>標高</td><td>297m</td></tr></table>]]></description>
+<styleUrl>#N952015</styleUrl>
+<Point>
+<coordinates>139.426406,36.362642</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>障子岩</name>
+<styleUrl>#N952014</styleUrl>
+<Point>
+<coordinates>139.432106,36.368222</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>大岩山</name>
+<description><![CDATA[<table><tr><td>標高</td><td>417m</td></tr></table>]]></description>
+<styleUrl>#N952015</styleUrl>
+<Point>
+<coordinates>139.437928,36.372144</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>展望岩場</name>
+<styleUrl>#N952014</styleUrl>
+<Point>
+<coordinates>139.447061,36.365014</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>雷電神社分岐</name>
+<styleUrl>#N951005</styleUrl>
+<Point>
+<coordinates>139.448056,36.359033</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>両崖山</name>
+<description><![CDATA[<table><tr><td>標高</td><td>251m</td></tr></table>]]></description>
+<styleUrl>#N952015</styleUrl>
+<Point>
+<coordinates>139.448003,36.353542</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>天狗山</name>
+<description><![CDATA[<table><tr><td>標高</td><td>259m</td></tr></table>]]></description>
+<styleUrl>#N952015</styleUrl>
+<Point>
+<coordinates>139.441158,36.353775</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>須永山</name>
+<description><![CDATA[<table><tr><td>標高</td><td>154m</td></tr></table>]]></description>
+<styleUrl>#N952015</styleUrl>
+<Point>
+<coordinates>139.437736,36.343428</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<name>大岩山（往路）</name>
+<styleUrl>#id00001</styleUrl>
+<LineString>
+<coordinates>139.434785,36.337881
 139.435140,36.337194
 139.434296,36.338578
-139.434288,36.338715
 139.434473,36.339043
-139.434486,36.338954
-139.434290,36.338710
 139.434331,36.338583
-139.434117,36.338476
-139.433184,36.338286
 139.433249,36.338294
 139.432788,36.338317
 139.432713,36.339203
 139.432851,36.339868
 139.432695,36.339957
-139.431757,36.340053
 139.429384,36.340212
 139.429130,36.340533
 139.428746,36.341572
-139.428717,36.341518
 139.428564,36.341564
 139.428617,36.341774
 139.428053,36.341648
-139.428339,36.342091
-139.428443,36.342100
-139.428564,36.342269
-139.428584,36.342492
 139.428880,36.342827
 139.428419,36.342251
 139.427800,36.341971
-139.427888,36.342024
 139.428083,36.341973
 139.428061,36.341849
 139.428213,36.341827
@@ -194,40 +231,27 @@
 139.427906,36.340964
 139.426927,36.340852
 139.426283,36.340902
-139.424133,36.342106
-139.423963,36.342276
-139.423759,36.342336
 139.421937,36.343432
 139.422395,36.344666
-139.422697,36.344740
 139.423808,36.345255
 139.423671,36.345283
 139.423903,36.345242
 139.425110,36.346605
 139.424813,36.346779
-139.424669,36.346715
 139.424617,36.346490
-139.424904,36.346381
 139.425094,36.346210
-139.424704,36.345967
 139.424244,36.345539
-139.424009,36.345532
-139.424062,36.345553
 139.423917,36.345622
 139.423450,36.346277
 139.423288,36.346330
 139.423846,36.346796
 139.424998,36.348129
 139.425729,36.347995
-139.425862,36.347892
 139.425966,36.347559
 139.425869,36.347153
 139.425561,36.346879
-139.426266,36.346699
 139.426456,36.346743
-139.426561,36.346916
 139.426840,36.348684
-139.426608,36.348609
 139.426268,36.348653
 139.426113,36.348515
 139.426106,36.348644
@@ -245,40 +269,28 @@
 139.425432,36.352772
 139.425684,36.353721
 139.426127,36.354179
-139.426402,36.354228
 139.426569,36.354362
 139.426473,36.354331
 139.426495,36.354900
 139.426672,36.355307
 139.426632,36.355960
-139.427007,36.356367
 139.427366,36.356978
 139.427405,36.357295
-139.427892,36.357646
 139.428104,36.357905
 139.429059,36.358218
 139.429344,36.358115
-139.429771,36.358335
-139.429904,36.358528
 139.429999,36.358512
 139.430123,36.358797
 139.430011,36.358847
 139.428896,36.358509
-139.428447,36.358494
-139.427577,36.358266
 139.427190,36.358265
 139.426920,36.358534
 139.426516,36.358673
-139.426559,36.358754
 139.426416,36.359010
 139.426042,36.359144
-139.425877,36.359311
-139.425869,36.359489
 139.425521,36.359798
-139.425475,36.360212
 139.425332,36.360400
 139.426006,36.361575
-139.426371,36.361853
 139.426498,36.362063
 139.426364,36.362721
 139.426474,36.362771
@@ -286,7 +298,6 @@
 139.426464,36.363532
 139.426843,36.364517
 139.426681,36.364937
-139.426866,36.365627
 139.427023,36.365867
 139.427425,36.366018
 139.428337,36.366025
@@ -296,9 +307,6 @@
 139.430813,36.367680
 139.431725,36.367983
 139.431986,36.368188
-139.432015,36.368128
-139.432150,36.368247
-139.432094,36.368241
 139.432463,36.368309
 139.432932,36.368184
 139.433537,36.368952
@@ -311,13 +319,13 @@
 139.437435,36.371554
 139.438116,36.371722
 139.437942,36.372087</coordinates>
-      </LineString>
-      <name>大岩山（往路）</name>
-      <styleUrl>#id00001</styleUrl>
-    </Placemark>
-    <Placemark>
-      <LineString>
-        <coordinates>139.437927,36.372145
+</LineString>
+</Placemark>
+<Placemark>
+<name>大岩山（復路）</name>
+<styleUrl>#id00002</styleUrl>
+<LineString>
+<coordinates>139.437927,36.372145
 139.438003,36.372298
 139.438194,36.371666
 139.438471,36.371430
@@ -325,39 +333,26 @@
 139.439332,36.371410
 139.439654,36.371312
 139.439614,36.371192
-139.439816,36.371214
-139.439963,36.371116
 139.440109,36.371173
-139.440374,36.370922
 139.440738,36.370661
 139.441225,36.370026
-139.441310,36.369486
 139.441459,36.369243
-139.442138,36.368702
 139.442432,36.368309
-139.442608,36.368276
 139.443289,36.367808
 139.443734,36.367026
-139.444119,36.366768
-139.444225,36.366586
 139.444571,36.366436
 139.445434,36.366393
 139.445956,36.366107
-139.446289,36.365690
 139.447061,36.365014
-139.447090,36.364768
 139.447710,36.363717
 139.447656,36.363040
 139.447330,36.362660
 139.447288,36.362240
-139.447054,36.362324
 139.446795,36.362301
-139.446741,36.362215
 139.446978,36.361787
 139.447108,36.360426
 139.447311,36.360086
 139.447439,36.360093
-139.447410,36.360002
 139.448056,36.359033
 139.447324,36.357889
 139.447391,36.357497
@@ -366,113 +361,40 @@
 139.447380,36.355460
 139.447593,36.355413
 139.447768,36.355132
-139.447879,36.353992
 139.447810,36.353815
-139.448011,36.353512
-139.447941,36.353494
-139.447996,36.353523
 139.448214,36.353375
 139.447815,36.353169
 139.447127,36.353090
 139.446789,36.352728
-139.446340,36.352978
 139.445894,36.353084
-139.445847,36.353195
-139.445623,36.353311
 139.445635,36.353373
 139.444582,36.353770
 139.443530,36.353649
 139.443212,36.353820
 139.442895,36.353772
 139.442481,36.353974
-139.441846,36.353845
-139.441681,36.353872
-139.441532,36.353789
-139.441314,36.353839
-139.441109,36.353738
 139.441158,36.353785
 139.440411,36.353075
 139.439586,36.352635
-139.439296,36.352278
 139.439096,36.351735
 139.439125,36.351038
-139.438853,36.350242
 139.438521,36.349661
 139.438563,36.348815
 139.438769,36.348525
-139.438837,36.348153
 139.438774,36.347918
-139.439287,36.347256
 139.439322,36.347084
 139.439053,36.346590
-139.438990,36.345652
-139.438870,36.345411
 139.438884,36.345215
-139.438677,36.344930
 139.438167,36.344511
-139.437762,36.343496
 139.437388,36.342849
 139.437579,36.341707
-139.437009,36.340899
 139.436978,36.340702
-139.437174,36.340419
-139.437290,36.340376
-139.437427,36.339984
 139.437671,36.339638
 139.437861,36.339589
-139.437813,36.339479
 139.437199,36.339139
-139.436208,36.338937
 139.435611,36.338706
 139.434787,36.338048</coordinates>
-      </LineString>
-      <name>大岩山（復路）</name>
-      <styleUrl>#id00002</styleUrl>
-    </Placemark>
-    <Style id="N954025">
-      <IconStyle>
-        <Icon>
-          <href>https://map.jpn.org/icon/954025.png</href>
-        </Icon>
-        <scale>1</scale>
-      </IconStyle>
-    </Style>
-    <Style id="N952014">
-      <IconStyle>
-        <Icon>
-          <href>https://map.jpn.org/icon/952014.png</href>
-        </Icon>
-        <scale>1</scale>
-      </IconStyle>
-    </Style>
-    <Style id="N951005">
-      <IconStyle>
-        <Icon>
-          <href>https://map.jpn.org/icon/951005.png</href>
-        </Icon>
-        <scale>1</scale>
-      </IconStyle>
-    </Style>
-    <Style id="N952015">
-      <IconStyle>
-        <Icon>
-          <href>https://map.jpn.org/icon/952015.png</href>
-        </Icon>
-        <scale>1</scale>
-      </IconStyle>
-    </Style>
-    <Style id="id00001">
-      <LineStyle>
-        <color>7fff0000</color>
-        <width>3</width>
-      </LineStyle>
-    </Style>
-    <Style id="id00002">
-      <LineStyle>
-        <color>7f0000ff</color>
-        <width>3</width>
-      </LineStyle>
-    </Style>
-    <name>GPS Track Log</name>
-  </Document>
+</LineString>
+</Placemark>
+</Document>
 </kml>
