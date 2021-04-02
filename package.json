@@ -30,6 +30,6 @@
   },
   "devDependencies": {
     "cssnano": "^4.1.10",
-    "is-svg": ">=4.2.2"
+    "is-svg": ">=4.3.1"
   }
 }
