@@ -69,3 +69,4 @@ build/
 .DS_Store
 *.sh
 libs/
+.parcel-cache/
