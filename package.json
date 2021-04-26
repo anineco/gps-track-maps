@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel src/*.html",
-    "prebuild": "rm -f dist/*.html dist/*.js dist/*.css dist/*.map",
+    "start": "parcel 'src/*.html'",
+    "prebuild": "rm -f dist/*.*.*",
     "build": "parcel build --public-url . 'src/*.html'"
   },
   "repository": {
@@ -32,5 +32,9 @@
     "cssnano": "^5.0.1",
     "is-svg": ">=4.3.1",
     "parcel": "*"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11"
+  ]
 }
