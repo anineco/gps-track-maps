@@ -56,7 +56,9 @@
 </p>
 <p>JavaScriptライブラリとGPSファイル形式のその他の組み合わせの表示例は、次表の中の <img src="images/newwin_16.png" srcset="images/newwin_32.png 2x" width="16" height="16"> ボタンをクリックすると、別窓が開いて閲覧することができます。なお、OpenLayers の場合は、Shift+Alt+マウス左ボタンで地図を回転させることができます。</p>
 <p>表中、「地図データ／ラスタ」の列は、GPSデータの上乗せ表示のない最も簡易な地図のみの表示例、「複数地図」の列はそれに複数の種類の地図を切り換えて表示する機能を付加した表示例です。</p>
+<!--
 <p><span style="color:red;">注意</span>：OpenLayersを用いて、IE11でも閲覧可能なルート地図を設置する場合は、OpenLayers v6.4.3 の行を利用して下さい。OpenLayerのその他の行はIE11では閲覧できません。</p>
+-->
 <p><span style="color:red;">注意</span>：OpenLayers (npm) の行は、<a href="https://www.npmjs.com/package/ol">ol</a>パッケージを用いたもので、JavaScriptライブラリのファイルサイズを約6割まで削減できますが、設置にはnpmの知識が必要になります。また、Mapbox GL JS + GSIBVの行は、国土地理院が実験的に提供している<a href="https://maps.gsi.go.jp/development/vt.html">ベクトルタイル</a>を利用した実験的なコードです（ベクトルタイルの表示例は<a href="https://github.com/anineco/ol-gsibv-style">ol-gsibv-style</a>にもあります）。これらについての詳しい説明は割愛します。</p>
 <table class="base t-c t1-l">
 <caption>表1 JavaScriptライブラリとGPSファイル形式の組み合わせ毎のルート地図の表示例</caption>
@@ -88,7 +90,7 @@
   <td><a href="omap_gpx_643.html" onclick="return routemap(this.href)"></a></td>
 </tr>
 <tr>
-  <td>OpenLayers v6.5.0</td>
+  <td>OpenLayers v6.6.0</td>
   <td>不要</td>
   <td><a href="omap_basic.html" onclick="return routemap(this.href)"></a></td>
   <td></td>
@@ -96,10 +98,10 @@
   <td><a href="omap_kml.html" onclick="return routemap(this.href)"></a></td>
   <td></td>
   <td><a href="omap_geojson.html" onclick="return routemap(this.href)"></a></td>
-  <td><a href="omap_gpx.html" onclick="return routemap(this.href)"></a></td>
+  <td><a href="omap_gpx.html" onclick="return routemap(this.href)"></a> ※7</td>
 </tr>
 <tr>
-  <td>OpenLayers (npm)</td>
+  <td>OpenLayers (npm) ※8</td>
   <td>不要</td>
   <td><a href="dist/omap_basic.html" onclick="return routemap(this.href)"></a></td>
   <td><a href="dist/omap_gsibv.html" onclick="return routemap(this.href)"></a></td>
@@ -160,7 +162,9 @@
 ※3： KMLファイルはイントラネットに置けない。<br>
 ※4： ※3の制約を解消した改良版。<br>
 ※5： Bing Maps APIに不具合があり、ある条件（description要素はCDATA、Style要素が前でPlacemark要素が後）を満たさないKMLファイルは読み込めない。Python版GPX2GeoJSONは、この条件を満たすKMLファイルを出力する。<br>
-※6： ※5の制約を解消した改良版。線種は点線に固定。</p>
+※6： ※5の制約を解消した改良版。線種は点線に固定。<br>
+※7： 軌跡が表示されない（原因と対策を調査中）。<br>
+※8： IE11では正常に表示されない。</p>
 <h3>ダウンロード</h3>
 <p>ルート地図のソースコード（HTML、JS、CSS）一式をダウンロードする方法を説明します。まず、<a href="https://github.com/anineco/gps-track-maps">https://github.com/anineco/gps-track-maps</a>にアクセスするとgps-track-mapsのリポジトリ画面が開きます。<span style="font-size:small;background:green;color:white;padding:2px;border-radius:2px;">↓Code</span>をクリックすると小窓が開き、続いて<span style="color:blue;">Download ZIP</span>をクリックするとダウンロードが始まります。ダウンロードしたZIPファイルを適当なフォルダの下で展開して下さい。</p>
 <h3>設置手順</h3>
@@ -224,6 +228,10 @@ function routemap(url) {
 <p>誤字・脱字、リンク切れ等の小さな不具合の修正は随時行っています。</p>
 <table class="base">
 <tbody>
+<tr>
+<td valign="top">2021-07-13</td>
+<td valign="top">OpenLayers 6.6.0 にバージョンアップ。表1の※7、※8を追加。</td>
+</tr>
 <tr>
 <td valign="top">2021-04-26</td>
 <td valign="top">OpenLayers v6.4.3を利用したルート地図（IE11サポート版）を追加。ダウンロードの節を補足。</td>
