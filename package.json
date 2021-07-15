@@ -8,9 +8,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel 'src/*.html'",
+    "start": "parcel --no-source-maps 'src/*.html'",
     "prebuild": "rm -f dist/*.*.*",
-    "build": "parcel build --public-url . 'src/*.html'"
+    "build": "parcel build --no-source-maps --public-url . 'src/*.html'"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/anineco/gps-track-maps#readme",
   "dependencies": {
-    "ol": "^6.6.0",
+    "ol": "^6.6.1",
     "ol-layerswitcher": "^3.8.3",
     "ol-mapbox-style": "^6.4.1",
     "ol-popup": "^4.0.0"
