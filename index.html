@@ -134,7 +134,7 @@
   <td><a href="dist/bmap_gpx.html" onclick="return routemap(this.href)"></a></td>
 </tr>
 <tr>
-  <td>Mapbox GL JS</td>
+  <td>Mapbox GL JS v2.4.0 ※8</td>
   <td>要</td>
   <td></td>
   <td><a href="dist/mmap_basic.html" onclick="return routemap(this.href)"></a></td>
@@ -145,8 +145,8 @@
   <td></td>
 </tr>
 <tr>
-  <td>Mapbox GL JS + GSIBV</td>
-  <td>不要</td>
+  <td>Mapbox GL JS + GSIBV ※8</td>
+  <td>要 ※9</td>
   <td></td>
   <td><a href="dist/mmap_gsibv.html" onclick="return routemap(this.href)"></a></td>
   <td></td>
@@ -164,7 +164,8 @@
 ※5： Bing Maps APIに不具合があり、ある条件（description要素はCDATA、Style要素が前でPlacemark要素が後）を満たさないKMLファイルは読み込めない。Python版GPX2GeoJSONは、この条件を満たすKMLファイルを出力する。<br>
 ※6： ※5の制約を解消した改良版。線種は点線に固定。<br>
 ※7： 軌跡が表示されない（原因と対策を調査中）。<br>
-※8： IE11では正常に表示されない。</p>
+※8： IE11では正常に表示されない。<br>
+※9： v2より要。</p>
 <h3>ダウンロード</h3>
 <p>ルート地図のソースコード（HTML、JS、CSS）一式をダウンロードする方法を説明します。まず、<a href="https://github.com/anineco/gps-track-maps">https://github.com/anineco/gps-track-maps</a>にアクセスするとgps-track-mapsのリポジトリ画面が開きます。<span style="font-size:small;background:green;color:white;padding:2px;border-radius:2px;">↓Code</span>をクリックすると小窓が開き、続いて<span style="color:blue;">Download ZIP</span>をクリックするとダウンロードが始まります。ダウンロードしたZIPファイルを適当なフォルダの下で展開して下さい。</p>
 <h3>設置手順</h3>
