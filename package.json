@@ -29,7 +29,7 @@
     "ol-popup": "^4.0.0"
   },
   "devDependencies": {
-    "cssnano": "^5.0.7",
+    "cssnano": "^5.0.8",
     "is-svg": ">=4.3.1",
     "parcel": "*"
   },
