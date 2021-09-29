@@ -112,7 +112,7 @@
   <td><a href="dist/omap_gpx.html" onclick="return routemap(this.href)"></a></td>
 </tr>
 <tr>
-  <td>Google Maps API</td>
+  <td>Google Maps API ※10</td>
   <td>要</td>
   <td><a href="dist/gmap_basic.html" onclick="return routemap(this.href)"></a></td>
   <td></td>
@@ -165,7 +165,8 @@
 ※6： ※5の制約を解消した改良版。線種は点線に固定。<br>
 ※7： 軌跡が表示されない（原因と対策を調査中）。<br>
 ※8： IE11では正常に表示されない。<br>
-※9： v2より要。</p>
+※9： v2より要。<br>
+※10： IE11ではサポートされていないとの警告が表示される（<a href="https://developers.google.com/maps/documentation/javascript/browsersupport?hl=ja">詳細</a>）。</p>
 <h3>ダウンロード</h3>
 <p>ルート地図のソースコード（HTML、JS、CSS）一式をダウンロードする方法を説明します。まず、<a href="https://github.com/anineco/gps-track-maps">https://github.com/anineco/gps-track-maps</a>にアクセスするとgps-track-mapsのリポジトリ画面が開きます。<span style="font-size:small;background:green;color:white;padding:2px;border-radius:2px;">↓Code</span>をクリックすると小窓が開き、続いて<span style="color:blue;">Download ZIP</span>をクリックするとダウンロードが始まります。ダウンロードしたZIPファイルを適当なフォルダの下で展開して下さい。</p>
 <h3>設置手順</h3>
@@ -229,6 +230,10 @@ function routemap(url) {
 <p>誤字・脱字、リンク切れ等の小さな不具合の修正は随時行っています。</p>
 <table class="base">
 <tbody>
+<tr>
+<td valign="top">2021-09-29</td>
+<td valign="top">Google Maps APIのIE11のサポートに関して追記。</td>
+</tr>
 <tr>
 <td valign="top">2021-09-25</td>
 <td valign="top">OpenLayers 6.8.1 にバージョンアップ。</td>
