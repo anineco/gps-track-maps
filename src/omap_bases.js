@@ -1,6 +1,5 @@
 import 'ol/ol.css';
 import 'ol-layerswitcher/dist/ol-layerswitcher.css';
-import './omap_common.css';
 import View from 'ol/View';
 import {fromLonLat} from 'ol/proj';
 import TileLayer from 'ol/layer/Tile';
