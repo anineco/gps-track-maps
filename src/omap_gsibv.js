@@ -5,7 +5,7 @@ import Map from 'ol/Map';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
 import MVT from 'ol/format/MVT';
-import stylefunction from 'ol-mapbox-style/dist/stylefunction';
+import {stylefunction} from 'ol-mapbox-style';
 import glStyle from './std.json';
 import glSprite from './sprite/std.json';
 
