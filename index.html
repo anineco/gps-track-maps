@@ -26,7 +26,7 @@
 <h2>基本仕様</h2>
 <ul>
 <li>モバイル対応：フレームのサイズ変更に追従し、常にフレーム全体で表示。</li>
-<li>モダンブラウザ（Chrome、Firefox、Safari、Microsoft Edge）とInternet Explorer 11に対応。</li>
+<li>モダンブラウザ（Chrome、Firefox、Safari、Microsoft Edge）に対応。</li>
 <li>ユーザサイトに設置するファイルは基本的に、サイト内で共通のHTMLファイルが1つと、表示するルート地図毎にGPSデータファイルが1つ。</li>
 <li>GPSデータのファイル形式は次の3種類のうちのいずれか一つ。
 <ol>
@@ -78,6 +78,7 @@
   <td><a href="lmap_geojson.html" onclick="return routemap(this.href)"></a></td>
   <td><a href="lmap_gpx.html" onclick="return routemap(this.href)"></a></td>
 </tr>
+<!--
 <tr>
   <td>OpenLayers v6.4.3</td>
   <td>不要</td>
@@ -89,8 +90,9 @@
   <td><a href="omap_geojson_643.html" onclick="return routemap(this.href)"></a></td>
   <td><a href="omap_gpx_643.html" onclick="return routemap(this.href)"></a></td>
 </tr>
+-->
 <tr>
-  <td>OpenLayers v6.14.1 ※8</td>
+  <td>OpenLayers v6.15.1</td>
   <td>不要</td>
   <td><a href="omap_basic.html" onclick="return routemap(this.href)"></a></td>
   <td></td>
@@ -101,7 +103,7 @@
   <td><a href="omap_gpx.html" onclick="return routemap(this.href)"></a> ※7</td>
 </tr>
 <tr>
-  <td>OpenLayers (npm) ※8</td>
+  <td>OpenLayers (npm)</td>
   <td>不要</td>
   <td><a href="dist/omap_basic.html" onclick="return routemap(this.href)"></a></td>
   <td><a href="dist/omap_gsibv.html" onclick="return routemap(this.href)"></a></td>
@@ -112,7 +114,7 @@
   <td><a href="dist/omap_gpx.html" onclick="return routemap(this.href)"></a></td>
 </tr>
 <tr>
-  <td>Google Maps API ※10</td>
+  <td>Google Maps API</td>
   <td>要</td>
   <td><a href="dist/gmap_basic.html" onclick="return routemap(this.href)"></a></td>
   <td></td>
@@ -134,7 +136,7 @@
   <td><a href="dist/bmap_gpx.html" onclick="return routemap(this.href)"></a> ※7</td>
 </tr>
 <tr>
-  <td>Mapbox GL JS v2.6.1 ※8</td>
+  <td>Mapbox GL JS v2.6.1</td>
   <td>要</td>
   <td></td>
   <td><a href="dist/mmap_basic.html" onclick="return routemap(this.href)"></a></td>
@@ -145,7 +147,7 @@
   <td></td>
 </tr>
 <tr>
-  <td>Mapbox GL JS + GSIBV ※8</td>
+  <td>Mapbox GL JS + GSIBV</td>
   <td>要 ※9</td>
   <td></td>
   <td><a href="dist/mmap_gsibv.html" onclick="return routemap(this.href)"></a></td>
@@ -164,9 +166,7 @@
 ※5： Bing Maps APIに不具合があり、ある条件（description要素はCDATA、Style要素が前でPlacemark要素が後）を満たさないKMLファイルは読み込めない。Python版GPX2GeoJSONは、この条件を満たすKMLファイルを出力する。<br>
 ※6： ※5の制約を解消した改良版。線種は点線に固定。<br>
 ※7： 軌跡が表示されない（原因と対策を調査中）。<br>
-※8： IE11では正常に表示されない。<br>
-※9： v2より要。<br>
-※10： IE11ではサポートされていないとの警告が表示される（<a href="https://developers.google.com/maps/documentation/javascript/browsersupport?hl=ja">詳細</a>）。</p>
+※9： v2より要。</p>
 <h3>ダウンロード</h3>
 <p>ルート地図のソースコード（HTML、JS、CSS）一式をダウンロードする方法を説明します。まず、<a href="https://github.com/anineco/gps-track-maps">https://github.com/anineco/gps-track-maps</a>にアクセスするとgps-track-mapsのリポジトリ画面が開きます。<span style="font-size:small;background:green;color:white;padding:2px;border-radius:2px;">↓Code</span>をクリックすると小窓が開き、続いて<span style="color:blue;">Download ZIP</span>をクリックするとダウンロードが始まります。ダウンロードしたZIPファイルを適当なフォルダの下で展開して下さい。</p>
 <h3>設置手順</h3>
@@ -225,11 +225,15 @@ function routemap(url) {
 </div>
 </li>
 </ol>
-<p>なお、ルート地図用HTMLファイルは、使用するJavaScriptライブラリとGPSデータのファイル形式の組み合わせ毎に異なるHTMLファイルとなり、ファイル名は<span style="color:blue;">X</span>map_<span style="color:blue;">Y</span>.html、または、<span style="color:blue;">X</span>map_<span style="color:blue;">Y</span>_rev.html（改良版）、omap_<span style="color:blue;">Y</span>_643.html（OpenLayers IE11サポート版）などとなります。ここで、<span style="color:blue;">X</span>はJavaScriptライブラリの頭文字（l, o, g, b, m）、<span style="color:blue;">Y</span>はGPSデータのファイル形式（kml, geojson, gpx）です。これらのルート地図を設置する場合も、設置手順は同様です。</p>
+<p>なお、ルート地図用HTMLファイルは、使用するJavaScriptライブラリとGPSデータのファイル形式の組み合わせ毎に異なるHTMLファイルとなり、ファイル名は<span style="color:blue;">X</span>map_<span style="color:blue;">Y</span>.html、または、<span style="color:blue;">X</span>map_<span style="color:blue;">Y</span>_rev.html（改良版）などとなります。ここで、<span style="color:blue;">X</span>はJavaScriptライブラリの頭文字（l, o, g, b, m）、<span style="color:blue;">Y</span>はGPSデータのファイル形式（kml, geojson, gpx）です。これらのルート地図を設置する場合も、設置手順は同様です。</p>
 <h2>更新履歴</h2>
 <p>誤字・脱字、リンク切れ等の小さな不具合の修正は随時行っています。</p>
 <table class="base">
 <tbody>
+<tr>
+<td valign="top">2022-03-27</td>
+<td valign="top">IE11 をサポート外とし、関連する表記を削除。<br>OpenLayers 6.15.1 にバージョンアップ。</td>
+</tr>
 <tr>
 <td valign="top">2022-04-22</td>
 <td valign="top">Leaflet 1.8.0 にバージョンアップ。</td>
