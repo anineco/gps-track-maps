@@ -1,12 +1,9 @@
-body {
+html, body, #map {
   margin: 0;
-  font-family: sans-serif;
-}
-#map {
+  padding: 0;
+  border: 0;
   width: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
+  height: 100%;
 }
 .layer-switcher div.panel {
   padding: 0;
