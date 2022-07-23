@@ -31,21 +31,20 @@
   </head>
   <body>
     <div id="map"></div>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script><!-- IE11 -->
     <script src="https://maps.googleapis.com/maps/api/js?key=_YOUR_API_KEY_&amp;language=ja&amp;region=JP"></script>
     <script>
       const param = {
         lon: 139.435076, lat: 36.354746, zoom: 14,
         url: 'example/routemap.gpx'
       };
-      location.search.slice(1).split('&').forEach(function (ma) {
+      for (const ma of location.search.slice(1).split('&')) {
         const s = ma.split('=');
         if (s[0] === 'url') {
           param[s[0]] = decodeURIComponent(s[1]);
         } else if (s[0] in param) {
           param[s[0]] = Number(s[1]);
         }
-      });
+      }
 
       const map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: param.lat, lng: param.lon },
@@ -57,22 +56,22 @@
       map.data.setStyle(function (feature) {
         const type = feature.getGeometry().getType();
         if (type === 'LineString') {
-          return ({
+          return {
             clickable: false,
             strokeColor: feature.getProperty('_color'),
             strokeOpacity: 0.5,
             strokeWeight: feature.getProperty('_weight')
-          });
+          };
         }
         if (type === 'Point') {
-          return ({
+          return {
             icon: {
               url: feature.getProperty('_iconUrl'),
               scaledSize: new google.maps.Size(24, 24),
               anchor: new google.maps.Point(12, 12)
             },
             title: feature.getProperty('name')
-          });
+          };
         }
       });
 
@@ -88,12 +87,12 @@
             _iconUrl: 'https://map.jpn.org/icon/' + icon + '.png'
           }
         };
-        pt.getElementsByTagName('cmt').item(0).textContent.split(',').forEach(function (item) {
+        for (const item of pt.getElementsByTagName('cmt').item(0).textContent.split(',')) {
           const kv = item.split('=');
           if (!kv[0].match(/^[ 　]*$/)) {
             feature.properties[kv[0]] = kv[1];
           }
-        });
+        }
         return feature;
       }
 
@@ -107,53 +106,45 @@
       }
 
       function get_linestring_geometry(segment, tag) { // trkseg or rte
-        const latlngs = [];
-        const tags = Array.prototype.slice.call(segment.getElementsByTagName(tag)); // IE11
-        tags.forEach(function (pt) { // trkpt or rtept
-          const lat = Number(pt.getAttribute('lat'));
-          const lng = Number(pt.getAttribute('lon'));
-          latlngs.push({ lat: lat, lng: lng });
-        });
+        const tags = Array.prototype.slice.call(segment.getElementsByTagName(tag));
+        const latlngs = tags.map( // trkpt or rtept
+          pt => ({ lat: Number(pt.getAttribute('lat')), lng: Number(pt.getAttribute('lon')) })
+        );
         return new google.maps.Data.LineString(latlngs);
       }
 
       function addGPX(xml) {
-        const wpts = Array.prototype.slice.call(xml.getElementsByTagName('wpt')); // IE11
-        wpts.forEach(function (wpt) {
+        for (const wpt of xml.getElementsByTagName('wpt')) {
           map.data.add(get_point(wpt));
-        });
-        const rtes = Array.prototype.slice.call(xml.getElementsByTagName('rte')); // IE11
-        rtes.forEach(function (rte) {
-          const rtepts = Array.prototype.slice.call(rte.getElementsByTagName('rtept'));
-          rtepts.forEach(function (rtept) {
+        }
+        for (const rte of xml.getElementsByTagName('rte')) {
+          for (const rtept of rte.getElementsByTagName('rtept')) {
             if (rtept.getElementsByTagName('kashmir3d:icon').item(0).textContent !== '903001') {
               map.data.add(get_point(rtept));
             }
-          });
+          }
           map.data.add({
             geometry: get_linestring_geometry(rte, 'rtept'),
             properties: get_linestring_properties(rte)
           });
-        });
-        const trks = Array.prototype.slice.call(xml.getElementsByTagName('trk')); // IE11
-        trks.forEach(function (trk) {
+        }
+        for (const trk of xml.getElementsByTagName('trk')) {
           const properties = get_linestring_properties(trk);
-          const trksegs = Array.prototype.slice.call(trk.getElementsByTagName('trkseg')); // IE11
-          trksegs.forEach(function (trkseg) {
+          for (const trkseg of trk.getElementsByTagName('trkseg')) {
             map.data.add({
               geometry: get_linestring_geometry(trkseg, 'trkpt'),
               properties: properties
             });
-          });
-        });
+          }
+        }
       }
 
-      fetch(param.url).then(function (response) {
-        return response.text();
-      }).then(function (text) {
-        const parser = new DOMParser();
-        addGPX(parser.parseFromString(text, 'text/xml'));
-      });
+      const parser = new DOMParser();
+      fetch(param.url).then(
+        response => response.text()
+      ).then(
+        text => addGPX(parser.parseFromString(text, 'application/xml'))
+      );
 
       const popup = new google.maps.InfoWindow();
       map.data.addListener('click', function (event) {

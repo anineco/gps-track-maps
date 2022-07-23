@@ -31,21 +31,20 @@
   </head>
   <body>
     <div id="map"></div>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=fetch"></script><!-- IE11 -->
     <script src="https://maps.googleapis.com/maps/api/js?key=_YOUR_API_KEY_&amp;language=ja&amp;region=JP"></script>
     <script>
       const param = {
         lon: 139.435076, lat: 36.354746, zoom: 14,
         url: 'example/routemap.kml'
       };
-      location.search.slice(1).split('&').forEach(function (ma) {
+      for (const ma of location.search.slice(1).split('&')) {
         const s = ma.split('=');
         if (s[0] === 'url') {
           param[s[0]] = decodeURIComponent(s[1]);
         } else if (s[0] in param) {
           param[s[0]] = Number(s[1]);
         }
-      });
+      }
 
       const map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: param.lat, lng: param.lon },
@@ -74,8 +73,7 @@
       });
 
       function addKML(xml) {
-        const placemarks = Array.prototype.slice.call(xml.getElementsByTagName('Placemark')); // IE11
-        placemarks.forEach(function (placemark) {
+        for (const placemark of xml.getElementsByTagName('Placemark')) {
           const id = placemark.getElementsByTagName('styleUrl').item(0).textContent.slice(1);
           const style = xml.querySelector('[id="' + id + '"]');
           const point = placemark.getElementsByTagName('Point');
@@ -91,15 +89,14 @@
               }
             }
             map.data.add(feature);
-            return;
+            continue;
           }
           const linestring = placemark.getElementsByTagName('LineString');
           if (linestring.length > 0) {
             const coordinates = linestring.item(0).getElementsByTagName('coordinates').item(0).textContent.split('\n');
-            const latlngs = [];
-            coordinates.forEach(function (coordinate) {
+            const latlngs = coordinates.map(function (coordinate) {
               const p = coordinate.split(',');
-              latlngs.push({ lat: Number(p[1]), lng: Number(p[0]) });
+              return { lat: Number(p[1]), lng: Number(p[0]) };
             });
             const c = style.getElementsByTagName('color').item(0).textContent.match(/^(..)(..)(..)(..)$/);
             const feature = {
@@ -111,17 +108,17 @@
               }
             }
             map.data.add(feature);
-            return;
+            continue;
           }
-        });
+        }
       }
 
-      fetch(param.url).then(function (response) {
-        return response.text();
-      }).then(function (text) {
-        const parser = new DOMParser();
-        addKML(parser.parseFromString(text, 'text/xml'))
-      });
+      const parser = new DOMParser();
+      fetch(param.url).then(
+        response => response.text()
+      ).then(
+        text => addKML(parser.parseFromString(text, 'application/xml'))
+      );
 
       const popup = new google.maps.InfoWindow();
       map.data.addListener('click', function (event) {

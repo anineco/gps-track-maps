@@ -22,14 +22,14 @@ const param = {
   lon: 139.435076, lat: 36.354746, zoom: 14,
   url: 'example/routemap.geojson'
 };
-location.search.slice(1).split('&').forEach(function (ma) {
+for (const ma of location.search.slice(1).split('&')) {
   const s = ma.split('=');
   if (s[0] === 'url') {
     param[s[0]] = decodeURIComponent(s[1]);
   } else if (s[0] in param) {
     param[s[0]] = Number(s[1]);
   }
-});
+}
 
 const view = new View({
   center: fromLonLat([param.lon, param.lat]),
@@ -81,9 +81,9 @@ function styleFunction(feature) {
   let style;
   const type = feature.getGeometry().getType();
   if (type === 'LineString') {
-    const color = feature.get('_color').match(/^#(..)(..)(..)$/).slice(1).map(function (h) {
-      return parseInt(h, 16);
-    });
+    const color = feature.get('_color').match(/^#(..)(..)(..)$/).slice(1).map(
+      h => parseInt(h, 16)
+    );
     color[3] = feature.get('_opacity');
     style = {
       stroke: new Stroke({
@@ -132,13 +132,13 @@ map.addControl(new LayerSwitcher());
 
 function getHTML(feature) {
   let html = '<h2>' + feature.get('name') + '</h2>';
-  const keys = feature.getKeys().filter(function (key) {
-    return key !== 'geometry' && key !== 'name' && key.charAt(0) !== '_';
-  });
+  const keys = feature.getKeys().filter(
+    key => key !== 'geometry' && key !== 'name' && key.charAt(0) !== '_'
+  );
   if (keys.length > 0) {
-    html += '<table><tbody>' + keys.map(function (key) {
-      return '<tr><td>' + key + '</td><td>' + feature.get(key) + '</td></tr>';
-    }).join('') + '</tbody></table>';
+    html += '<table><tbody>' + keys.map(
+      key => '<tr><td>' + key + '</td><td>' + feature.get(key) + '</td></tr>'
+    ).join('') + '</tbody></table>';
   }
   return html;
 }
@@ -162,9 +162,7 @@ map.on('pointermove', function (evt) {
   if (evt.dragging) { return; }
   const found = map.forEachFeatureAtPixel(
     map.getEventPixel(evt.originalEvent),
-    function (feature, layer) {
-      return feature.getGeometry().getType() === 'Point';
-    }
+    (feature, layer) => feature.getGeometry().getType() === 'Point'
   );
   map.getTargetElement().style.cursor = found ? 'pointer' : '';
 });

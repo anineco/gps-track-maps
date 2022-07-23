@@ -22,14 +22,14 @@ const param = {
   lon: 139.435076, lat: 36.354746, zoom: 14,
   url: 'example/routemap.gpx'
 };
-location.search.slice(1).split('&').forEach(function (ma) {
+for (const ma of location.search.slice(1).split('&')) {
   const s = ma.split('=');
   if (s[0] === 'url') {
     param[s[0]] = decodeURIComponent(s[1]);
   } else if (s[0] in param) {
     param[s[0]] = Number(s[1]);
   }
-});
+}
 
 const view = new View({
   center: fromLonLat([param.lon, param.lat]),
@@ -88,9 +88,9 @@ function styleFunction(feature) {
   let style;
   const type = feature.getGeometry().getType();
   if (type === 'MultiLineString' || type === 'LineString') {
-    const color = feature.get('kashmir3d:line_color').match(/^(..)(..)(..)$/).map(function (h) {
-      return parseInt(h, 16);
-    }).reverse();
+    const color = feature.get('kashmir3d:line_color').match(/^(..)(..)(..)$/).map(
+      h => parseInt(h, 16)
+    ).reverse();
     color[3] = 0.5;
     const w = feature.get('kashmir3d:line_size');
     const d = dash[feature.get('kashmir3d:line_style')];
@@ -98,7 +98,7 @@ function styleFunction(feature) {
       stroke: new Stroke({
         color: color,
         width: w,
-        lineDash: d && d.map(function (i) { return i * w; })
+        lineDash: d && d.map(i => i * w)
       })
     };
   } else if (type === 'Point') {
@@ -130,12 +130,11 @@ const track = new VectorLayer({
     url: param.url,
     format: new GPX({
       readExtensions: function (feature, extensions) {
-        const node = Array.prototype.slice.call(extensions.childNodes); // IE11
-        node.forEach(function (elem) {
+        for (const elem of extensions.childNodes) {
           if (elem.nodeName.startsWith('kashmir3d:')) {
             feature.set(elem.nodeName, elem.textContent);
           }
-        });
+        }
       }
     })
   }),
@@ -151,12 +150,12 @@ map.addControl(new LayerSwitcher());
 function getHTML(feature) {
   let html = '<h2>' + feature.get('name') + '</h2>';
   let body = '';
-  feature.get('cmt').split(',').forEach(function(item) {
+  for (const item of feature.get('cmt').split(',')) {
     const kv = item.split('=');
     if (!kv[0].match(/^[ 　]*$/)) {
       body += '<tr><td>' + kv[0] + '</td><td>' + kv[1] + '</td></tr>';
     }
-  });
+  }
   if (body) {
     html += '<table><tbody>' + body + '</tbody></table>';
   }
@@ -182,9 +181,7 @@ map.on('pointermove', function (evt) {
   if (evt.dragging) { return; }
   const found = map.forEachFeatureAtPixel(
     map.getEventPixel(evt.originalEvent),
-    function (feature, layer) {
-      return feature.getGeometry().getType() === 'Point';
-    }
+    (feature, layer) => feature.getGeometry().getType() === 'Point'
   );
   map.getTargetElement().style.cursor = found ? 'pointer' : '';
 });

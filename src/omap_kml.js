@@ -22,14 +22,14 @@ const param = {
   lon: 139.435076, lat: 36.354746, zoom: 14,
   url: 'example/routemap.kml'
 };
-location.search.slice(1).split('&').forEach(function (ma) {
+for (const ma of location.search.slice(1).split('&')) {
   const s = ma.split('=');
   if (s[0] === 'url') {
     param[s[0]] = decodeURIComponent(s[1]);
   } else if (s[0] in param) {
     param[s[0]] = Number(s[1]);
   }
-});
+}
 
 const view = new View({
   center: fromLonLat([param.lon, param.lat]),
@@ -107,9 +107,7 @@ map.on('pointermove', function (evt) {
   if (evt.dragging) { return; }
   const found = map.forEachFeatureAtPixel(
     map.getEventPixel(evt.originalEvent),
-    function (feature, layer) {
-      return feature.getGeometry().getType() === 'Point';
-    }
+    (feature, layer) => feature.getGeometry().getType() === 'Point'
   );
   map.getTargetElement().style.cursor = found ? 'pointer' : '';
 });

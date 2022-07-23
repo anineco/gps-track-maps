@@ -12,14 +12,14 @@ import glSprite from './sprite/std.json';
 const param = {
   lon: 139.435076, lat: 36.354746, zoom: 14
 };
-location.search.slice(1).split('&').forEach(function (ma) {
+for (const ma of location.search.slice(1).split('&')) {
   const s = ma.split('=');
   if (s[0] === 'url') {
     param[s[0]] = decodeURIComponent(s[1]);
   } else if (s[0] in param) {
     param[s[0]] = Number(s[1]);
   }
-});
+}
 
 const view = new View({
   center: fromLonLat([param.lon, param.lat]),
