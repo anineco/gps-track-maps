@@ -39,14 +39,14 @@
         lon: 139.435076, lat: 36.354746, zoom: 13,
         url: 'example/routemap.geojson'
       };
-      location.search.slice(1).split('&').forEach(function (ma) {
+      for (const ma of location.search.slice(1).split('&')) {
         const s = ma.split('=');
         if (s[0] === 'url') {
           param[s[0]] = decodeURIComponent(s[1]);
         } else if (s[0] in param) {
           param[s[0]] = Number(s[1]);
         }
-      });
+      }
 
       mapboxgl.accessToken = '_YOUR_API_KEY_';
       const map = new mapboxgl.Map({
@@ -60,14 +60,14 @@
       map.addControl(new mapboxgl.NavigationControl());
 
       const icons = ['951004', '951005', '952014', '952015', '954005', '954025', '956013']; // TODO:
-      icons.forEach(function (icon) {
+      for (const icon of icons) {
         const url = 'https://map.jpn.org/icon/' + icon + '.png';
         const id = url;
         map.loadImage(url, function(error, image) {
           if (error) throw error;
           map.addImage(id, image);
         });
-      });
+      }
 
       map.on('load', function() {
         map.addSource('gps', {

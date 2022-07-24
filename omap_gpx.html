@@ -206,11 +206,11 @@
           url: param.url,
           format: new ol.format.GPX({
             readExtensions: function (feature, extensions) {
-              extensions.childNodes.forEach(function (elem) {
+              for (const elem of extensions.childNodes) {
                 if (elem.nodeName.startsWith('kashmir3d:')) {
                   feature.set(elem.nodeName, elem.textContent);
                 }
-              });
+              }
             }
           })
         }),
@@ -226,12 +226,12 @@
       function getHTML(feature) {
         let html = '<h2>' + feature.get('name') + '</h2>';
         let body = '';
-        feature.get('cmt').split(',').forEach(function(item) {
+        for (const item of feature.get('cmt').split(',')) {
           const kv = item.split('=');
           if (!kv[0].match(/^[ 　]*$/)) {
             body += '<tr><td>' + kv[0] + '</td><td>' + kv[1] + '</td></tr>';
           }
-        });
+        }
         if (body) {
           html += '<table><tbody>' + body + '</tbody></table>';
         }
