@@ -76,7 +76,7 @@
 
       function parseKML(xml) {
         const layers = [];
-        const placemarks = Array.prototype.slice.call(xml.getElementsByTagName('Placemark')); // IE11
+        const placemarks = Array.prototype.slice.call(xml.getElementsByTagName('Placemark'));
         placemarks.forEach(function (placemark) {
           const id = placemark.getElementsByTagName('styleUrl').item(0).textContent.slice(1);
           const style = xml.querySelector('[id="' + id + '"]');

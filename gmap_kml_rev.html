@@ -117,7 +117,7 @@
       fetch(param.url).then(
         response => response.text()
       ).then(
-        text => addKML(parser.parseFromString(text, 'application/xml'))
+        text => addKML(parser.parseFromString(text, 'text/xml'))
       );
 
       const popup = new google.maps.InfoWindow();

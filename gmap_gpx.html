@@ -143,7 +143,7 @@
       fetch(param.url).then(
         response => response.text()
       ).then(
-        text => addGPX(parser.parseFromString(text, 'application/xml'))
+        text => addGPX(parser.parseFromString(text, 'text/xml'))
       );
 
       const popup = new google.maps.InfoWindow();

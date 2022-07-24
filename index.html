@@ -26,7 +26,7 @@
 <h2>基本仕様</h2>
 <ul>
 <li>モバイル対応：フレームのサイズ変更に追従し、常にフレーム全体で表示。</li>
-<li>モダンブラウザ（Chrome、Firefox、Safari、Microsoft Edge）に対応。</li>
+<li>モダンブラウザ（Chrome、Firefox、Safari、Microsoft Edge）に対応。Internet Explorer 11 はサポート外です。</li>
 <li>ユーザサイトに設置するファイルは基本的に、サイト内で共通のHTMLファイルが1つと、表示するルート地図毎にGPSデータファイルが1つ。</li>
 <li>GPSデータのファイル形式は次の3種類のうちのいずれか一つ。
 <ol>
@@ -68,7 +68,7 @@
 </thead>
 <tbody>
 <tr>
-  <td>Leaflet 1.8.0</td>
+  <td>Leaflet 1.8.0 ※8</td>
   <td>不要</td>
   <td><a href="lmap_basic.html" onclick="return routemap(this.href)"></a></td>
   <td></td>
@@ -78,19 +78,6 @@
   <td><a href="lmap_geojson.html" onclick="return routemap(this.href)"></a></td>
   <td><a href="lmap_gpx.html" onclick="return routemap(this.href)"></a></td>
 </tr>
-<!--
-<tr>
-  <td>OpenLayers v6.4.3</td>
-  <td>不要</td>
-  <td><a href="omap_basic_643.html" onclick="return routemap(this.href)"></a></td>
-  <td></td>
-  <td><a href="omap_bases_643.html" onclick="return routemap(this.href)"></a></td>
-  <td><a href="omap_kml_643.html" onclick="return routemap(this.href)"></a></td>
-  <td></td>
-  <td><a href="omap_geojson_643.html" onclick="return routemap(this.href)"></a></td>
-  <td><a href="omap_gpx_643.html" onclick="return routemap(this.href)"></a></td>
-</tr>
--->
 <tr>
   <td>OpenLayers v6.15.1</td>
   <td>不要</td>
@@ -125,7 +112,7 @@
   <td><a href="dist/gmap_gpx.html" onclick="return routemap(this.href)"></a></td>
 </tr>
 <tr>
-  <td>Bing Maps API</td>
+  <td>Bing Maps API ※8</td>
   <td>要</td>
   <td><a href="dist/bmap_basic.html" onclick="return routemap(this.href)"></a></td>
   <td></td>
@@ -166,6 +153,7 @@
 ※5： Bing Maps APIに不具合があり、ある条件（description要素はCDATA、Style要素が前でPlacemark要素が後）を満たさないKMLファイルは読み込めない。Python版GPX2GeoJSONは、この条件を満たすKMLファイルを出力する。<br>
 ※6： ※5の制約を解消した改良版。線種は点線に固定。<br>
 ※7： 軌跡が表示されない（原因と対策を調査中）。<br>
+※8： Internet Explorer 11 で閲覧可能。<br>
 ※9： v2より要。</p>
 <h3>ダウンロード</h3>
 <p>ルート地図のソースコード（HTML、JS、CSS）一式をダウンロードする方法を説明します。まず、<a href="https://github.com/anineco/gps-track-maps">https://github.com/anineco/gps-track-maps</a>にアクセスするとgps-track-mapsのリポジトリ画面が開きます。<span style="font-size:small;background:green;color:white;padding:2px;border-radius:2px;">↓Code</span>をクリックすると小窓が開き、続いて<span style="color:blue;">Download ZIP</span>をクリックするとダウンロードが始まります。ダウンロードしたZIPファイルを適当なフォルダの下で展開して下さい。</p>

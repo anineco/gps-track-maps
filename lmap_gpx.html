@@ -127,21 +127,20 @@
       }
 
       function get_latlngs(segment, tag) { // trkseg or rte
-        const latlngs = [];
-        const tags = Array.prototype.slice.call(segment.getElementsByTagName(tag)); // IE11
-        tags.forEach(function (pt) { // trkpt or rtept
-          latlngs.push([pt.getAttribute('lat'), pt.getAttribute('lon')]);
+        const tags = Array.prototype.slice.call(segment.getElementsByTagName(tag));
+        const latlngs = tags.map(function (pt) { // trkpt or rtept
+           return [pt.getAttribute('lat'), pt.getAttribute('lon')];
         });
         return [latlngs];
       }
 
       function parseGPX(xml) {
         const layers = [];
-        const wpts = Array.prototype.slice.call(xml.getElementsByTagName('wpt')); // IE11
+        const wpts = Array.prototype.slice.call(xml.getElementsByTagName('wpt'));
         wpts.forEach(function (wpt) {
           layers.push(get_marker(wpt));
         });
-        const rtes = Array.prototype.slice.call(xml.getElementsByTagName('rte')); // IE11
+        const rtes = Array.prototype.slice.call(xml.getElementsByTagName('rte'));
         rtes.forEach(function (rte) {
           const rtepts = Array.prototype.slice.call(rte.getElementsByTagName('rtept'));
           rtepts.forEach(function (rtept) {
@@ -152,10 +151,10 @@
           const options = get_options(rte);
           layers.push(L.polyline(get_latlngs(rte, 'rtept'), options));
         });
-        const trks = Array.prototype.slice.call(xml.getElementsByTagName('trk')); // IE11
+        const trks = Array.prototype.slice.call(xml.getElementsByTagName('trk'));
         trks.forEach(function (trk) {
           const options = get_options(trk);
-          const trksegs = Array.prototype.slice.call(trk.getElementsByTagName('trkseg')); // IE11
+          const trksegs = Array.prototype.slice.call(trk.getElementsByTagName('trkseg'));
           trksegs.forEach(function (trkseg) {
             layers.push(L.polyline(get_latlngs(trkseg, 'trkpt'), options));
           });
@@ -163,10 +162,10 @@
         return new L.FeatureGroup(layers);
       }
 
+      const parser = new DOMParser();
       fetch(param.url).then(function (response) {
         return response.text();
       }).then(function (text) {
-        const parser = new DOMParser();
         const xml = parser.parseFromString(text, 'text/xml');
         const track = parseGPX(xml);
         map.addLayer(track);
