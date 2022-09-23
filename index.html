@@ -68,7 +68,7 @@
 </thead>
 <tbody>
 <tr>
-  <td>Leaflet 1.8.0 ※8</td>
+  <td>Leaflet 1.9.1 ※7</td>
   <td>不要</td>
   <td><a href="lmap_basic.html" onclick="return routemap(this.href)"></a></td>
   <td></td>
@@ -78,6 +78,7 @@
   <td><a href="lmap_geojson.html" onclick="return routemap(this.href)"></a></td>
   <td><a href="lmap_gpx.html" onclick="return routemap(this.href)"></a></td>
 </tr>
+<!--
 <tr>
   <td>OpenLayers v6.15.1</td>
   <td>不要</td>
@@ -89,8 +90,9 @@
   <td><a href="omap_geojson.html" onclick="return routemap(this.href)"></a></td>
   <td><a href="omap_gpx.html" onclick="return routemap(this.href)"></a> ※7</td>
 </tr>
+-->
 <tr>
-  <td>OpenLayers (npm)</td>
+  <td>OpenLayers v7.1.0</td>
   <td>不要</td>
   <td><a href="dist/omap_basic.html" onclick="return routemap(this.href)"></a></td>
   <td><a href="dist/omap_gsibv.html" onclick="return routemap(this.href)"></a></td>
@@ -112,7 +114,7 @@
   <td><a href="dist/gmap_gpx.html" onclick="return routemap(this.href)"></a></td>
 </tr>
 <tr>
-  <td>Bing Maps API ※8</td>
+  <td>Bing Maps API ※7</td>
   <td>要</td>
   <td><a href="dist/bmap_basic.html" onclick="return routemap(this.href)"></a></td>
   <td></td>
@@ -120,7 +122,7 @@
   <td><a href="dist/bmap_kml.html" onclick="return routemap(this.href)"></a> ※5</td>
   <td><a href="dist/bmap_kml_rev.html" onclick="return routemap(this.href)"></a> ※6</td>
   <td><a href="dist/bmap_geojson.html" onclick="return routemap(this.href)"></a></td>
-  <td><a href="dist/bmap_gpx.html" onclick="return routemap(this.href)"></a> ※7</td>
+  <td><a href="dist/bmap_gpx.html" onclick="return routemap(this.href)"></a></td>
 </tr>
 <tr>
   <td>Mapbox GL JS v2.6.1</td>
@@ -135,7 +137,7 @@
 </tr>
 <tr>
   <td>Mapbox GL JS + GSIBV</td>
-  <td>要 ※9</td>
+  <td>要 ※8</td>
   <td></td>
   <td><a href="dist/mmap_gsibv.html" onclick="return routemap(this.href)"></a></td>
   <td></td>
@@ -152,9 +154,8 @@
 ※4： ※3の制約を解消した改良版。<br>
 ※5： Bing Maps APIに不具合があり、ある条件（description要素はCDATA、Style要素が前でPlacemark要素が後）を満たさないKMLファイルは読み込めない。Python版GPX2GeoJSONは、この条件を満たすKMLファイルを出力する。<br>
 ※6： ※5の制約を解消した改良版。線種は点線に固定。<br>
-※7： 軌跡が表示されない（原因と対策を調査中）。<br>
-※8： Internet Explorer 11 で閲覧可能。<br>
-※9： v2より要。</p>
+※7： Internet Explorer 11 で閲覧可能。<br>
+※8： v2より要。</p>
 <h3>ダウンロード</h3>
 <p>ルート地図のソースコード（HTML、JS、CSS）一式をダウンロードする方法を説明します。まず、<a href="https://github.com/anineco/gps-track-maps">https://github.com/anineco/gps-track-maps</a>にアクセスするとgps-track-mapsのリポジトリ画面が開きます。<span style="font-size:small;background:green;color:white;padding:2px;border-radius:2px;">↓Code</span>をクリックすると小窓が開き、続いて<span style="color:blue;">Download ZIP</span>をクリックするとダウンロードが始まります。ダウンロードしたZIPファイルを適当なフォルダの下で展開して下さい。</p>
 <h3>設置手順</h3>
@@ -218,6 +219,10 @@ function routemap(url) {
 <p>誤字・脱字、リンク切れ等の小さな不具合の修正は随時行っています。</p>
 <table class="base">
 <tbody>
+<tr>
+<td valign="top">2022-09-24</td>
+<td valign="top">Leaflet 1.8.1、OpenLayers 7.1.0 にバージョンアップ。</td>
+</tr>
 <tr>
 <td valign="top">2022-03-27</td>
 <td valign="top">IE11 をサポート外とし、関連する表記を削除。<br>OpenLayers 6.15.1 にバージョンアップ。</td>
