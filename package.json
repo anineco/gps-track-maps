@@ -25,11 +25,11 @@
   "dependencies": {
     "ol": "^7.1.0",
     "ol-layerswitcher": "^4.1.0",
-    "ol-mapbox-style": "^9.2.0",
+    "ol-mapbox-style": "^9.2.1",
     "ol-popup": "^5.0.0"
   },
   "devDependencies": {
-    "cssnano": "^5.1.13",
+    "cssnano": "^5.1.14",
     "is-svg": ">=4.3.2",
     "parcel": "*"
   },
