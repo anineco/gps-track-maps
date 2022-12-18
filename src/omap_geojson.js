@@ -148,7 +148,7 @@ map.addOverlay(popup);
 map.on('click', function (evt) {
   map.forEachFeatureAtPixel(
     evt.pixel,
-    function (feature, layer) {
+    function (feature, _layer) {
       const geometry = feature.getGeometry();
       if (geometry.getType() !== 'Point') {
         return false;
@@ -162,7 +162,7 @@ map.on('pointermove', function (evt) {
   if (evt.dragging) { return; }
   const found = map.forEachFeatureAtPixel(
     map.getEventPixel(evt.originalEvent),
-    (feature, layer) => feature.getGeometry().getType() === 'Point'
+    (feature, _layer) => feature.getGeometry().getType() === 'Point'
   );
   map.getTargetElement().style.cursor = found ? 'pointer' : '';
 });

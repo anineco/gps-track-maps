@@ -7,11 +7,6 @@ import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import LayerGroup from 'ol/layer/Group';
 import Map from 'ol/Map';
-import Fill from 'ol/style/Fill';
-import Stroke from 'ol/style/Stroke';
-import Icon from 'ol/style/Icon';
-import Text from 'ol/style/Text';
-import Style from 'ol/style/Style';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import KML from 'ol/format/KML';
@@ -91,7 +86,7 @@ map.addOverlay(popup);
 map.on('click', function (evt) {
   map.forEachFeatureAtPixel(
     evt.pixel,
-    function (feature, layer) {
+    function (feature, _layer) {
       const geometry = feature.getGeometry();
       if (geometry.getType() !== 'Point') {
         return false;
@@ -107,7 +102,7 @@ map.on('pointermove', function (evt) {
   if (evt.dragging) { return; }
   const found = map.forEachFeatureAtPixel(
     map.getEventPixel(evt.originalEvent),
-    (feature, layer) => feature.getGeometry().getType() === 'Point'
+    (feature, _layer) => feature.getGeometry().getType() === 'Point'
   );
   map.getTargetElement().style.cursor = found ? 'pointer' : '';
 });

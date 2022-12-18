@@ -21,7 +21,7 @@ const std = new TileLayer({
     url: 'https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'
   })
 });
-const map = new Map({
+const _map = new Map({
   target: 'map',
   layers: [std],
   view: view

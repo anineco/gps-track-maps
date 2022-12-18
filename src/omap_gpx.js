@@ -152,7 +152,7 @@ function getHTML(feature) {
   let body = '';
   for (const item of feature.get('cmt').split(',')) {
     const kv = item.split('=');
-    if (!kv[0].match(/^[ 　]*$/)) {
+    if (!kv[0].match(/^[\u{20}\u{3000}]*$/u)) {
       body += '<tr><td>' + kv[0] + '</td><td>' + kv[1] + '</td></tr>';
     }
   }
@@ -167,7 +167,7 @@ map.addOverlay(popup);
 map.on('click', function (evt) {
   map.forEachFeatureAtPixel(
     evt.pixel,
-    function (feature, layer) {
+    function (feature, _layer) {
       const geometry = feature.getGeometry();
       if (geometry.getType() !== 'Point') {
         return false;
@@ -181,7 +181,7 @@ map.on('pointermove', function (evt) {
   if (evt.dragging) { return; }
   const found = map.forEachFeatureAtPixel(
     map.getEventPixel(evt.originalEvent),
-    (feature, layer) => feature.getGeometry().getType() === 'Point'
+    (feature, _layer) => feature.getGeometry().getType() === 'Point'
   );
   map.getTargetElement().style.cursor = found ? 'pointer' : '';
 });

@@ -29,14 +29,14 @@ const view = new View({
 });
 const gsibv = new VectorTileLayer({
   source: new VectorTile({
-    attributions: "<a href='https://maps.gsi.go.jp/vector/' target='_blank'>地理院地図Vector（仮称）</a>",
+    attributions: '<a href="https://maps.gsi.go.jp/vector/" target="_blank">地理院地図Vector（仮称）</a>',
     url: 'https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf',
     format: new MVT()
   }),
   declutter: true, // mandatory to avoid text clipping at tile edge
   visible: false
 });
-const map = new Map({
+const _map = new Map({
   target: 'map',
   layers: [gsibv],
   view: view

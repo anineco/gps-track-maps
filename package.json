@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint 'src/*.js'",
     "start": "parcel --no-source-maps 'src/*.html'",
     "prebuild": "rm -f dist/*.*.*",
     "build": "parcel build --no-source-maps --public-url . 'src/*.html'"
@@ -25,11 +26,12 @@
   "dependencies": {
     "ol": "^7.1.0",
     "ol-layerswitcher": "^4.1.0",
-    "ol-mapbox-style": "^9.2.1",
+    "ol-mapbox-style": "^9.2.4",
     "ol-popup": "^5.0.0"
   },
   "devDependencies": {
     "cssnano": "^5.1.14",
+    "eslint": "^8.30.0",
     "is-svg": ">=4.3.2",
     "parcel": "*"
   },
