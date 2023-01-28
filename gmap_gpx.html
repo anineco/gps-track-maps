@@ -31,7 +31,6 @@
   </head>
   <body>
     <div id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=_YOUR_API_KEY_&amp;language=ja&amp;region=JP"></script>
     <script>
       const param = {
         lon: 139.435076, lat: 36.354746, zoom: 14,
@@ -46,123 +45,126 @@
         }
       }
 
-      const map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: param.lat, lng: param.lon },
-        zoom: param.zoom,
-        mapTypeId: 'terrain',
-        scaleControl: true
-      });
-
-      map.data.setStyle(function (feature) {
-        const type = feature.getGeometry().getType();
-        if (type === 'LineString') {
-          return {
-            clickable: false,
-            strokeColor: feature.getProperty('_color'),
-            strokeOpacity: 0.5,
-            strokeWeight: feature.getProperty('_weight')
-          };
-        }
-        if (type === 'Point') {
-          return {
-            icon: {
-              url: feature.getProperty('_iconUrl'),
-              scaledSize: new google.maps.Size(24, 24),
-              anchor: new google.maps.Point(12, 12)
-            },
-            title: feature.getProperty('name')
-          };
-        }
-      });
-
-      function get_point(pt) { // wpt or rtept
-        const lat = Number(pt.getAttribute('lat'));
-        const lng = Number(pt.getAttribute('lon'));
-        const name = pt.getElementsByTagName('name').item(0).textContent;
-        const icon = pt.getElementsByTagName('kashmir3d:icon').item(0).textContent;
-        const feature = {
-          geometry: { lat: lat, lng: lng },
-          properties: {
-            name: name,
-            _iconUrl: 'https://map.jpn.org/icon/' + icon + '.png'
+      function initMap() {
+        const map = new google.maps.Map(document.getElementById('map'), {
+          center: { lat: param.lat, lng: param.lon },
+          zoom: param.zoom,
+          mapTypeId: 'terrain',
+          scaleControl: true
+        });
+  
+        map.data.setStyle(function (feature) {
+          const type = feature.getGeometry().getType();
+          if (type === 'LineString') {
+            return {
+              clickable: false,
+              strokeColor: feature.getProperty('_color'),
+              strokeOpacity: 0.5,
+              strokeWeight: feature.getProperty('_weight')
+            };
           }
-        };
-        for (const item of pt.getElementsByTagName('cmt').item(0).textContent.split(',')) {
-          const kv = item.split('=');
-          if (!kv[0].match(/^[ 　]*$/)) {
-            feature.properties[kv[0]] = kv[1];
-          }
-        }
-        return feature;
-      }
-
-      function get_linestring_properties(t) { // trk or rte
-        const c = t.getElementsByTagName('kashmir3d:line_color').item(0).textContent.match(/^(..)(..)(..)$/);
-        const w = t.getElementsByTagName('kashmir3d:line_size').item(0).textContent;
-        return {
-          _color: '#' + c[3] + c[2] + c[1],
-          _weight: Number(w)
-        };
-      }
-
-      function get_linestring_geometry(segment, tag) { // trkseg or rte
-        const tags = Array.prototype.slice.call(segment.getElementsByTagName(tag));
-        const latlngs = tags.map( // trkpt or rtept
-          pt => ({ lat: Number(pt.getAttribute('lat')), lng: Number(pt.getAttribute('lon')) })
-        );
-        return new google.maps.Data.LineString(latlngs);
-      }
-
-      function addGPX(xml) {
-        for (const wpt of xml.getElementsByTagName('wpt')) {
-          map.data.add(get_point(wpt));
-        }
-        for (const rte of xml.getElementsByTagName('rte')) {
-          for (const rtept of rte.getElementsByTagName('rtept')) {
-            if (rtept.getElementsByTagName('kashmir3d:icon').item(0).textContent !== '903001') {
-              map.data.add(get_point(rtept));
-            }
-          }
-          map.data.add({
-            geometry: get_linestring_geometry(rte, 'rtept'),
-            properties: get_linestring_properties(rte)
-          });
-        }
-        for (const trk of xml.getElementsByTagName('trk')) {
-          const properties = get_linestring_properties(trk);
-          for (const trkseg of trk.getElementsByTagName('trkseg')) {
-            map.data.add({
-              geometry: get_linestring_geometry(trkseg, 'trkpt'),
-              properties: properties
-            });
-          }
-        }
-      }
-
-      const parser = new DOMParser();
-      fetch(param.url).then(
-        response => response.text()
-      ).then(
-        text => addGPX(parser.parseFromString(text, 'text/xml'))
-      );
-
-      const popup = new google.maps.InfoWindow();
-      map.data.addListener('click', function (event) {
-        let html = '<h2>' + event.feature.getProperty('name') + '</h2>';
-        let body = '';
-        event.feature.forEachProperty(function (value, key) {
-          if (key !== 'name' && key.charAt(0) !== '_') {
-            body += '<tr><td>' + key + '</td><td>' + value + '</td></tr>';
+          if (type === 'Point') {
+            return {
+              icon: {
+                url: feature.getProperty('_iconUrl'),
+                scaledSize: new google.maps.Size(24, 24),
+                anchor: new google.maps.Point(12, 12)
+              },
+              title: feature.getProperty('name')
+            };
           }
         });
-        if (body) {
-          html += '<table><tbody>' + body + '</tbody></table>';
+  
+        function get_point(pt) { // wpt or rtept
+          const lat = Number(pt.getAttribute('lat'));
+          const lng = Number(pt.getAttribute('lon'));
+          const name = pt.getElementsByTagName('name').item(0).textContent;
+          const icon = pt.getElementsByTagName('kashmir3d:icon').item(0).textContent;
+          const feature = {
+            geometry: { lat: lat, lng: lng },
+            properties: {
+              name: name,
+              _iconUrl: 'https://map.jpn.org/icon/' + icon + '.png'
+            }
+          };
+          for (const item of pt.getElementsByTagName('cmt').item(0).textContent.split(',')) {
+            const kv = item.split('=');
+            if (!kv[0].match(/^[ 　]*$/)) {
+              feature.properties[kv[0]] = kv[1];
+            }
+          }
+          return feature;
         }
-        popup.setContent(html);
-        popup.setPosition(event.latLng);
-        popup.setOptions({ pixelOffset: new google.maps.Size(0, -5) });
-        popup.open(map);
-      });
+  
+        function get_linestring_properties(t) { // trk or rte
+          const c = t.getElementsByTagName('kashmir3d:line_color').item(0).textContent.match(/^(..)(..)(..)$/);
+          const w = t.getElementsByTagName('kashmir3d:line_size').item(0).textContent;
+          return {
+            _color: '#' + c[3] + c[2] + c[1],
+            _weight: Number(w)
+          };
+        }
+  
+        function get_linestring_geometry(segment, tag) { // trkseg or rte
+          const tags = Array.prototype.slice.call(segment.getElementsByTagName(tag));
+          const latlngs = tags.map( // trkpt or rtept
+            pt => ({ lat: Number(pt.getAttribute('lat')), lng: Number(pt.getAttribute('lon')) })
+          );
+          return new google.maps.Data.LineString(latlngs);
+        }
+  
+        function addGPX(xml) {
+          for (const wpt of xml.getElementsByTagName('wpt')) {
+            map.data.add(get_point(wpt));
+          }
+          for (const rte of xml.getElementsByTagName('rte')) {
+            for (const rtept of rte.getElementsByTagName('rtept')) {
+              if (rtept.getElementsByTagName('kashmir3d:icon').item(0).textContent !== '903001') {
+                map.data.add(get_point(rtept));
+              }
+            }
+            map.data.add({
+              geometry: get_linestring_geometry(rte, 'rtept'),
+              properties: get_linestring_properties(rte)
+            });
+          }
+          for (const trk of xml.getElementsByTagName('trk')) {
+            const properties = get_linestring_properties(trk);
+            for (const trkseg of trk.getElementsByTagName('trkseg')) {
+              map.data.add({
+                geometry: get_linestring_geometry(trkseg, 'trkpt'),
+                properties: properties
+              });
+            }
+          }
+        }
+  
+        const parser = new DOMParser();
+        fetch(param.url).then(
+          response => response.text()
+        ).then(
+          text => addGPX(parser.parseFromString(text, 'text/xml'))
+        );
+  
+        const popup = new google.maps.InfoWindow();
+        map.data.addListener('click', function (event) {
+          let html = '<h2>' + event.feature.getProperty('name') + '</h2>';
+          let body = '';
+          event.feature.forEachProperty(function (value, key) {
+            if (key !== 'name' && key.charAt(0) !== '_') {
+              body += '<tr><td>' + key + '</td><td>' + value + '</td></tr>';
+            }
+          });
+          if (body) {
+            html += '<table><tbody>' + body + '</tbody></table>';
+          }
+          popup.setContent(html);
+          popup.setPosition(event.latLng);
+          popup.setOptions({ pixelOffset: new google.maps.Size(0, -5) });
+          popup.open(map);
+        });
+      }
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=_YOUR_API_KEY_&language=ja&region=JP&callback=initMap"></script>
   </body>
 </html>

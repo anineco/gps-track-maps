@@ -31,7 +31,6 @@
   </head>
   <body>
     <div id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=_YOUR_API_KEY_&amp;language=ja&amp;region=JP"></script>
     <script>
       const param = {
         lon: 139.435076, lat: 36.354746, zoom: 14,
@@ -46,88 +45,91 @@
         }
       }
 
-      const map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: param.lat, lng: param.lon },
-        zoom: param.zoom,
-        mapTypeId: 'terrain',
-        scaleControl: true
-      });
+      function initMap() {
+        const map = new google.maps.Map(document.getElementById('map'), {
+          center: { lat: param.lat, lng: param.lon },
+          zoom: param.zoom,
+          mapTypeId: 'terrain',
+          scaleControl: true
+        });
 
-      map.data.setStyle(function (feature) {
-        const options = {};
-        const type = feature.getGeometry().getType();
-        if (type === 'LineString') {
-          options.strokeColor = feature.getProperty('_color');
-          options.strokeOpacity = feature.getProperty('_opacity');
-          options.strokeWeighti = feature.getProperty('_weight');
-          options.clickable = false;
-        } else if (type === 'Point') {
-          options.icon = {
-            url: feature.getProperty('_iconUrl'),
-            scaledSize: new google.maps.Size(24, 24),
-            anchor: new google.maps.Point(12, 12)
-          };
-          options.title = feature.getProperty('name');
-        }
-        return options;
-      });
+        map.data.setStyle(function (feature) {
+          const options = {};
+          const type = feature.getGeometry().getType();
+          if (type === 'LineString') {
+            options.strokeColor = feature.getProperty('_color');
+            options.strokeOpacity = feature.getProperty('_opacity');
+            options.strokeWeighti = feature.getProperty('_weight');
+            options.clickable = false;
+          } else if (type === 'Point') {
+            options.icon = {
+              url: feature.getProperty('_iconUrl'),
+              scaledSize: new google.maps.Size(24, 24),
+              anchor: new google.maps.Point(12, 12)
+            };
+            options.title = feature.getProperty('name');
+          }
+          return options;
+        });
 
-      function addKML(xml) {
-        for (const placemark of xml.getElementsByTagName('Placemark')) {
-          const id = placemark.getElementsByTagName('styleUrl').item(0).textContent.slice(1);
-          const style = xml.querySelector('[id="' + id + '"]');
-          const point = placemark.getElementsByTagName('Point');
-          if (point.length > 0) {
-            const p = point.item(0).getElementsByTagName('coordinates').item(0).textContent.split(',');
-            const desc = placemark.getElementsByTagName('description');
-            const feature = {
-              geometry: { lat: Number(p[1]), lng: Number(p[0]) },
-              properties: {
-                name: placemark.getElementsByTagName('name').item(0).textContent,
-                _iconUrl: style.getElementsByTagName('href').item(0).textContent,
-                description: desc.length > 0 ? desc.item(0).textContent : ''
+        function addKML(xml) {
+          for (const placemark of xml.getElementsByTagName('Placemark')) {
+            const id = placemark.getElementsByTagName('styleUrl').item(0).textContent.slice(1);
+            const style = xml.querySelector('[id="' + id + '"]');
+            const point = placemark.getElementsByTagName('Point');
+            if (point.length > 0) {
+              const p = point.item(0).getElementsByTagName('coordinates').item(0).textContent.split(',');
+              const desc = placemark.getElementsByTagName('description');
+              const feature = {
+                geometry: { lat: Number(p[1]), lng: Number(p[0]) },
+                properties: {
+                  name: placemark.getElementsByTagName('name').item(0).textContent,
+                  _iconUrl: style.getElementsByTagName('href').item(0).textContent,
+                  description: desc.length > 0 ? desc.item(0).textContent : ''
+                }
               }
+              map.data.add(feature);
+              continue;
             }
-            map.data.add(feature);
-            continue;
-          }
-          const linestring = placemark.getElementsByTagName('LineString');
-          if (linestring.length > 0) {
-            const coordinates = linestring.item(0).getElementsByTagName('coordinates').item(0).textContent.split('\n');
-            const latlngs = coordinates.map(function (coordinate) {
-              const p = coordinate.split(',');
-              return { lat: Number(p[1]), lng: Number(p[0]) };
-            });
-            const c = style.getElementsByTagName('color').item(0).textContent.match(/^(..)(..)(..)(..)$/);
-            const feature = {
-              geometry: new google.maps.Data.LineString(latlngs),
-              properties: {
-                _color: '#' + c[4] + c[3] + c[2],
-                _weight: Number(style.getElementsByTagName('width').item(0).textContent),
-                _opacity: parseInt(c[1], 16) / 255
+            const linestring = placemark.getElementsByTagName('LineString');
+            if (linestring.length > 0) {
+              const coordinates = linestring.item(0).getElementsByTagName('coordinates').item(0).textContent.split('\n');
+              const latlngs = coordinates.map(function (coordinate) {
+                const p = coordinate.split(',');
+                return { lat: Number(p[1]), lng: Number(p[0]) };
+              });
+              const c = style.getElementsByTagName('color').item(0).textContent.match(/^(..)(..)(..)(..)$/);
+              const feature = {
+                geometry: new google.maps.Data.LineString(latlngs),
+                properties: {
+                  _color: '#' + c[4] + c[3] + c[2],
+                  _weight: Number(style.getElementsByTagName('width').item(0).textContent),
+                  _opacity: parseInt(c[1], 16) / 255
+                }
               }
+              map.data.add(feature);
+              continue;
             }
-            map.data.add(feature);
-            continue;
           }
         }
+
+        const parser = new DOMParser();
+        fetch(param.url).then(
+          response => response.text()
+        ).then(
+          text => addKML(parser.parseFromString(text, 'text/xml'))
+        );
+
+        const popup = new google.maps.InfoWindow();
+        map.data.addListener('click', function (event) {
+          const html = '<h2>' + event.feature.getProperty('name') + '</h2>' + event.feature.getProperty('description');
+          popup.setContent(html);
+          popup.setPosition(event.latLng);
+          popup.setOptions({ pixelOffset: new google.maps.Size(0, -5) });
+          popup.open(map);
+        });
       }
-
-      const parser = new DOMParser();
-      fetch(param.url).then(
-        response => response.text()
-      ).then(
-        text => addKML(parser.parseFromString(text, 'text/xml'))
-      );
-
-      const popup = new google.maps.InfoWindow();
-      map.data.addListener('click', function (event) {
-        const html = '<h2>' + event.feature.getProperty('name') + '</h2>' + event.feature.getProperty('description');
-        popup.setContent(html);
-        popup.setPosition(event.latLng);
-        popup.setOptions({ pixelOffset: new google.maps.Size(0, -5) });
-        popup.open(map);
-      });
     </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=_YOUR_API_KEY_&language=ja&region=JP&callback=initMap" async></script>
   </body>
 </html>
