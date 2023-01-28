@@ -99,21 +99,21 @@
               opacity: feature.properties._opacity,
               dashArray: feature.properties._dashArray
             };
+          },
+          onEachFeature: function (feature, layer) {
+            const properties = feature.properties;
+            let html = '<h2>' + properties.name + '</h2>';
+            const keys = Object.keys(properties).filter(function (key) {
+              return key !== 'geometry' && key !== 'name' && key.charAt(0) !== '_';
+            });
+            if (keys.length > 0) {
+              html += '<table><tbody>' + keys.map(function (key) {
+                return '<tr><td>' + key + '</td><td>' + properties[key] + '</td></tr>';
+              }).join('') + '</tbody></table>';
+            }
+            layer.bindPopup(html);
           }
-        }).bindPopup(function (layer) {
-          const properties = layer.feature.properties;
-          let html = '<h2>' + properties.name + '</h2>';
-          const keys = Object.keys(properties).filter(function (key) {
-            return key !== 'geometry' && key !== 'name' && key.charAt(0) !== '_';
-          });
-          if (keys.length > 0) {
-            html += '<table><tbody>' + keys.map(function (key) {
-              return '<tr><td>' + key + '</td><td>' + properties[key] + '</td></tr>';
-            }).join('') + '</tbody></table>';
-          }
-          return html;
-        });
-        map.addLayer(track);
+        }).addTo(map);
         L.control.layers(
           { '標準': std, '淡色': pale, '写真': seamlessphoto },
           { 'GPS': track }
