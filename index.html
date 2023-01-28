@@ -9,6 +9,7 @@
 .t-c td { text-align: center; }
 .t1-l td:first-child { text-align: left; }
 .t3-l td:nth-child(3) { text-align: left; }
+.t-v td { vertical-align: top; }
 </style>
 </head>
 <body>
@@ -49,7 +50,7 @@
 </p>
 <p style="text-align:center;">
 <iframe width="640" height="480" style="border-style:inset;border-width:2px;"
-  src="lmap_geojson.html?lon=139.435076&amp;lat=36.354746&amp;zoom=14&amp;url=example/routemap.geojson">
+  src="lmap_geojson.html?lon=139.435076&lat=36.354746&zoom=14&url=example/routemap.geojson">
 </iframe><br>
 (b) Leaflet + GeoJSON によるルート地図<br>
 図1 ルート地図の作例
@@ -192,7 +193,7 @@
 <div class="src">
 <pre>
 &lt;iframe width=&quot;<i>640</i>&quot; height=&quot;<i>480</i>&quot;
-  src=&quot;<b>lmap_geojson.html</b>?lat=<i>36.354746</i>&amp;amp;lon=<i>139.435076</i>&amp;amp;zoom=<i>13</i>&amp;amp;url=<b>example/routemap.geojson</b>&quot;&gt;
+  src=&quot;<b>lmap_geojson.html</b>?lat=<i>36.354746</i>&amp;lon=<i>139.435076</i>&amp;zoom=<i>13</i>&amp;url=<b>example/routemap.geojson</b>&quot;&gt;
 &lt;/iframe&gt;
 </pre>
 </div><!-- .src -->
@@ -208,7 +209,7 @@ function routemap(url) {
 &lt;/script&gt;
 </pre>
 <pre>
-&lt;a href=&quot;<b>lmap_geojson.html</b>?lat=<i>36.354746</i>&amp;amp;lon=<i>139.435076</i>&amp;amp;zoom=<i>13</i>&amp;amp;url=<b>example/routemap.geojson</b>&quot;
+&lt;a href=&quot;<b>lmap_geojson.html</b>?lat=<i>36.354746</i>&amp;lon=<i>139.435076</i>&amp;zoom=<i>13</i>&amp;url=<b>example/routemap.geojson</b>&quot;
   onclick=&quot;return routemap(this.href)&quot;&gt;ルート地図&lt;/a&gt;
 </pre>
 </div>
@@ -217,121 +218,125 @@ function routemap(url) {
 <p>なお、ルート地図用HTMLファイルは、使用するJavaScriptライブラリとGPSデータのファイル形式の組み合わせ毎に異なるHTMLファイルとなり、ファイル名は<span style="color:blue;">X</span>map_<span style="color:blue;">Y</span>.html、または、<span style="color:blue;">X</span>map_<span style="color:blue;">Y</span>_rev.html（改良版）などとなります。ここで、<span style="color:blue;">X</span>はJavaScriptライブラリの頭文字（l, o, g, b, m）、<span style="color:blue;">Y</span>はGPSデータのファイル形式（kml, geojson, gpx）です。これらのルート地図を設置する場合も、設置手順は同様です。</p>
 <h2>更新履歴</h2>
 <p>誤字・脱字、リンク切れ等の小さな不具合の修正は随時行っています。</p>
-<table class="base">
+<table class="base t-v">
 <tbody>
 <tr>
-<td valign="top">2022-12-23</td>
-<td valign="top">OpenLayers 7.2.2 にバージョンアップ。</td>
+<td>2023-01-28</td>
+<td>Mapbox GL JS 2.12.0 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2022-11-22</td>
-<td valign="top">Leaflet 1.9.3 にバージョンアップ。</td>
+<td>2022-12-23</td>
+<td>OpenLayers 7.2.2 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2022-09-24</td>
-<td valign="top">Leaflet 1.8.1、OpenLayers 7.1.0 にバージョンアップ。</td>
+<td>2022-11-22</td>
+<td>Leaflet 1.9.3 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2022-03-27</td>
-<td valign="top">IE11 をサポート外とし、関連する表記を削除。<br>OpenLayers 6.15.1 にバージョンアップ。</td>
+<td>2022-09-24</td>
+<td>Leaflet 1.8.1、OpenLayers 7.1.0 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2022-04-22</td>
-<td valign="top">Leaflet 1.8.0 にバージョンアップ。</td>
+<td>2022-03-27</td>
+<td>IE11 をサポート外とし、関連する表記を削除。<br>OpenLayers 6.15.1 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2022-03-27</td>
-<td valign="top">OpenLayers 6.14.1 にバージョンアップ。</td>
+<td>2022-04-22</td>
+<td>Leaflet 1.8.0 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2022-03-01</td>
-<td valign="top">OpenLayers 6.13.0 にバージョンアップ。</td>
+<td>2022-03-27</td>
+<td>OpenLayers 6.14.1 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2022-01-27</td>
-<td valign="top">Mapbox GL JS 2.6.1 にバージョンアップ。</td>
+<td>2022-03-01</td>
+<td>OpenLayers 6.13.0 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2022-01-15</td>
-<td valign="top">OpenLayers 6.12.0 にバージョンアップ。</td>
+<td>2022-01-27</td>
+<td>Mapbox GL JS 2.6.1 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2022-01-09</td>
-<td valign="top">OpenLayers 6.11.0 にバージョンアップ。</td>
+<td>2022-01-15</td>
+<td>OpenLayers 6.12.0 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2022-01-08</td>
-<td valign="top">OpenLayers 6.10.0 にバージョンアップ。</td>
+<td>2022-01-09</td>
+<td>OpenLayers 6.11.0 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2021-10-13</td>
-<td valign="top">OpenLayers 6.9.0 にバージョンアップ。</td>
+<td>2022-01-08</td>
+<td>OpenLayers 6.10.0 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2021-10-07</td>
-<td valign="top">Mapbox GL JS 2.5.0 にバージョンアップ。</td>
+<td>2021-10-13</td>
+<td>OpenLayers 6.9.0 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2021-09-29</td>
-<td valign="top">Google Maps APIのIE11のサポートに関して追記。</td>
+<td>2021-10-07</td>
+<td>Mapbox GL JS 2.5.0 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2021-09-25</td>
-<td valign="top">OpenLayers 6.8.1 にバージョンアップ。</td>
+<td>2021-09-29</td>
+<td>Google Maps APIのIE11のサポートに関して追記。</td>
 </tr>
 <tr>
-<td valign="top">2021-09-13</td>
-<td valign="top">OpenLayers 6.7.0 にバージョンアップ。</td>
+<td>2021-09-25</td>
+<td>OpenLayers 6.8.1 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2021-08-14</td>
-<td valign="top">Mapbox GL JS 2.4.0 にバージョンアップ。</td>
+<td>2021-09-13</td>
+<td>OpenLayers 6.7.0 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2021-07-16</td>
-<td valign="top">OpenLayers 6.6.1 にバージョンアップ。</td>
+<td>2021-08-14</td>
+<td>Mapbox GL JS 2.4.0 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2021-07-13</td>
-<td valign="top">OpenLayers 6.6.0 にバージョンアップ。表1の※7、※8を追加。</td>
+<td>2021-07-16</td>
+<td>OpenLayers 6.6.1 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2021-04-26</td>
-<td valign="top">OpenLayers v6.4.3を利用したルート地図（IE11サポート版）を追加。ダウンロードの節を補足。</td>
+<td>2021-07-13</td>
+<td>OpenLayers 6.6.0 にバージョンアップ。表1の※7、※8を追加。</td>
 </tr>
 <tr>
-<td valign="top">2021-03-06</td>
-<td valign="top">GPX2GeoJSONについての記述を、旧Perl版から新Python版へ改訂。</td>
+<td>2021-04-26</td>
+<td>OpenLayers v6.4.3を利用したルート地図（IE11サポート版）を追加。ダウンロードの節を補足。</td>
 </tr>
 <tr>
-<td valign="top">2020-12-28</td>
-<td valign="top">OpenLayers 6.5.0 にバージョンアップ。</td>
+<td>2021-03-06</td>
+<td>GPX2GeoJSONについての記述を、旧Perl版から新Python版へ改訂。</td>
 </tr>
 <tr>
-<td valign="top">2020-12-25</td>
-<td valign="top">ol-layerswitcher 3.8.3、ol-mapbox-style 6.3.0 にバージョンアップ。</td>
+<td>2020-12-28</td>
+<td>OpenLayers 6.5.0 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2020-12-06</td>
-<td valign="top">ol-layerswitcher 3.8.1にバージョンアップ。</td>
+<td>2020-12-25</td>
+<td>ol-layerswitcher 3.8.3、ol-mapbox-style 6.3.0 にバージョンアップ。</td>
 </tr>
 <tr>
-<td valign="top">2020-10-07</td>
-<td valign="top">OpenLayers 6.4.3、Leaflet 1.7.1にバージョンアップ。<br>
+<td>2020-12-06</td>
+<td>ol-layerswitcher 3.8.1にバージョンアップ。</td>
+</tr>
+<tr>
+<td>2020-10-07</td>
+<td>OpenLayers 6.4.3、Leaflet 1.7.1にバージョンアップ。<br>
 OpenLayersでポップアップが開く位置をアイコンの真上に変更。</td>
 </tr>
 <tr>
-<td valign="top">2020-08-12</td>
-<td valign="top">HTMLコードのサンプルを拡充。</td>
+<td>2020-08-12</td>
+<td>HTMLコードのサンプルを拡充。</td>
 </tr>
 <tr>
-<td valign="top">2019-12-29</td>
-<td valign="top">OpenLayers 6.1.1、Leaflet 1.6.0にバージョンアップ。<br>
+<td>2019-12-29</td>
+<td>OpenLayers 6.1.1、Leaflet 1.6.0にバージョンアップ。<br>
 Bingマップ版の不具合（The specified credentials are invalid.）を改訂。</td>
 </tr>
 <tr>
-<td valign="top">2019-07-07</td>
-<td valign="top">サイトを全面的に改訂。GPX2GeoJSONを公開。</td>
+<td>2019-07-07</td>
+<td>サイトを全面的に改訂。GPX2GeoJSONを公開。</td>
 </tr>
 </tbody>
 </table>
