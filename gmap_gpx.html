@@ -52,7 +52,7 @@
           mapTypeId: 'terrain',
           scaleControl: true
         });
-  
+
         map.data.setStyle(function (feature) {
           const type = feature.getGeometry().getType();
           if (type === 'LineString') {
@@ -74,7 +74,7 @@
             };
           }
         });
-  
+
         function get_point(pt) { // wpt or rtept
           const lat = Number(pt.getAttribute('lat'));
           const lng = Number(pt.getAttribute('lon'));
@@ -95,7 +95,7 @@
           }
           return feature;
         }
-  
+
         function get_linestring_properties(t) { // trk or rte
           const c = t.getElementsByTagName('kashmir3d:line_color').item(0).textContent.match(/^(..)(..)(..)$/);
           const w = t.getElementsByTagName('kashmir3d:line_size').item(0).textContent;
@@ -104,7 +104,7 @@
             _weight: Number(w)
           };
         }
-  
+
         function get_linestring_geometry(segment, tag) { // trkseg or rte
           const tags = Array.prototype.slice.call(segment.getElementsByTagName(tag));
           const latlngs = tags.map( // trkpt or rtept
@@ -112,7 +112,7 @@
           );
           return new google.maps.Data.LineString(latlngs);
         }
-  
+
         function addGPX(xml) {
           for (const wpt of xml.getElementsByTagName('wpt')) {
             map.data.add(get_point(wpt));
@@ -138,14 +138,14 @@
             }
           }
         }
-  
+
         const parser = new DOMParser();
         fetch(param.url).then(
           response => response.text()
         ).then(
           text => addGPX(parser.parseFromString(text, 'text/xml'))
         );
-  
+
         const popup = new google.maps.InfoWindow();
         map.data.addListener('click', function (event) {
           let html = '<h2>' + event.feature.getProperty('name') + '</h2>';
@@ -165,6 +165,6 @@
         });
       }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=_YOUR_API_KEY_&language=ja&region=JP&callback=initMap"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=_YOUR_API_KEY_&language=ja&region=JP&callback=initMap" defer></script>
   </body>
 </html>

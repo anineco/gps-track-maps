@@ -52,7 +52,7 @@
           mapTypeId: 'terrain',
           scaleControl: true
         });
-  
+
         map.data.loadGeoJson(param.url);
         map.data.setStyle(function (feature) {
           const type = feature.getGeometry().getType();
@@ -77,7 +77,7 @@
             };
           }
         });
-  
+
         const popup = new google.maps.InfoWindow();
         map.data.addListener('click', function (event) {
           let html = '<h2>' + event.feature.getProperty('name') + '</h2>';
@@ -97,6 +97,6 @@
         });
       }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=_YOUR_API_KEY_&language=ja&region=JP&callback=initMap" async></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=_YOUR_API_KEY_&language=ja&region=JP&callback=initMap" defer></script>
   </body>
 </html>

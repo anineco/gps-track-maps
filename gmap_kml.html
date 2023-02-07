@@ -40,12 +40,13 @@
           mapTypeId: 'terrain',
           scaleControl: true
         });
-        const track = new google.maps.KmlLayer(param.url, {
+        const track = new google.maps.KmlLayer({
+          url: param.url,
+          map: map,
           preserveViewport: true
         });
-        track.setMap(map);
       }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=_YOUR_API_KEY_&language=ja&region=JP&callback=initMap" async></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=_YOUR_API_KEY_&language=ja&region=JP&callback=initMap" defer></script>
   </body>
 </html>
