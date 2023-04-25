@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "buffer": "^6.0.3",
-    "cssnano": "^5.1.14",
+    "cssnano": "^6.0.0",
     "eslint": "^8.33.0",
     "is-svg": ">=4.3.2",
     "parcel": "^2.8.3"
