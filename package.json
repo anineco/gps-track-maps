@@ -2,6 +2,7 @@
   "name": "gps-track-maps",
   "version": "1.0.0",
   "description": "Showcase of web pages visualizing GPS track log, by using OpenLayers, leaflets, google and bing maps",
+  "type": "module",
   "private": true,
   "directories": {
     "doc": "docs"
@@ -9,9 +10,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint 'src/*.js'",
-    "start": "parcel --no-source-maps 'src/*.html'",
-    "prebuild": "rm -f dist/*.*.*",
-    "build": "parcel build --no-source-maps --public-url . 'src/*.html'"
+    "preview": "vite preview --mode=development ",
+    "build": "vite build --mode=production --emptyOutDir"
   },
   "repository": {
     "type": "git",
@@ -24,17 +24,20 @@
   },
   "homepage": "https://github.com/anineco/gps-track-maps#readme",
   "dependencies": {
-    "ol": "^8.1.0",
+    "ol": "^9.1.0",
     "ol-layerswitcher": "^4.1.1",
-    "ol-mapbox-style": "^11.0.3",
+    "ol-mapbox-style": "^12.3.1",
     "ol-popup": "^5.1.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.0.0",
     "buffer": "^6.0.3",
-    "cssnano": "^6.0.1",
-    "eslint": "^8.48.0",
+    "cssnano": "^6.1.2",
+    "eslint": "^9.0.0",
+    "globals": "^15.0.0",
     "is-svg": ">=5.0.0",
-    "parcel": "^2.9.3"
+    "vite": "^5.2.8",
+    "vite-plugin-env-compatible": "^2.0.1"
   },
   "browserslist": [
     "defaults",
