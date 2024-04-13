@@ -1,4 +1,4 @@
-import 'ol/ol.css'
+import 'ol/ol.css';
 import 'ol-layerswitcher/dist/ol-layerswitcher.css';
 import 'ol-popup/src/ol-popup.css';
 import View from 'ol/View';
