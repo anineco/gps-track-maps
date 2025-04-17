@@ -19,7 +19,10 @@ export default [
       'prefer-const': 'error',
       quotes: ['warn', 'single'],
       'no-unused-vars': [
-        'warn', { argsIgnorePattern: '^_' }
+        'warn', {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_'
+        }
       ]
     }
   }
