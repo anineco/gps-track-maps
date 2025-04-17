@@ -6,7 +6,7 @@ import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
 import MVT from 'ol/format/MVT';
 import {stylefunction} from 'ol-mapbox-style';
-import glStyle from './std.json';
+// import glStyle from './std.json';
 import glSprite from './sprite/std.json';
 
 const param = {
@@ -43,17 +43,28 @@ const _map = new Map({
 });
 
 const glImage = new Image();
-glImage.addEventListener('load', function() {
-  const style = stylefunction(
-    gsibv,
-    glStyle,
-    'gsibv-vectortile-source-1-4-16',
-    undefined, // resolutions
-    glSprite,
-    glImage.src,
-    undefined // getFonts
-  );
-  gsibv.setStyle(style);
-  gsibv.setVisible(true);
-}, false);
 glImage.src = './sprite/std.png';
+
+async function setupMapStyle() {
+  console.log('Loading map style dynamically...');
+  try {
+    const module = await import('./std.json');
+    const glStyle = module.default;
+    console.log('Map style loaded successfully.');
+    const style = stylefunction(
+      gsibv,
+      glStyle,
+      'gsibv-vectortile-source-1-4-16',
+      undefined, // resolutions
+      glSprite,
+      glImage.src,
+      undefined // getFonts
+    );
+    gsibv.setStyle(style);
+    gsibv.setVisible(true);
+  } catch (error) {
+    console.error('Failed to load map style dynamically:', error);
+  }
+}
+
+glImage.addEventListener('load', setupMapStyle, false);
